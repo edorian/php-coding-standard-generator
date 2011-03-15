@@ -14,7 +14,9 @@
 
 <script>
     $(document).ready(function () {
-        phpmd_init($("#phpmd"));
+        var md = pcsg.Phpmd;
+        md.init($("#phpmd"));
+        md.render();
     });
 </script>
 
