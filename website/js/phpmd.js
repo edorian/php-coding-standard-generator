@@ -1,10 +1,12 @@
 var pcsg = pcsg || {};
 
-pcsg.Phpmd = (function() {
+pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
 
     var members = {
-        "container": null
-    };
+        "container": null,
+        "resourceBasedir": resourceBasedir,
+        "resourceIndex": resourceIndex
+    }
 
     var methods = (function() {
         return {
@@ -14,7 +16,7 @@ pcsg.Phpmd = (function() {
             renderFile: function(file) {
                 $.ajax({
                     type: "GET",
-                    url: "resources/phpmd/" + file,
+                    url: members.resourceBasedir + file,
                     dataType: "xml",
                     async: false,
                     success: function(xml) {
@@ -27,15 +29,13 @@ pcsg.Phpmd = (function() {
         }
     })();
 
-    // public 
+    // public
     return {
-        init: function(container) {
+        renderInto: function(container) {
             members.container = container;
-        },
-        render: function() {
             $.ajax({
                 type: "GET",
-                url: "resources/phpmd/rulesets.json",
+                url: members.resourceBasedir + members.resourceIndex,
                 dataType: "json",
                 success: function(data) {
                     $.each(data, function() {
@@ -46,5 +46,5 @@ pcsg.Phpmd = (function() {
             });
         }
     }
-})();
+});
 

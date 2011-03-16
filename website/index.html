@@ -14,9 +14,8 @@
 
 <script>
     $(document).ready(function () {
-        var md = pcsg.Phpmd;
-        md.init($("#phpmd"));
-        md.render();
+        md = new pcsg.Phpmd("resources/phpmd/", "rulesets.json");
+        md.renderInto($("#phpmd"));
     });
 </script>
 
