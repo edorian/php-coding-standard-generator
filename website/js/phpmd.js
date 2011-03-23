@@ -20,12 +20,29 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                     dataType: "xml",
                     async: false,
                     success: function(xml) {
-                        $(xml).find('ruleset description ').each(function() {;
-                            members.container.append("<pre>" + $(this).text() + "</pre>");
-                        })
+                        desc = $(xml).find('ruleset > description').text();
+                        members.container.append("<pre class='ruleset-description'>" + desc + "</pre>");
+                        $(xml).find('ruleset > rule').each(methods.renderRule);
                     }
                 });
-            }
+            },
+            renderRule: function() {
+                rule = $("<div class='rule'>");
+                rule.appendTo(members.container);
+                rule.append("<input class='rule-selector' type='checkbox' name='"+$(this).attr("class")+"'>");
+                rule.append("<div class='rule-name'>"+$(this).attr("name")+"</div>");
+                rule.append("<div class='rule-description'>"+$(this).find("description").text()+"</div>");
+                $(this).find('properties property').each(function() {
+                    methods.renderProperty(rule, $(this));
+                });
+            },
+            renderProperty: function(rule, property) {
+                prop = $("<div class='property'>");
+                prop.appendTo(rule);
+                prop.append(property.attr("name"));
+                prop.append(": <input class='property-value' name='"+property.attr("name")+"' value='"+property.attr("value")+"'></input>");
+            },
+
         }
     })();
 
