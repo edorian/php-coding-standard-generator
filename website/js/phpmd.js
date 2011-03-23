@@ -20,6 +20,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                     dataType: "xml",
                     async: false,
                     success: function(xml) {
+                        members.container.append('<h2>' + $(xml).find('ruleset').attr("name") + '</h2>');
                         desc = $(xml).find('ruleset > description').text();
                         members.container.append("<pre class='ruleset-description'>" + desc + "</pre>");
                         $(xml).find('ruleset > rule').each(methods.renderRule);
@@ -40,7 +41,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 prop = $("<div class='property'>");
                 prop.appendTo(rule);
                 prop.append(property.attr("name"));
-                prop.append(": <input class='property-value' name='"+property.attr("name")+"' value='"+property.attr("value")+"'></input>");
+                prop.append(": <input type='text' size=5 class='property-value' name='"+property.attr("name")+"' value='"+property.attr("value")+"'></input>");
             },
 
         }
@@ -56,7 +57,6 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 dataType: "json",
                 success: function(data) {
                     $.each(data, function() {
-                        members.container.append('<h2>' + this + '</h2>');
                         methods.renderFile(this);
                     })
                 }
