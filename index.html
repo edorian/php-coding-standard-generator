@@ -8,8 +8,20 @@
     <style type="text/css">
 
     body {
-        width: 700px;
+        width: 800px;
         margin: auto;
+    }
+
+    .rule-container {
+        width: 700px;
+    }
+
+    .xmloutput-container {
+        position: fixed;
+        right: 100px;
+        top: 100px;
+        width: 500px;
+        height: 500px;
     }
     
     .property {
@@ -17,8 +29,7 @@
     }
 
     .rule-description {
-        font-size: 0.6em;
-        width: 600px;
+        font-size: 0.7em;
     }
 
     .rule {
@@ -32,13 +43,13 @@
 
     .property-description {
         display: inline;
-        font-size: 0.6em;
+        font-size: 0.7em;
     }
 
     .xmloutput {
-        display: block;
         width: 100%;
-        height: 500px;
+        height: 100%;
+        font-family: monospace;
     }
 
     </style>
@@ -47,7 +58,11 @@
 
 <h1>PHPMD</h1>
 
-<div id="phpmd"></div>
+<div id="phpmd" class="rule-container">
+<div id="phpmd-xml-container" class='xmloutput-container'>
+    <h3>phpmd.xml</h3>
+    <textarea spellcheck="false" id='phpmd-xml' class='xmloutput'>Your XML will go here</textarea>
+</div>
 
 <script>
     $(document).ready(function () {
