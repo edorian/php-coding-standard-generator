@@ -5,7 +5,8 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
     var members = {
         "container": null,
         "resourceBasedir": resourceBasedir,
-        "resourceIndex": resourceIndex
+        "resourceIndex": resourceIndex,
+        "currentFile": null
     }
 
     var methods = (function() {
@@ -14,6 +15,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 return data.a + data.b;
             },
             renderFile: function(file) {
+                members.currentFile = file;
                 $.ajax({
                     type: "GET",
                     url: members.resourceBasedir + file,
@@ -30,7 +32,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
             renderRule: function() {
                 rule = $("<div class='rule'>");
                 rule.appendTo(members.container);
-                rule.append("<input class='rule-selector' type='checkbox' name='"+$(this).attr("class")+"'>");
+                rule.append("<input class='rule-selector' type='checkbox' name='"+members.currentFile+"/"+$(this).attr("name")+"'>");
                 rule.append("<div class='rule-name'>"+$(this).attr("name")+"</div>");
                 rule.append("<div class='rule-description'>"+$(this).find("description").text()+"</div>");
                 $(this).find('properties property').each(function() {
@@ -42,7 +44,32 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 prop.appendTo(rule);
                 prop.append(property.attr("name"));
                 prop.append(": <input type='text' size=5 class='property-value' name='"+property.attr("name")+"' value='"+property.attr("value")+"'></input>");
+                prop.append("<div class='property-description'>"+property.attr("description")+"</div>");
             },
+            generateXmlInto: function(outputTextarea) {
+                xmlContainer = $('<ruleset>');
+
+                rules = "";
+                members.container.find(".rule-selector").each(function() {
+                    checkbox = $(this);
+                    if(checkbox.attr("checked")) {
+                        //xmlContainer.append($("<rule ref='rulesets/"+checkbox.attr("name")+"'/>"));
+                        rules = rules + "<rule ref='rulesets/"+checkbox.attr("name")+"'/>\n"; 
+                    }
+                });
+
+                outputTextarea.text(
+                    '<?xml version="1.0"?>\n'+
+                    '<ruleset name="PHP Coding Standard Generator created PHPMD Ruleset" \n'+
+                    '    xmlns="http://pmd.sf.net/ruleset/1.0.0" \n'+
+                    '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \n'+
+                    '    xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"\n'+
+                    '    xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">\n'+
+                    rules+
+                    '</ruleset>'
+                    //xmlContainer.html()
+                );
+            }
 
         }
     })();
@@ -58,10 +85,17 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 success: function(data) {
                     $.each(data, function() {
                         methods.renderFile(this);
-                    })
+                    });
+                    generate = $("<input type='submit' name='build-phpmd' value='Generate XML'>");
+                    outputArea = $("<textarea id='phpmd-xml' class='xmloutput'>Your XML will go here</textarea>");
+                    generate.click(function() {
+                        methods.generateXmlInto(outputArea);
+                    });
+                    container.append(generate);
+                    container.append(outputArea);
                 }
             });
-        }
+        },
     }
 });
 
