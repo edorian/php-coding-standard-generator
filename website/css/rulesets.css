@@ -1,0 +1,39 @@
+.rule-container {
+    width: 100%;
+}
+
+.property {
+    padding-left: 30px;
+}
+
+.rule-description {
+    font-size: 0.7em;
+}
+
+.rule {
+    background-color: #eee;
+    margin-bottom: 30px;
+}
+
+.rule-name {
+    display: inline;
+}
+
+.property-description {
+    display: inline;
+    font-size: 0.7em;
+}
+
+.xmloutput-container {
+    height: 500px;
+    width: 430px;
+    position: fixed;
+}
+
+.xmloutput {
+    width: 100%;
+    height: 100%;
+    font-family: monospace;
+    font-size: 12px;
+}
+
