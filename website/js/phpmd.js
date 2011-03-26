@@ -44,8 +44,16 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
             renderProperty: function(property, ruleContainer) {
                 prop = $("<div class='property'>");
                 prop.appendTo(ruleContainer);
-                prop.append(property.attr("name"));
-                prop.append(": <input type='text' size=5 class='property-value' name='"+property.attr("name")+"' value='"+property.attr("value")+"' default='"+property.attr("value")+"'></input>");
+                prop.append(property.attr("name")+": ");
+                if(property.attr("value") == "true" || property.attr("name") == "false") {
+                    checked = "";
+                    if(property.attr("value") == "true") {
+                        checked = "checked='checked'";
+                    }
+                    prop.append("<input type='checkbox' "+checked+" class='property-value' name='"+property.attr("name")+"' value='"+property.attr("value")+"' default='"+property.attr("value")+"'></input>");
+                } else {
+                    prop.append("<input type='text' size=5 class='property-value' name='"+property.attr("name")+"' value='"+property.attr("value")+"' default='"+property.attr("value")+"'></input>");
+                }
                 prop.append("<div class='property-description'>"+property.attr("description")+"</div>");
             },
             generateXmlInto: function(outputTextarea) {
@@ -79,6 +87,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 } else {
                     allDefaultValues = true;
                     properties.each(function() {
+                        methods.normalizeCheckboxInput($(this));
                         if($(this).attr("value") != $(this).attr("default")) {
                             allDefaultValues = false;
                         }
@@ -100,13 +109,24 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
             generatePropertyXml: function(properties) {
                 propertiesXml = "    <properties>\n";
                 properties.each(function() {
+                    methods.normalizeCheckboxInput($(this));
                     if($(this).attr("value") != $(this).attr("default")) {
                         propertiesXml = propertiesXml + "        <property name='"+$(this).attr("name")+" value='"+$(this).attr("value")+"' />\n";
                     }
                 });
                 propertiesXml = propertiesXml + "    </properties>\n";
                 return propertiesXml;
+            },
+            normalizeCheckboxInput: function(input) {
+                if(input.attr("type") == "checkbox") {
+                    if(input.attr("checked")) {
+                        input.attr("value", "true");
+                    } else {
+                        input.attr("value", "false");
+                    }
+                }
             }
+            
 
         }
     })();
