@@ -6,62 +6,121 @@
     <script src="js/libs/jquery-1.5.1.min.js"></script>
     <script src="js/phpmd.js"></script>
     <style type="text/css">
+        body,
+        html {
+	    margin:0;
+            padding:0;
+            color:#000;
+        }
+        #wrap {
+            width:1000px;
+            margin:0 auto;
+        }
+        #header {
+            padding:5px 10px;
+        }
+        h1 {
+            margin:0;
+        }
+        #nav {
+            padding:5px 10px;
+        }
+        #nav ul {
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        #nav li {
+            display:inline;
+            margin:0;
+            padding:0;
+        }
+        #main {
+            float:left;
+            width:530px;
+            padding:10px;
+        }
+        h2 {
+            margin:0 0 1em;
+	}
+        #sidebar {
+            float:right;
+            width:430px;
+            padding:10px;
+        }
+        #footer {
+            clear:both;
+            padding:5px 10px;
+        }
+        #footer p {
+            margin:0;
+        }
+        * html #footer {
+            height:1px;
+        }
 
-    body {
-        width: 800px;
-        margin: auto;
-    }
+        .rule-container {
+            width: 100%;
+        }
 
-    .rule-container {
-        width: 700px;
-    }
+        .property {
+            padding-left: 30px;
+        }
 
-    .xmloutput-container {
-        position: fixed;
-        right: 100px;
-        top: 100px;
-        width: 500px;
-        height: 500px;
-    }
-    
-    .property {
-        padding-left: 30px;
-    }
+        .rule-description {
+            font-size: 0.7em;
+        }
 
-    .rule-description {
-        font-size: 0.7em;
-    }
+        .rule {
+            background-color: #eee;
+            margin-bottom: 30px;
+        }
 
-    .rule {
-        background-color: #eee;
-        margin-bottom: 30px;
-    }
+        .rule-name {
+            display: inline;
+        }
 
-    .rule-name {
-        display: inline;
-    }
+        .property-description {
+            display: inline;
+            font-size: 0.7em;
+        }
 
-    .property-description {
-        display: inline;
-        font-size: 0.7em;
-    }
+        .xmloutput-container {
+            height: 500px;
+            width: 430px;
+            position: fixed;
+        }
 
-    .xmloutput {
-        width: 100%;
-        height: 100%;
-        font-family: monospace;
-    }
+        .xmloutput {
+            width: 100%;
+            height: 100%;
+            font-family: monospace;
+            font-size: 12px;
+        }
 
     </style>
 </head>
 <body>
-
-<h1>PHPMD</h1>
-
-<div id="phpmd" class="rule-container">
-<div id="phpmd-xml-container" class='xmloutput-container'>
-    <h3>phpmd.xml</h3>
-    <textarea spellcheck="false" id='phpmd-xml' class='xmloutput'>Your XML will go here</textarea>
+<div id="wrap">
+    <div id="header"><h1>PHP Coding Standard Generator</h1></div>
+    <div id="nav">
+        <ul>
+            <li>PHPCS</li>
+            <li>PHPMD</li>
+        </ul>
+    </div>
+    <div id="main">
+        <h2>PHPMD</h2>
+        <div id="phpmd" class="rule-container"></div>
+    </div>
+    <div id="sidebar">
+        <div id="phpmd-xml-container" class='xmloutput-container'>
+            <h3>phpmd.xml</h3>
+            <textarea spellcheck="false" id='phpmd-xml' class='xmloutput'>Your XML will go here</textarea>
+            TODO: <input type="button" value="Copy to clipboard"/>
+        </div>
+    </div>
+    <div id="footer"><p>Hi</p></div>
 </div>
 
 <script>
