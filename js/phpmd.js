@@ -6,7 +6,6 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
         "container": null,
         "resourceBasedir": resourceBasedir,
         "resourceIndex": resourceIndex,
-        "currentFile": null
     }
 
     var methods = (function() {
@@ -15,7 +14,6 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 return data.a + data.b;
             },
             renderFile: function(file) {
-                members.currentFile = file;
                 $.ajax({
                     type: "GET",
                     url: members.resourceBasedir + file,
@@ -25,27 +23,37 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                         members.container.append('<h2>' + $(xml).find('ruleset').attr("name") + '</h2>');
                         desc = $(xml).find('ruleset > description').text();
                         members.container.append("<pre class='ruleset-description'>" + desc + "</pre>");
-                        $(xml).find('ruleset > rule').each(methods.renderRule);
+                        $(xml).find('ruleset > rule').each(function() {
+                            methods.renderRule($(this), file);
+                        });
                     }
                 });
             },
-            renderRule: function() {
-                rule = $("<div class='rule'>");
-                rule.appendTo(members.container);
-                rulename = members.currentFile+"/"+$(this).attr("name");
+            renderRule: function(rule, currentRuleFile) {
+                ruleContainer = $("<div class='rule'>");
+                ruleContainer.appendTo(members.container);
+                rulename = currentRuleFile+"/"+rule.attr("name");
                 ruleid = "phpmd-"+rulename;
-                rule.append("<input class='rule-selector' type='checkbox' id='"+ruleid+"' name='"+rulename+"'>");
-                rule.append("<div class='rule-name'><label for='"+ruleid+"'>"+$(this).attr("name")+"</label></div>");
-                rule.append("<div class='rule-description'><label for='"+ruleid+"'>"+$(this).find("description").text()+"</label></div>");
-                $(this).find('properties property').each(function() {
-                    methods.renderProperty(rule, $(this));
+                ruleContainer.append("<input class='rule-selector' type='checkbox' id='"+ruleid+"' name='"+rulename+"'>");
+                ruleContainer.append("<div class='rule-name'><label for='"+ruleid+"'>"+rule.attr("name")+"</label></div>");
+                ruleContainer.append("<div class='rule-description'><label for='"+ruleid+"'>"+rule.find("description").text()+"</label></div>");
+                rule.find('properties property').each(function() {
+                    methods.renderProperty($(this), ruleContainer);
                 });
             },
-            renderProperty: function(rule, property) {
+            renderProperty: function(property, ruleContainer) {
                 prop = $("<div class='property'>");
-                prop.appendTo(rule);
-                prop.append(property.attr("name"));
-                prop.append(": <input type='text' size=5 class='property-value' name='"+property.attr("name")+"' value='"+property.attr("value")+"' default='"+property.attr("value")+"'></input>");
+                prop.appendTo(ruleContainer);
+                prop.append(property.attr("name")+": ");
+                if(property.attr("value") == "true" || property.attr("value") == "false") {
+                    checked = "";
+                    if(property.attr("value") == "true") {
+                        checked = "checked='checked'";
+                    }
+                    prop.append("<input type='checkbox' "+checked+" class='property-selector' name='"+property.attr("name")+"' value='"+property.attr("value")+"' default='"+property.attr("value")+"'></input>");
+                } else {
+                    prop.append("<input type='text' size=5 class='property-selector' name='"+property.attr("name")+"' value='"+property.attr("value")+"' default='"+property.attr("value")+"'></input>");
+                }
                 prop.append("<div class='property-description'>"+property.attr("description")+"</div>");
             },
             generateXmlInto: function(outputTextarea) {
@@ -53,44 +61,10 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
 
                 rules = "";
                 members.container.find(".rule-selector").each(function() {
-                    checkbox = $(this);
-                    if(!checkbox.attr("checked")) {
-                        return;
-                    } 
-                    simpleRule = false;
-                    properties = $(this).parent().find(".property-value");
-                    if(properties.size() == 0) {
-                        simpleRule = true;
-                    } else {
-                        allDefaultValues = true;
-                        properties.each(function() {
-                            prop = $(this);
-                            if(prop.attr("value") != prop.attr("default")) {
-                                allDefaultValues = false;
-                            }
-                        });
-                        simpleRule = allDefaultValues; 
-                    }
-                    if(simpleRule) {
-                        rules = rules + "<rule ref='rulesets/"+checkbox.attr("name")+"'/>\n";
-                    } else {
-                        rule = "    <properties>\n";
-                        properties.each(function() {
-                            if($(this).attr("value") != $(this).attr("default")) {
-                                rule = rule + "        <property name='"+$(this).attr("name")+" value='"+$(this).attr("value")+"' />\n";
-                            }
-                        });
-                        rule = rule + "    </properties>\n";
-                        rules = rules+
-                            "<rule ref='rulesets/"+checkbox.attr("name")+">\n"+
-                             rule+
-                            "</rule>\n"
-                        ;
-                    }
-
+                    rules = rules + methods.generateRuleXmlForCheckbox($(this));
                 });
 
-                outputTextarea.text(
+                outputTextarea.val(
                     '<?xml version="1.0"?>\n'+
                     '<ruleset name="PHP Coding Standard Generator created PHPMD Ruleset" \n'+
                     '    xmlns="http://pmd.sf.net/ruleset/1.0.0" \n'+
@@ -100,6 +74,65 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                     rules+
                     '</ruleset>'
                 );
+            },
+            generateRuleXmlForCheckbox: function(checkbox) {
+                if(!checkbox.attr("checked")) {
+                    return "";
+                } 
+                simpleRule = false;
+                rule = "";
+                properties = checkbox.parent().find(".property-selector");
+                if(properties.size() == 0) {
+                    simpleRule = true;
+                } else {
+                    allDefaultValues = true;
+                    properties.each(function() {
+                        methods.normalizeCheckboxInput($(this));
+                        if($(this).attr("value") != $(this).attr("default")) {
+                            allDefaultValues = false;
+                        }
+                    });
+                    simpleRule = allDefaultValues; 
+                }
+                if(simpleRule) {
+                    rule = "<rule ref='rulesets/"+checkbox.attr("name")+"'/>\n";
+                } else {
+                    propertyXml = methods.generatePropertyXml(properties);
+                    rule = 
+                        "<rule ref='rulesets/"+checkbox.attr("name")+"'>\n"+
+                         propertyXml+
+                        "</rule>\n"
+                    ;
+                }
+                return rule;
+            },
+            generatePropertyXml: function(properties) {
+                propertiesXml = "    <properties>\n";
+                properties.each(function() {
+                    methods.normalizeCheckboxInput($(this));
+                    if($(this).attr("value") != $(this).attr("default")) {
+                        propertiesXml = propertiesXml + "        <property name='"+$(this).attr("name")+"' value='"+$(this).attr("value")+"' />\n";
+                    }
+                });
+                propertiesXml = propertiesXml + "    </properties>\n";
+                return propertiesXml;
+            },
+            normalizeCheckboxInput: function(input) {
+                if(input.attr("type") == "checkbox") {
+                    if(input.attr("checked")) {
+                        input.attr("value", "true");
+                    } else {
+                        input.attr("value", "false");
+                    }
+                }
+            },
+            xmlUpdateError: function(message) {
+                $("#phpmd-xml-error").show();
+                $("#phpmd-xml-error").text(message);
+            },
+            xmlUpdateNoError: function() {
+                $("#phpmd-xml-error").hide();
+                $("#phpmd-xml-error").text("");
             }
 
         }
@@ -107,7 +140,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
 
     // public
     return {
-        renderInto: function(container) {
+        renderInto: function(container, xmlContainer) {
             members.container = container;
             $.ajax({
                 type: "GET",
@@ -118,15 +151,52 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                         methods.renderFile(this);
                     });
                     $('.rule').click(function() {
-                        methods.generateXmlInto($('#phpmd-xml'));
+                        methods.generateXmlInto(xmlContainer);
                     });
-                    $('.property-value').change(function() {
-                        methods.generateXmlInto($('#phpmd-xml'));
+                    $('.property-selector').change(function() {
+                        methods.generateXmlInto(xmlContainer);
                     });
 
                 }
             });
         },
+        xmlUpateHandler: function(updatedXmlString, renderedPage) {
+            try {
+                xml = $.parseXML(updatedXmlString);
+            } catch(err) {
+                methods.xmlUpdateError("Invalid Xml");
+                return;
+            }
+            rules = $(xml).find("ruleset rule");
+            if(rules.length == 0) {
+                methods.xmlUpdateError("Couldn't find any rules");
+                return;
+            }
+            methods.xmlUpdateNoError();
+            $('.rule-selector').attr("checked", "");
+            $('.property-selector').each(function() {
+                $(this).attr("value", $(this).attr("default"));
+            });
+            rules.each(function() {
+                ruleidSelector = "#phpmd-"+$(this).attr("ref").substring(9).replace(/(:|\.|\/)/g,'\\$1');
+                $(ruleidSelector).attr("checked", "checked");
+                $(this).find("property").each(function() {
+                    checkbox = $(ruleidSelector).parent().find("input[name='"+$(this).attr("name")+"']");
+                    xmlValue = $(this).attr("value");
+                    if(checkbox.attr("type") == "checkbox") {
+                        if(xmlValue != "true" && xmlValue != "false") {
+                            methods.xmlUpdateError("The property: '"+$(this).attr("name")+"' should only have 'true' or 'false' as a value");
+                        } else if(xmlValue == "true") {
+                            checkbox.attr("checked", "checked");
+                        } else {
+                            checkbox.attr("checked", "");
+                        }
+                    } else {
+                        checkbox.attr("value", xmlValue);
+                    }
+                });
+            });
+        }
     }
 });
 

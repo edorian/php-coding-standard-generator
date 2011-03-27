@@ -5,100 +5,8 @@
     <title>PHP Coding Standard Generator</title>
     <script src="js/libs/jquery-1.5.1.min.js"></script>
     <script src="js/phpmd.js"></script>
-    <style type="text/css">
-        body,
-        html {
-	    margin:0;
-            padding:0;
-            color:#000;
-        }
-        #wrap {
-            width:1000px;
-            margin:0 auto;
-        }
-        #header {
-            padding:5px 10px;
-        }
-        h1 {
-            margin:0;
-        }
-        #nav {
-            padding:5px 10px;
-        }
-        #nav ul {
-            margin:0;
-            padding:0;
-            list-style:none;
-        }
-        #nav li {
-            display:inline;
-            margin:0;
-            padding:0;
-        }
-        #main {
-            float:left;
-            width:530px;
-            padding:10px;
-        }
-        h2 {
-            margin:0 0 1em;
-	}
-        #sidebar {
-            float:right;
-            width:430px;
-            padding:10px;
-        }
-        #footer {
-            clear:both;
-            padding:5px 10px;
-        }
-        #footer p {
-            margin:0;
-        }
-        * html #footer {
-            height:1px;
-        }
-
-        .rule-container {
-            width: 100%;
-        }
-
-        .property {
-            padding-left: 30px;
-        }
-
-        .rule-description {
-            font-size: 0.7em;
-        }
-
-        .rule {
-            background-color: #eee;
-            margin-bottom: 30px;
-        }
-
-        .rule-name {
-            display: inline;
-        }
-
-        .property-description {
-            display: inline;
-            font-size: 0.7em;
-        }
-
-        .xmloutput-container {
-            height: 500px;
-            width: 430px;
-            position: fixed;
-        }
-
-        .xmloutput {
-            width: 100%;
-            height: 100%;
-            font-family: monospace;
-            font-size: 12px;
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/main.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/rulesets.css"></link>
 </head>
 <body>
 <div id="wrap">
@@ -116,8 +24,9 @@
     <div id="sidebar">
         <div id="phpmd-xml-container" class='xmloutput-container'>
             <h3>phpmd.xml</h3>
+            <div>You can also edit this box directly. The site will reflect any changes you make.<br/>If you already have an phpmd.xml just paste it in.</div>
+            <div id='phpmd-xml-error' style='display: none;'></div>
             <textarea spellcheck="false" id='phpmd-xml' class='xmloutput'>Your XML will go here</textarea>
-            TODO: <input type="button" value="Copy to clipboard"/>
         </div>
     </div>
     <div id="footer"><p>Hi</p></div>
@@ -126,9 +35,20 @@
 <script>
     $(document).ready(function () {
         md = new pcsg.Phpmd("resources/phpmd/", "rulesets.json");
-        md.renderInto($("#phpmd"));
+        md.renderInto($("#phpmd"), $("#phpmd-xml"));
+        $("#phpmd-xml").change(function() {
+            md.xmlUpateHandler($(this).val(), $("#phpmd"));
+        });
+        $("#phpmd-xml").keyup(function() {
+            md.xmlUpateHandler($(this).val(), $("#phpmd"));
+        });
     });
 </script>
+
+<!-- Github ribbon -->
+<a href="http://github.com/edorian/php-coding-standard-generator"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://d3nwyuy0nl342s.cloudfront.net/img/abad93f42020b733148435e2cd92ce15c542d320/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub"></a>
+<!-- /Github ribbon -->
+
 
 </body>
 </html>
