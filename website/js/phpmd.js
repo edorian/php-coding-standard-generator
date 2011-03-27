@@ -45,7 +45,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 prop = $("<div class='property'>");
                 prop.appendTo(ruleContainer);
                 prop.append(property.attr("name")+": ");
-                if(property.attr("value") == "true" || property.attr("name") == "false") {
+                if(property.attr("value") == "true" || property.attr("value") == "false") {
                     checked = "";
                     if(property.attr("value") == "true") {
                         checked = "checked='checked'";
