@@ -33,7 +33,7 @@
 <script>
     $(document).ready(function () {
         md = new pcsg.Phpmd("resources/phpmd/", "rulesets.json");
-        md.renderInto($("#phpmd"));
+        md.renderInto($("#phpmd"), $("#phpmd-xml"));
     });
 </script>
 

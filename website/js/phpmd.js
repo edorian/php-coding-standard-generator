@@ -133,7 +133,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
 
     // public
     return {
-        renderInto: function(container) {
+        renderInto: function(container, xmlContainer) {
             members.container = container;
             $.ajax({
                 type: "GET",
@@ -144,10 +144,10 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                         methods.renderFile(this);
                     });
                     $('.rule').click(function() {
-                        methods.generateXmlInto($('#phpmd-xml'));
+                        methods.generateXmlInto(xmlContainer);
                     });
                     $('.property-value').change(function() {
-                        methods.generateXmlInto($('#phpmd-xml'));
+                        methods.generateXmlInto(xmlContainer);
                     });
 
                 }
