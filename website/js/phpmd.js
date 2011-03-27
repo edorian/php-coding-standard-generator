@@ -50,9 +50,9 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                     if(property.attr("value") == "true") {
                         checked = "checked='checked'";
                     }
-                    prop.append("<input type='checkbox' "+checked+" class='property-value' name='"+property.attr("name")+"' value='"+property.attr("value")+"' default='"+property.attr("value")+"'></input>");
+                    prop.append("<input type='checkbox' "+checked+" class='property-selector' name='"+property.attr("name")+"' value='"+property.attr("value")+"' default='"+property.attr("value")+"'></input>");
                 } else {
-                    prop.append("<input type='text' size=5 class='property-value' name='"+property.attr("name")+"' value='"+property.attr("value")+"' default='"+property.attr("value")+"'></input>");
+                    prop.append("<input type='text' size=5 class='property-selector' name='"+property.attr("name")+"' value='"+property.attr("value")+"' default='"+property.attr("value")+"'></input>");
                 }
                 prop.append("<div class='property-description'>"+property.attr("description")+"</div>");
             },
@@ -81,7 +81,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 } 
                 simpleRule = false;
                 rule = "";
-                properties = checkbox.parent().find(".property-value");
+                properties = checkbox.parent().find(".property-selector");
                 if(properties.size() == 0) {
                     simpleRule = true;
                 } else {
@@ -153,7 +153,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                     $('.rule').click(function() {
                         methods.generateXmlInto(xmlContainer);
                     });
-                    $('.property-value').change(function() {
+                    $('.property-selector').change(function() {
                         methods.generateXmlInto(xmlContainer);
                     });
 
@@ -173,9 +173,15 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
             }
             methods.xmlUpdateNoError();
             $('.rule-selector').attr("checked", "");
+            $('.property-selector').each(function() {
+                $(this).attr("value", $(this).attr("default"));
+            });
             rules.each(function() {
                 ruleidSelector = "#phpmd-"+$(this).attr("ref").substring(9).replace(/(:|\.|\/)/g,'\\$1');
                 $(ruleidSelector).attr("checked", "checked");
+                $(this).find("property").each(function() {
+                    $(ruleidSelector).parent().find("input[name='"+$(this).attr("name")+"']").attr("value", $(this).attr("value"));
+                });
             });
         }
     }
