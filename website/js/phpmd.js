@@ -170,6 +170,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
             rules = $(xml).find("ruleset rule");
             if(rules.length == 0) {
                 methods.xmlUpdateError("Couldn't find any rules");
+                return;
             }
             methods.xmlUpdateNoError();
             $('.rule-selector').attr("checked", "");
@@ -180,7 +181,19 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 ruleidSelector = "#phpmd-"+$(this).attr("ref").substring(9).replace(/(:|\.|\/)/g,'\\$1');
                 $(ruleidSelector).attr("checked", "checked");
                 $(this).find("property").each(function() {
-                    $(ruleidSelector).parent().find("input[name='"+$(this).attr("name")+"']").attr("value", $(this).attr("value"));
+                    checkbox = $(ruleidSelector).parent().find("input[name='"+$(this).attr("name")+"']");
+                    xmlValue = $(this).attr("value");
+                    if(checkbox.attr("type") == "checkbox") {
+                        if(xmlValue != "true" && xmlValue != "false") {
+                            methods.xmlUpdateError("The property: '"+$(this).attr("name")+"' should only have 'true' or 'false' as a value");
+                        } else if(xmlValue == "true") {
+                            checkbox.attr("checked", "checked");
+                        } else {
+                            checkbox.attr("checked", "");
+                        }
+                    } else {
+                        checkbox.attr("value", xmlValue);
+                    }
                 });
             });
         }
