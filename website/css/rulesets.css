@@ -37,3 +37,6 @@
     font-size: 12px;
 }
 
+#phpmd-xml-error {
+    background-color: #E66;
+}

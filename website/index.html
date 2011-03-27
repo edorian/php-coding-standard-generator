@@ -24,6 +24,8 @@
     <div id="sidebar">
         <div id="phpmd-xml-container" class='xmloutput-container'>
             <h3>phpmd.xml</h3>
+            <div>You can also edit this box directly. The site will reflect any changes you make.<br/>If you already have an phpmd.xml just paste it in.</div>
+            <div id='phpmd-xml-error' style='display: none;'></div>
             <textarea spellcheck="false" id='phpmd-xml' class='xmloutput'>Your XML will go here</textarea>
         </div>
     </div>
@@ -34,6 +36,12 @@
     $(document).ready(function () {
         md = new pcsg.Phpmd("resources/phpmd/", "rulesets.json");
         md.renderInto($("#phpmd"), $("#phpmd-xml"));
+        $("#phpmd-xml").change(function() {
+            md.xmlUpateHandler($(this).val(), $("#phpmd"));
+        });
+        $("#phpmd-xml").keypress(function() {
+            md.xmlUpateHandler($(this).val(), $("#phpmd"));
+        });
     });
 </script>
 

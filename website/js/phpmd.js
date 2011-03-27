@@ -64,7 +64,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                     rules = rules + methods.generateRuleXmlForCheckbox($(this));
                 });
 
-                outputTextarea.text(
+                outputTextarea.val(
                     '<?xml version="1.0"?>\n'+
                     '<ruleset name="PHP Coding Standard Generator created PHPMD Ruleset" \n'+
                     '    xmlns="http://pmd.sf.net/ruleset/1.0.0" \n'+
@@ -99,7 +99,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 } else {
                     propertyXml = methods.generatePropertyXml(properties);
                     rule = 
-                        "<rule ref='rulesets/"+checkbox.attr("name")+">\n"+
+                        "<rule ref='rulesets/"+checkbox.attr("name")+"'>\n"+
                          propertyXml+
                         "</rule>\n"
                     ;
@@ -111,7 +111,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 properties.each(function() {
                     methods.normalizeCheckboxInput($(this));
                     if($(this).attr("value") != $(this).attr("default")) {
-                        propertiesXml = propertiesXml + "        <property name='"+$(this).attr("name")+" value='"+$(this).attr("value")+"' />\n";
+                        propertiesXml = propertiesXml + "        <property name='"+$(this).attr("name")+"' value='"+$(this).attr("value")+"' />\n";
                     }
                 });
                 propertiesXml = propertiesXml + "    </properties>\n";
@@ -125,8 +125,15 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                         input.attr("value", "false");
                     }
                 }
+            },
+            xmlUpdateError: function(message) {
+                $("#phpmd-xml-error").show();
+                $("#phpmd-xml-error").text(message);
+            },
+            xmlUpdateNoError: function() {
+                $("#phpmd-xml-error").hide();
+                $("#phpmd-xml-error").text("");
             }
-            
 
         }
     })();
@@ -153,6 +160,24 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 }
             });
         },
+        xmlUpateHandler: function(updatedXmlString, renderedPage) {
+            try {
+                xml = $.parseXML(updatedXmlString);
+            } catch(err) {
+                methods.xmlUpdateError("Invalid Xml");
+                return;
+            }
+            rules = $(xml).find("ruleset rule");
+            if(rules.length == 0) {
+                methods.xmlUpdateError("Couldn't find any rules");
+            }
+            methods.xmlUpdateNoError();
+            $('.rule-selector').attr("checked", "");
+            rules.each(function() {
+                ruleidSelector = "#phpmd-"+$(this).attr("ref").substring(9).replace(/(:|\.|\/)/g,'\\$1');
+                $(ruleidSelector).attr("checked", "checked");
+            });
+        }
     }
 });
 
