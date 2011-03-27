@@ -39,7 +39,7 @@
         $("#phpmd-xml").change(function() {
             md.xmlUpateHandler($(this).val(), $("#phpmd"));
         });
-        $("#phpmd-xml").keypress(function() {
+        $("#phpmd-xml").keyup(function() {
             md.xmlUpateHandler($(this).val(), $("#phpmd"));
         });
     });
