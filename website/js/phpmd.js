@@ -22,7 +22,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                     success: function(xml) {
                         members.container.append('<h2>' + $(xml).find('ruleset').attr("name") + '</h2>');
                         desc = $(xml).find('ruleset > description').text();
-                        members.container.append("<pre class='ruleset-description'>" + desc + "</pre>");
+                        members.container.append("<p class='ruleset-description'>" + desc + "</p>");
                         $(xml).find('ruleset > rule').each(function() {
                             methods.renderRule($(this), file);
                         });
