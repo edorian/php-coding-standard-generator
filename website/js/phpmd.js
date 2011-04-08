@@ -204,7 +204,11 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 $(this).attr("value", $(this).attr("default"));
             });
             rules.each(function() {
-                ruleidSelector = "#phpmd-"+$(this).attr("ref").substring(9).replace(/(:|\.|\/)/g,'\\$1');
+                ruleidSelector = $(this).attr("ref").substring(9).replace(/(:|\.|\/)/g,'\\$1');
+                if(ruleidSelector.match(".xml$") == ".xml") {
+                    $(".rule-section[name='"+ruleidSelector+"']").find(".rule-selector").attr("checked", "checked");
+                }
+                ruleidSelector = "#phpmd-" + ruleidSelector;
                 $(ruleidSelector).attr("checked", "checked");
                 $(this).find("property").each(function() {
                     checkbox = $(ruleidSelector).parent().find("input[name='"+$(this).attr("name")+"']");
