@@ -89,7 +89,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                     }
                 });
                 if(allRulesAreActiveAndSimple) {
-                    return "<rule ref='rulesets/" + section.attr("name") + " /'>\n";
+                    return "<rule ref='rulesets/" + section.attr("name") + "' />\n";
                 }
                 section.find(".rule-selector").each(function() {
                     rules = rules + methods.generateRuleXmlForCheckbox($(this));
