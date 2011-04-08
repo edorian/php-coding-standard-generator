@@ -28,6 +28,7 @@
     height: 400px;
     width: 430px;
     position: fixed;
+    margin-top: -50px;
 }
 
 .xmloutput {
