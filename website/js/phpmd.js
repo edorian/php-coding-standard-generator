@@ -209,7 +209,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
             }
             methods.xmlUpdateNoError();
             $("#phpmd-ruleset-name").val($(xml).find("ruleset").attr("name"));
-            $("#phpmd-ruleset-description").val($(xml).find("description").attr("name"));
+            $("#phpmd-ruleset-description").val($(xml).find("description").text().trim());
             $('.rule-selector').attr("checked", "");
             $('.property-selector').each(function() {
                 $(this).attr("value", $(this).attr("default"));
