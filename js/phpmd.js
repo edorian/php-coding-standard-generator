@@ -174,7 +174,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 url: members.resourceBasedir + members.resourceIndex,
                 dataType: "json",
                 success: function(data) {
-                    members.container.append('Ruleset name: <input type="text" id="phpmd-ruleset-name" value="pcsg-generated-ruleset" /><br /><br />');
+                    members.container.append('Ruleset name: <input type="text" id="phpmd-ruleset-name" size="30" value="pcsg-generated-ruleset" /><br /><br />');
                     members.container.append(
                         'Ruleset description:<br />'+
                         '<textarea id="phpmd-ruleset-description">'+
@@ -209,7 +209,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
             }
             methods.xmlUpdateNoError();
             $("#phpmd-ruleset-name").val($(xml).find("ruleset").attr("name"));
-            $("#phpmd-ruleset-description").val($(xml).find("description").attr("name"));
+            $("#phpmd-ruleset-description").val($(xml).find("description").text().trim());
             $('.rule-selector').attr("checked", "");
             $('.property-selector').each(function() {
                 $(this).attr("value", $(this).attr("default"));
