@@ -10,26 +10,32 @@
 </head>
 <body>
 <div id="wrap">
-    <div id="header"><h1>PHP Coding Standard Generator</h1></div>
+    <div id="header">
+        <h1>PHP Coding Standard Generator</h1>
+        <p>The goal of this site is to enable you do very quickly create and maintain your own coding standard.</p>
+        <p>Currently it, sort of, works for <a href="http://phpmd.org">PHP Mess Detector</a> <a href="http://phpmd.org/documentation/creating-a-ruleset.html">rule sets files</a>.</p>
+        <p>If the concept works out support for <a href="http://pear.php.net/PHP_CodeSniffer">PHP Code Sniffer</a> will be added.</p>
+    </div>
+    <!--
     <div id="nav">
         <ul>
             <li>PHPCS</li>
             <li>PHPMD</li>
         </ul>
     </div>
+    -->
     <div id="main">
         <h2>PHPMD</h2>
         <div id="phpmd" class="rule-container"></div>
     </div>
     <div id="sidebar">
         <div id="phpmd-xml-container" class='xmloutput-container'>
-            <h3>phpmd.xml</h3>
-            <div>You can also edit this box directly. The site will reflect any changes you make.<br/>If you already have an phpmd.xml just paste it in.</div>
+            <div>You can also edit this box directly. The site will reflect any changes you make.<br/>If you already have an <strong>phpmd.xml</strong> just paste it in.</div>
             <div id='phpmd-xml-error' style='display: none;'></div>
             <textarea spellcheck="false" id='phpmd-xml' class='xmloutput'>Your XML will go here</textarea>
         </div>
     </div>
-    <div id="footer"><p>Hi</p></div>
+    <div id="footer"><p>If you want to reach me: @__edorian on Twitter or just edorian on freenodeIrc</p></div>
 </div>
 
 <script>
