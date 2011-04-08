@@ -22,16 +22,18 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                     success: function(xml) {
                         members.container.append('<h2>' + $(xml).find('ruleset').attr("name") + '</h2>');
                         desc = $(xml).find('ruleset > description').text();
-                        members.container.append("<pre class='ruleset-description'>" + desc + "</pre>");
+                        members.container.append("<p class='ruleset-description'>" + desc + "</p>");
+                        rulefileContainer = $("<div class='rule-section' name='"+file+"'>");
+                        members.container.append(rulefileContainer);
                         $(xml).find('ruleset > rule').each(function() {
-                            methods.renderRule($(this), file);
+                            methods.renderRule($(this), file, rulefileContainer);
                         });
                     }
                 });
             },
-            renderRule: function(rule, currentRuleFile) {
+            renderRule: function(rule, currentRuleFile, rulefileContainer) {
                 ruleContainer = $("<div class='rule'>");
-                ruleContainer.appendTo(members.container);
+                ruleContainer.appendTo(rulefileContainer);
                 rulename = currentRuleFile+"/"+rule.attr("name");
                 ruleid = "phpmd-"+rulename;
                 ruleContainer.append("<input class='rule-selector' type='checkbox' id='"+ruleid+"' name='"+rulename+"'>");
@@ -60,8 +62,9 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 xmlContainer = $('<ruleset>');
 
                 rules = "";
-                members.container.find(".rule-selector").each(function() {
-                    rules = rules + methods.generateRuleXmlForCheckbox($(this));
+
+                members.container.find(".rule-section").each(function() {
+                    rules = rules + methods.generateRulesXmlForSection($(this));
                 });
 
                 outputTextarea.val(
@@ -75,10 +78,26 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                     '</ruleset>'
                 );
             },
-            generateRuleXmlForCheckbox: function(checkbox) {
-                if(!checkbox.attr("checked")) {
-                    return "";
-                } 
+            generateRulesXmlForSection: function(section) {
+                rules = "";
+                file = section.attr("name");
+                allRulesAreActiveAndSimple = true;
+                section.find(".rule-selector").each(function() {
+                    checkbox = $(this);
+                    if(!checkbox.attr("checked") || !methods.generateIsSimpleRule(checkbox) ) {
+                        allRulesAreActiveAndSimple = false;
+                    }
+                });
+                if(allRulesAreActiveAndSimple) {
+                    return "<rule ref='rulesets/" + section.attr("name") + "' />\n";
+                }
+                section.find(".rule-selector").each(function() {
+                    rules = rules + methods.generateRuleXmlForCheckbox($(this));
+                });
+                return rules;
+
+            },
+            generateIsSimpleRule: function(checkbox) {
                 simpleRule = false;
                 rule = "";
                 properties = checkbox.parent().find(".property-selector");
@@ -94,9 +113,16 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                     });
                     simpleRule = allDefaultValues; 
                 }
-                if(simpleRule) {
+                return simpleRule;
+            },
+            generateRuleXmlForCheckbox: function(checkbox) {
+                if(!checkbox.attr("checked")) {
+                    return "";
+                } 
+                if(methods.generateIsSimpleRule(checkbox)) {
                     rule = "<rule ref='rulesets/"+checkbox.attr("name")+"'/>\n";
                 } else {
+                    properties = checkbox.parent().find(".property-selector");
                     propertyXml = methods.generatePropertyXml(properties);
                     rule = 
                         "<rule ref='rulesets/"+checkbox.attr("name")+"'>\n"+
@@ -178,7 +204,11 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 $(this).attr("value", $(this).attr("default"));
             });
             rules.each(function() {
-                ruleidSelector = "#phpmd-"+$(this).attr("ref").substring(9).replace(/(:|\.|\/)/g,'\\$1');
+                ruleidSelector = $(this).attr("ref").substring(9).replace(/(:|\.|\/)/g,'\\$1');
+                if(ruleidSelector.match(".xml$") == ".xml") {
+                    $(".rule-section[name='"+ruleidSelector+"']").find(".rule-selector").attr("checked", "checked");
+                }
+                ruleidSelector = "#phpmd-" + ruleidSelector;
                 $(ruleidSelector).attr("checked", "checked");
                 $(this).find("property").each(function() {
                     checkbox = $(ruleidSelector).parent().find("input[name='"+$(this).attr("name")+"']");
