@@ -174,7 +174,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 url: members.resourceBasedir + members.resourceIndex,
                 dataType: "json",
                 success: function(data) {
-                    members.container.append('Ruleset name: <input type="text" id="phpmd-ruleset-name" value="pcsg-generated-ruleset" /><br /><br />');
+                    members.container.append('Ruleset name: <input type="text" id="phpmd-ruleset-name" size="30" value="pcsg-generated-ruleset" /><br /><br />');
                     members.container.append(
                         'Ruleset description:<br />'+
                         '<textarea id="phpmd-ruleset-description">'+
