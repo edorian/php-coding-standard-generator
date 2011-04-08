@@ -69,11 +69,12 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
 
                 outputTextarea.val(
                     '<?xml version="1.0"?>\n'+
-                    '<ruleset name="PHP Coding Standard Generator created PHPMD Ruleset" \n'+
+                    '<ruleset name="'+$("#phpmd-ruleset-name").val()+'" \n'+
                     '    xmlns="http://pmd.sf.net/ruleset/1.0.0" \n'+
                     '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \n'+
                     '    xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"\n'+
                     '    xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">\n'+
+                    '<description>'+$("#phpmd-ruleset-description").val()+'\n</description>\n'+
                     rules+
                     '</ruleset>'
                 );
@@ -89,7 +90,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                     }
                 });
                 if(allRulesAreActiveAndSimple) {
-                    return "<rule ref='rulesets/" + section.attr("name") + "' />\n";
+                    return "<rule ref='rulesets/" + section.attr("name") + "'/>\n";
                 }
                 section.find(".rule-selector").each(function() {
                     rules = rules + methods.generateRuleXmlForCheckbox($(this));
@@ -173,16 +174,24 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 url: members.resourceBasedir + members.resourceIndex,
                 dataType: "json",
                 success: function(data) {
+                    members.container.append('Ruleset name: <input type="text" id="phpmd-ruleset-name" value="pcsg-generated-ruleset" /><br /><br />');
+                    members.container.append(
+                        'Ruleset description:<br />'+
+                        '<textarea id="phpmd-ruleset-description">'+
+                            'Created with the PHP Coding Standard Generator.\n'+
+                            'http://edorian.github.com/php-coding-standard-generator/'+
+                        '</textarea>'
+                    );
                     $.each(data, function() {
-                        methods.renderFile(this);
+                        methods.renderFile(this); 
                     });
-                    $('.rule').click(function() {
+                    generate = function() { 
                         methods.generateXmlInto(xmlContainer);
-                    });
-                    $('.property-selector').change(function() {
-                        methods.generateXmlInto(xmlContainer);
-                    });
-
+                    };
+                    $('.rule').click(generate);
+                    $('.property-selector').change(generate); 
+                    $('#phpmd-ruleset-name').keyup(generate);
+                    $('#phpmd-ruleset-description').keyup(generate);
                 }
             });
         },
@@ -199,14 +208,23 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 return;
             }
             methods.xmlUpdateNoError();
+            $("#phpmd-ruleset-name").val($(xml).find("ruleset").attr("name"));
+            $("#phpmd-ruleset-description").val($(xml).find("description").attr("name"));
             $('.rule-selector').attr("checked", "");
             $('.property-selector').each(function() {
                 $(this).attr("value", $(this).attr("default"));
             });
             rules.each(function() {
                 ruleidSelector = $(this).attr("ref").substring(9).replace(/(:|\.|\/)/g,'\\$1');
+                // All rules of this ruleset type rule ( <rule ref="rulesets/unusedcode.xml"/> )
                 if(ruleidSelector.match(".xml$") == ".xml") {
                     $(".rule-section[name='"+ruleidSelector+"']").find(".rule-selector").attr("checked", "checked");
+                    // And uncheck the <exclude> ones again
+                    $(this).find("exclude").each(function() {
+                        selector = "#phpmd-" + ruleidSelector + "\\/" + $(this).attr("name");
+                        $(selector).parent().find("input").attr("checked", "");
+                    });
+                    return;
                 }
                 ruleidSelector = "#phpmd-" + ruleidSelector;
                 $(ruleidSelector).attr("checked", "checked");
