@@ -25,14 +25,14 @@
 }
 
 .xmloutput-container {
-    height: 500px;
+    height: 400px;
     width: 430px;
     position: fixed;
 }
 
 .xmloutput {
     width: 100%;
-    height: 80%;
+    height: 100%;
     font-family: monospace;
     font-size: 12px;
 }
