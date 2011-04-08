@@ -205,8 +205,15 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
             });
             rules.each(function() {
                 ruleidSelector = $(this).attr("ref").substring(9).replace(/(:|\.|\/)/g,'\\$1');
+                // All rules of this ruleset type rule ( <rule ref="rulesets/unusedcode.xml"/> )
                 if(ruleidSelector.match(".xml$") == ".xml") {
                     $(".rule-section[name='"+ruleidSelector+"']").find(".rule-selector").attr("checked", "checked");
+                    // And uncheck the <exclude> ones again
+                    $(this).find("exclude").each(function() {
+                        selector = "#phpmd-" + ruleidSelector + "\\/" + $(this).attr("name");
+                        $(selector).parent().find("input").attr("checked", "");
+                    });
+                    return;
                 }
                 ruleidSelector = "#phpmd-" + ruleidSelector;
                 $(ruleidSelector).attr("checked", "checked");
