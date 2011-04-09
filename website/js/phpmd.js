@@ -41,7 +41,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 ruleHeader.append("<div class='rule-name'><label for='"+ruleid+"'>"+rule.attr("name")+"</label></div>");
                 example = rule.find("example").text().trim().replace("\n", "<br/>");
                 if(example != "") {
-                    ruleHeader.append("<div class='rule-example'><span href='#'>Example<span class='tooltip'><pre>"+example+"</pre></span></span></div>");
+                    ruleHeader.append("<div class='rule-example'><span>Example<span><pre>"+example+"</pre></span></span></div>");
                 }
                 ruleHeader.append("<div style='clear: both'></div>");
                 ruleHeader.appendTo(ruleContainer);
