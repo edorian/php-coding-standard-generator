@@ -47,23 +47,24 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 ruleHeader.appendTo(ruleContainer);
                 ruleContainer.append("<div class='rule-description'><label for='"+ruleid+"'>"+rule.find("description").text()+"</label></div>");
                 rule.find('properties property').each(function() {
-                    methods.renderProperty($(this), ruleContainer);
+                    methods.renderProperty($(this), ruleContainer, rulename);
                 });
             },
-            renderProperty: function(property, ruleContainer) {
+            renderProperty: function(property, ruleContainer, rulename) {
                 prop = $("<div class='property'>");
                 prop.appendTo(ruleContainer);
                 prop.append(property.attr("name")+": ");
+                propertyid = "property-"+rulename+"-"+property.attr("name");
                 if(property.attr("value") == "true" || property.attr("value") == "false") {
                     checked = "";
                     if(property.attr("value") == "true") {
                         checked = "checked='checked'";
                     }
-                    prop.append("<input type='checkbox' "+checked+" class='property-selector' name='"+property.attr("name")+"' value='"+property.attr("value")+"' default='"+property.attr("value")+"'></input>");
+                    prop.append("<input type='checkbox' "+checked+" class='property-selector' id='"+propertyid+"' name='"+property.attr("name")+"' value='"+property.attr("value")+"' default='"+property.attr("value")+"'></input>");
                 } else {
-                    prop.append("<input type='text' size=5 class='property-selector' name='"+property.attr("name")+"' value='"+property.attr("value")+"' default='"+property.attr("value")+"'></input>");
+                    prop.append("<input type='text' size=5 class='property-selector' id='"+propertyid+"' name='"+property.attr("name")+"' value='"+property.attr("value")+"' default='"+property.attr("value")+"'></input>");
                 }
-                prop.append("<div class='property-description'>"+property.attr("description")+"</div>");
+                prop.append("<div class='property-description'><label for='"+propertyid+"'>"+property.attr("description")+"</label></div>");
             },
             generateXmlInto: function(outputTextarea) {
                 xmlContainer = $('<ruleset>');
@@ -108,7 +109,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
             generateIsSimpleRule: function(checkbox) {
                 simpleRule = false;
                 rule = "";
-                properties = checkbox.parent().find(".property-selector");
+                properties = checkbox.parent().parent().find(".property-selector");
                 if(properties.size() == 0) {
                     simpleRule = true;
                 } else {
@@ -130,7 +131,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 if(methods.generateIsSimpleRule(checkbox)) {
                     rule = "<rule ref='rulesets/"+checkbox.attr("name")+"'/>\n";
                 } else {
-                    properties = checkbox.parent().find(".property-selector");
+                    properties = checkbox.parent().parent().find(".property-selector");
                     propertyXml = methods.generatePropertyXml(properties);
                     rule = 
                         "<rule ref='rulesets/"+checkbox.attr("name")+"'>\n"+
@@ -197,6 +198,7 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                     };
                     $('.rule').click(generate);
                     $('.property-selector').change(generate); 
+                    $('.property-selector').keyup(generate); 
                     $('#phpmd-ruleset-name').keyup(generate);
                     $('#phpmd-ruleset-description').keyup(generate);
                 }
@@ -229,14 +231,14 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                     // And uncheck the <exclude> ones again
                     $(this).find("exclude").each(function() {
                         selector = "#phpmd-" + ruleidSelector + "\\/" + $(this).attr("name");
-                        $(selector).parent().find("input").attr("checked", "");
+                        $(selector).parent().parent().find("input").attr("checked", "");
                     });
                     return;
                 }
                 ruleidSelector = "#phpmd-" + ruleidSelector;
                 $(ruleidSelector).attr("checked", "checked");
                 $(this).find("property").each(function() {
-                    checkbox = $(ruleidSelector).parent().find("input[name='"+$(this).attr("name")+"']");
+                    checkbox = $(ruleidSelector).parent().parent().find("input[name='"+$(this).attr("name")+"']");
                     xmlValue = $(this).attr("value");
                     if(checkbox.attr("type") == "checkbox") {
                         if(xmlValue != "true" && xmlValue != "false") {
