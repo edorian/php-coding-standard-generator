@@ -36,8 +36,15 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 ruleContainer.appendTo(rulefileContainer);
                 rulename = currentRuleFile+"/"+rule.attr("name");
                 ruleid = "phpmd-"+rulename;
-                ruleContainer.append("<input class='rule-selector' type='checkbox' id='"+ruleid+"' name='"+rulename+"'>");
-                ruleContainer.append("<div class='rule-name'><label for='"+ruleid+"'>"+rule.attr("name")+"</label></div>");
+                ruleHeader = $("<div class='rule-header'>");
+                ruleHeader.append("<input class='rule-selector' type='checkbox' id='"+ruleid+"' name='"+rulename+"'>");
+                ruleHeader.append("<div class='rule-name'><label for='"+ruleid+"'>"+rule.attr("name")+"</label></div>");
+                example = rule.find("example").text().trim().replace("\n", "<br/>");
+                if(example != "") {
+                    ruleHeader.append("<div class='rule-example'><span href='#'>Example<span class='tooltip'><pre>"+example+"</pre></span></span></div>");
+                }
+                ruleHeader.append("<div style='clear: both'></div>");
+                ruleHeader.appendTo(ruleContainer);
                 ruleContainer.append("<div class='rule-description'><label for='"+ruleid+"'>"+rule.find("description").text()+"</label></div>");
                 rule.find('properties property').each(function() {
                     methods.renderProperty($(this), ruleContainer);
