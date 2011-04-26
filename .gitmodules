@@ -1,3 +1,6 @@
 [submodule "externals/phpmd"]
 	path = externals/phpmd
 	url = git://github.com/manuelpichler/phpmd.git
+[submodule "externals/phpcs"]
+	path = externals/phpcs
+	url = git://github.com/edorian/PHP_CodeSniffer_Sniffs_Mirror.git
