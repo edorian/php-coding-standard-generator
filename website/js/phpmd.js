@@ -120,20 +120,20 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                             allDefaultValues = false;
                         }
                     });
-                    simpleRule = allDefaultValues; 
+                    simpleRule = allDefaultValues;
                 }
                 return simpleRule;
             },
             generateRuleXmlForCheckbox: function(checkbox) {
                 if(!checkbox.attr("checked")) {
                     return "";
-                } 
+                }
                 if(methods.generateIsSimpleRule(checkbox)) {
                     rule = "<rule ref='rulesets/"+checkbox.attr("name")+"'/>\n";
                 } else {
                     properties = checkbox.parent().parent().find(".property-selector");
                     propertyXml = methods.generatePropertyXml(properties);
-                    rule = 
+                    rule =
                         "<rule ref='rulesets/"+checkbox.attr("name")+"'>\n"+
                          propertyXml+
                         "</rule>\n"
@@ -191,14 +191,14 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                         '</textarea>'
                     );
                     $.each(data, function() {
-                        methods.renderFile(this); 
+                        methods.renderFile(this);
                     });
-                    generate = function() { 
+                    generate = function() {
                         methods.generateXmlInto(xmlContainer);
                     };
                     $('.rule').click(generate);
-                    $('.property-selector').change(generate); 
-                    $('.property-selector').keyup(generate); 
+                    $('.property-selector').change(generate);
+                    $('.property-selector').keyup(generate);
                     $('#phpmd-ruleset-name').keyup(generate);
                     $('#phpmd-ruleset-description').keyup(generate);
                 }
