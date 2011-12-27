@@ -185,10 +185,10 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
             return output;
         },
         generateSimpleRule: function(name) {
-            return "<rule ref='rulesets/" + name + "'/>\n";
+            return '<rule ref="rulesets/' + name + '"/>\n';
         },
         generateRuleWithProperties: function(name, properties) {
-           return "<rule ref='rulesets/" + name + "'>\n" + propertyXml+ "</rule>\n";
+           return '<rule ref="rulesets/' + name + '">\n' + propertyXml+ '</rule>\n';
         }
     }
 
@@ -302,10 +302,10 @@ pcsg.Phpcs = function(resourceBasedir, resourceIndex) {
         return output;
     }
     that.methods.generator.generateSimpleRule = function(name) {
-        return "<rule ref='" + name + "'/>\n";
+        return '<rule ref="' + name + '"/>\n';
     },
     that.methods.generator.generateRuleWithProperties = function(name, properties) {
-        return "<rule ref='" + name + "'>\n" + propertyXml+ "</rule>\n";
+        return '<rule ref="' + name + '">\n"' + propertyXml+ '</rule>\n';
     }
 
     that.methods.parser.getRulename = function(ruleFile, name) {
