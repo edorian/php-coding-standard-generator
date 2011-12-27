@@ -8,6 +8,19 @@ html {
     width:1000px;
     margin:0 auto;
 }
+
+#nav ul li {
+    border: 2px outset black;
+    margin: 2px;
+    padding: 2px;
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+#nav ul li.active {
+    background-color: #7e7;
+}
+
 #header {
     padding:5px 10px;
 }
