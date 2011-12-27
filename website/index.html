@@ -30,12 +30,12 @@
     <div id="sidebar">
         <div id="phpmd-xml-container" class='xmloutput-container'>
             <div>You can also edit this box directly. The site will reflect any changes you make.<br/>If you already have an <strong>phpmd.xml</strong> just paste it in.</div>
-            <div id='phpmd-xml-error' style='display: none;'></div>
+            <div id='phpmd-xml-error' class='xml-error' style='display: none;'></div>
             <textarea spellcheck="false" id='phpmd-xml' class='xmloutput'>Your XML will go here</textarea>
         </div>
         <div id="phpcs-xml-container" class='xmloutput-container'>
             <div>You can also edit this box directly. The site will reflect any changes you make.<br/>If you already have an <strong>phpcs.xml</strong> just paste it in.</div>
-            <div id='phpcs-xml-error' style='display: none;'></div>
+            <div id='phpcs-xml-error' class='xml-error' style='display: none;'></div>
             <textarea spellcheck="false" id='phpcs-xml' class='xmloutput'>Your XML will go here</textarea>
         </div>
     </div>
@@ -52,7 +52,7 @@
         $("#phpmd-xml").keyup(function() {
             md.xmlUpateHandler($(this).val(), $("#phpmd"));
         });
-        cs = new pcsg.Phpmd("resources/phpcs/", "rulesets.json");
+        cs = new pcsg.Phpcs("resources/phpcs/", "rulesets.json");
         cs.renderInto($("#phpcs"), $("#phpcs-xml"), $("phpcs-xml-error"));
         $("#phpcs-xml").change(function() {
             cs.xmlUpateHandler($(this).val(), $("#phpmd"));

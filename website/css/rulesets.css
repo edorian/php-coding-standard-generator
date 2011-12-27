@@ -49,11 +49,11 @@
     margin-top: -50px;
 }
 
-#phpmd-xml-error {
+.xml-error {
     background-color: #E66;
 }
 
-#phpmd-ruleset-description {
+.ruleset-description {
     width: 100%;
     height: 50px;
     y-overflow: scroll;
