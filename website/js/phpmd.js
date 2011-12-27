@@ -77,7 +77,7 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
             });
             
             outputTextarea.val(
-                that.methods.writer.writeHeader(
+                that.methods.generator.generateHeader(
                     $("#"+that.members.name+"-ruleset-name").val(),
                     $("#"+that.members.name+"-ruleset-description").val(),
                     rules
@@ -169,9 +169,9 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
 
     };
 
-    that.methods.writer = {
+    that.methods.generator = {
 
-        writeHeader: function(name, description, rules) {
+        generateHeader: function(name, description, rules) {
             output = 
                 '<?xml version="1.0"?>\n'+
                 '<ruleset name="'+name+'" \n'+
@@ -281,7 +281,7 @@ pcsg.Phpcs = function(resourceBasedir, resourceIndex) {
     that.members.name = 'phpcs';
     that.members.collapseRules = false;
 
-    that.methods.writer.writeHeader = function(name, description, rules) {
+    that.methods.generator.generateHeader = function(name, description, rules) {
         output = 
             '<?xml version="1.0"?>\n'+
             '<ruleset name="'+name+'" \n'+
