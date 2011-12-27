@@ -1,0 +1,67 @@
+body,
+html {
+    margin:0;
+    padding:0;
+    color:#000;
+}
+#wrap {
+    width:1000px;
+    margin:0 auto;
+}
+
+#nav ul li {
+    border: 2px outset black;
+    margin: 2px;
+    padding: 2px;
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+#nav ul li.active {
+    background-color: #7e7;
+}
+
+#header {
+    padding:5px 10px;
+}
+h1 {
+    margin:0;
+}
+#nav {
+    padding:5px 10px;
+}
+#nav ul {
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+#nav li {
+    display:inline;
+    margin:0;
+    padding:0;
+}
+#main {
+    float:left;
+    width:530px;
+    padding:10px;
+}
+h2 {
+    margin:0 0 1em;
+}
+#sidebar {
+    float:right;
+    width:430px;
+    padding:10px;
+}
+#footer {
+    clear:both;
+    padding:5px 10px;
+}
+#footer p {
+    margin:0;
+}
+* html #footer {
+    height:1px;
+}
+
+
