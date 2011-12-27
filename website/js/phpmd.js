@@ -134,7 +134,7 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
                     checkbox.attr("name"),
                     propertyXml
                 );
-                            }
+            }
             return rule;
         },
         generatePropertyXml: function(properties) {
@@ -185,10 +185,10 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
             return output;
         },
         generateSimpleRule: function(name) {
-            return "<rule ref='rulesets/"+name+"'/>\n";
+            return "<rule ref='rulesets/" + name + "'/>\n";
         },
         generateRuleWithProperties: function(name, properties) {
-           return "<rule ref='rulesets/" + checkbox.attr("name") + "'>\n" + propertyXml+ "</rule>\n";
+           return "<rule ref='rulesets/" + name + "'>\n" + propertyXml+ "</rule>\n";
         }
     }
 
