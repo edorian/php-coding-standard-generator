@@ -75,13 +75,14 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
             that.members.container.find(".rule-section").each(function() {
                 rules = rules + that.methods.generateRulesXmlForSection($(this));
             });
-
-            that.methods.writer.writeHeader(
-                outputTextarea,
-                $("#"+that.members.name+"-ruleset-name").val(),
-                $("#"+that.members.name+"-ruleset-description").val(),
-                rules
-            )
+            
+            outputTextarea.val(
+                that.methods.writer.writeHeader(
+                    $("#"+that.members.name+"-ruleset-name").val(),
+                    $("#"+that.members.name+"-ruleset-description").val(),
+                    rules
+                )
+            );
         },
         generateRulesXmlForSection: function(section) {
             rules = "";
@@ -170,18 +171,19 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
 
     that.methods.writer = {
 
-        writeHeader: function(outputContainer, name, description, rules) {
-            outputContainer.val(
+        writeHeader: function(name, description, rules) {
+            output = 
                 '<?xml version="1.0"?>\n'+
                 '<ruleset name="'+name+'" \n'+
                 '    xmlns="http://pmd.sf.net/ruleset/1.0.0" \n'+
                 '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \n'+
                 '    xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"\n'+
                 '    xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">\n'+
-                '<description>'+rules+'\n</description>\n'+
+                '<description>'+description+'\n</description>\n'+
                 rules+
                 '</ruleset>'
-            );
+            ;
+            return output;
         }
 
     }
@@ -279,14 +281,15 @@ pcsg.Phpcs = function(resourceBasedir, resourceIndex) {
     that.members.name = 'phpcs';
     that.members.collapseRules = false;
 
-    that.methods.writer.writeHeader = function(outputContainer, name, description, rules) {
-        outputContainer.val(
+    that.methods.writer.writeHeader = function(name, description, rules) {
+        output = 
             '<?xml version="1.0"?>\n'+
             '<ruleset name="'+name+'" \n'+
             '<description>'+description+'\n</description>\n'+
             rules+
             '</ruleset>'
-        );
+        ;
+        return output;
     }
     return that;
 }
