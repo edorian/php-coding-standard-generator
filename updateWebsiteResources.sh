@@ -2,6 +2,6 @@
 
 php=`which php`
 
-$php source/pushPHPMDFilesToWebsite.php
+$php source/pushRulesetFilesToWebsite.php
 
 echo "Done";
