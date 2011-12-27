@@ -16,23 +16,27 @@
         <p>Currently it, sort of, works for <a href="http://phpmd.org">PHP Mess Detector</a> <a href="http://phpmd.org/documentation/creating-a-ruleset.html">rule sets files</a>.</p>
         <p>If the concept works out support for <a href="http://pear.php.net/PHP_CodeSniffer">PHP Code Sniffer</a> will be added.</p>
     </div>
-    <!--
     <div id="nav">
         <ul>
-            <li>PHPCS</li>
-            <li>PHPMD</li>
+            <li id='phpmd-activate'>PHPMD</li>
+            <li id='phpcs-activate'>PHPCS</li>
         </ul>
     </div>
-    -->
     <div id="main">
         <h2>PHPMD</h2>
         <div id="phpmd" class="rule-container"></div>
+        <div id="phpcs" class="rule-container"></div>
     </div>
     <div id="sidebar">
         <div id="phpmd-xml-container" class='xmloutput-container'>
             <div>You can also edit this box directly. The site will reflect any changes you make.<br/>If you already have an <strong>phpmd.xml</strong> just paste it in.</div>
             <div id='phpmd-xml-error' style='display: none;'></div>
             <textarea spellcheck="false" id='phpmd-xml' class='xmloutput'>Your XML will go here</textarea>
+        </div>
+        <div id="phpcs-xml-container" class='xmloutput-container'>
+            <div>You can also edit this box directly. The site will reflect any changes you make.<br/>If you already have an <strong>phpcs.xml</strong> just paste it in.</div>
+            <div id='phpcs-xml-error' style='display: none;'></div>
+            <textarea spellcheck="false" id='phpcs-xml' class='xmloutput'>Your XML will go here</textarea>
         </div>
     </div>
     <div id="footer"><p>If you want to reach me: @__edorian on Twitter or just edorian on freenodeIrc</p></div>
@@ -41,12 +45,40 @@
 <script>
     $(document).ready(function () {
         md = new pcsg.Phpmd("resources/phpmd/", "rulesets.json");
-        md.renderInto($("#phpmd"), $("#phpmd-xml"));
+        md.renderInto($("#phpmd"), $("#phpmd-xml"), $("#phpmd-xml-error"));
         $("#phpmd-xml").change(function() {
             md.xmlUpateHandler($(this).val(), $("#phpmd"));
         });
         $("#phpmd-xml").keyup(function() {
             md.xmlUpateHandler($(this).val(), $("#phpmd"));
+        });
+        cs = new pcsg.Phpmd("resources/phpcs/", "rulesets.json");
+        cs.renderInto($("#phpcs"), $("#phpcs-xml"), $("phpcs-xml-error"));
+        $("#phpcs-xml").change(function() {
+            cs.xmlUpateHandler($(this).val(), $("#phpmd"));
+        });
+        $("#phpcs-xml").keyup(function() {
+            cs.xmlUpateHandler($(this).val(), $("#phpmd"));
+        });
+        $('#phpcs').hide();
+        $('#phpcs-xml-container').hide();
+        $('#phpmd-activate').addClass('active');
+
+        $('#phpcs-activate').click(function() {
+            $('#phpmd').hide();
+            $('#phpmd-xml-container').hide();
+            $('#phpcs').show();
+            $('#phpcs-xml-container').show();
+            $('#phpcs-activate').addClass('active');
+            $('#phpmd-activate').removeClass('active');
+        });
+        $('#phpmd-activate').click(function() {
+            $('#phpcs').hide();
+            $('#phpcs-xml-container').hide();
+            $('#phpmd').show();
+            $('#phpmd-xml-container').show();
+            $('#phpmd-activate').addClass('active');
+            $('#phpcs-activate').removeClass('active');
         });
     });
 </script>

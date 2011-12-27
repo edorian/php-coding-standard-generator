@@ -1,18 +1,16 @@
 var pcsg = pcsg || {};
 
-pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
+pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
 
     var members = {
         "container": null,
+        "errorContainer": null,
         "resourceBasedir": resourceBasedir,
         "resourceIndex": resourceIndex,
     }
 
     var methods = (function() {
         return {
-            add: function() {
-                return data.a + data.b;
-            },
             renderFile: function(file) {
                 $.ajax({
                     type: "GET",
@@ -162,12 +160,12 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
                 }
             },
             xmlUpdateError: function(message) {
-                $("#phpmd-xml-error").show();
-                $("#phpmd-xml-error").text(message);
+                members.errorContainer.show();
+                members.errorContainer.text(message);
             },
             xmlUpdateNoError: function() {
-                $("#phpmd-xml-error").hide();
-                $("#phpmd-xml-error").text("");
+                members.errorContainer.hide();
+                members.errorContainer.text("");
             }
 
         }
@@ -175,8 +173,9 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
 
     // public
     return {
-        renderInto: function(container, xmlContainer) {
+        renderInto: function(container, xmlContainer, errorContainer) {
             members.container = container;
+            members.errorContainer = errorContainer;
             $.ajax({
                 type: "GET",
                 url: members.resourceBasedir + members.resourceIndex,
@@ -255,5 +254,5 @@ pcsg.Phpmd = (function(resourceBasedir, resourceIndex) {
             });
         }
     }
-});
+};
 
