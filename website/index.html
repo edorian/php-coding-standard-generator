@@ -53,12 +53,12 @@
             md.xmlUpateHandler($(this).val(), $("#phpmd"));
         });
         cs = new pcsg.Phpcs("resources/phpcs/", "rulesets.json");
-        cs.renderInto($("#phpcs"), $("#phpcs-xml"), $("phpcs-xml-error"));
+        cs.renderInto($("#phpcs"), $("#phpcs-xml"), $("#phpcs-xml-error"));
         $("#phpcs-xml").change(function() {
-            cs.xmlUpateHandler($(this).val(), $("#phpmd"));
+            cs.xmlUpateHandler($(this).val(), $("#phpcs"));
         });
         $("#phpcs-xml").keyup(function() {
-            cs.xmlUpateHandler($(this).val(), $("#phpmd"));
+            cs.xmlUpateHandler($(this).val(), $("#phpcs"));
         });
         $('#phpcs').hide();
         $('#phpcs-xml-container').hide();
