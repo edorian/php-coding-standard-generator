@@ -10,39 +10,23 @@
 Part of the generic phpcs sniffs.
     </description>
   
-    <rule name="EmptyStatement"
-          since="0.1"
-          message=""
-          class="Generic_Sniffs_CodeAnalysis_EmptyStatementSniff"
-          externalInfoUrl="">
+    <rule name="EmptyStatement" class="Generic_Sniffs_CodeAnalysis_EmptyStatementSniff">
         <description>
-            <![CDATA[
 Statements may not have an empty body.
-            ]]>
         </description>
-        <priority>3</priority>
         <example>
             <![CDATA[
-            if($x == 5) {
-                // nothing in the statements body
-            }
+if($x == 5) {
+    // nothing in the statements body
+}
             ]]>
         </example>
     </rule>
 
-
-    <rule name="ForLoopShouldBeWhileLoop"
-          since="0.1"
-          message=""
-          class="Generic_Sniffs_CodeAnalysis_ForLoopShouldBeWhileLoopSniff"
-          externalInfoUrl="http://phpmd.org/rules/codesize.html#npathcomplexity">
+    <rule name="ForLoopShouldBeWhileLoop" class="Generic_Sniffs_CodeAnalysis_ForLoopShouldBeWhileLoopSniff">
         <description>
 Detects for loops that can be simplified to a while-loop.
         </description>
-        <priority>3</priority>
-        <properties>
-            <property name="minimum" description="The npath reporting threshold" value="200"/>
-        </properties>
         <example>
             <![CDATA[
 class Foo {
@@ -50,6 +34,95 @@ class Foo {
         for (;$x > 5;) { /* ... */ }  // No Init or Update part, may as well be: while ($x > 5)
     }
 }           
+            ]]>
+        </example>
+    </rule>
+
+    <rule name="ForLoopWithTestFunctionCall" class="Generic_Sniffs_CodeAnalysis_ForLoopWithTestFunctionCallSniff">
+        <description>
+For loops test expressions may not have function calls in them.
+        </description>
+        <example>
+            <![CDATA[
+ class Foo {
+     public function bar($x) {
+         $a = array(1, 2, 3, 4);
+         for ($i = 0; $i < count($a); $i++) {
+              $a[$i] *= $i;
+         }
+     }
+ }
+            ]]>
+        </example>
+    </rule>
+
+    <rule name="JumbledIncrementer" class="Generic_Sniffs_CodeAnalysis_JumbledIncrementerSniff">
+        <description>
+Detects incrementer jumbling in for loops.
+        </description>
+        <example>
+            <![CDATA[
+ function bar($x) {
+     for ($i = 0; $i < 10; $i++) {
+         for ($k = 0; $k < 20; $i++) {
+             echo 'Hello';
+         }
+     }
+ }
+            ]]>
+        </example>
+    </rule>
+
+    <rule name="UnconditionalIfStatement" class="Generic_Sniffs_CodeAnalysis_UnconditionalIfStatementSniff">
+        <description>
+Detects unconditional if- and elseif-statements.
+        </description>
+        <example>
+            <![CDATA[
+if(true) {
+}
+            ]]>
+        </example>
+    </rule>
+
+    <rule name="UnnecessaryFinalModifier" class="Generic_Sniffs_CodeAnalysis_UnnecessaryFinalModifierSniff">
+        <description>
+Detects unnecessary final modifiers inside of final classes.
+        </description>
+        <example>
+            <![CDATA[
+final class Bar {
+    final public function() {
+    }
+}
+            ]]>
+        </example>
+    </rule>
+
+    <rule name="UnusedFunctionParameter" class="Generic_Sniffs_CodeAnalysis_UnusedFunctionParameterSniff">
+        <description>
+Checks for unused function parameters.
+        </description>
+        <example>
+            <![CDATA[
+function bar($x, $y) {
+    echo $y; // No $x usage
+}
+            ]]>
+        </example>
+    </rule>
+
+    <rule name="UselessOverridingMethod" class="Generic_Sniffs_CodeAnalysis_UselessOverridingMethodSniff">
+        <description>
+Detects unnecessary overriden methods that simply call their parent.
+        </description>
+        <example>
+            <![CDATA[
+class Foo {
+    public function __construct($foo, $bar) {
+        parent::__construct($foo, $bar);
+    }
+}
             ]]>
         </example>
     </rule>
