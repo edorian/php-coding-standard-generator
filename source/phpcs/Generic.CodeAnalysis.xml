@@ -39,10 +39,6 @@ Statements may not have an empty body.
         <description>
 Detects for loops that can be simplified to a while-loop.
         </description>
-        <priority>3</priority>
-        <properties>
-            <property name="minimum" description="The npath reporting threshold" value="200"/>
-        </properties>
         <example>
             <![CDATA[
 class Foo {
