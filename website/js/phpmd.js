@@ -172,7 +172,7 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
 
         generateHeader: function(name, description, rules) {
             output = 
-                '<?xml version="1.0"?>\n'+
+                '<?xml version="1.0" encoding="UTF-8"?>\n'+
                 '<ruleset name="'+name+'" \n'+
                 '    xmlns="http://pmd.sf.net/ruleset/1.0.0" \n'+
                 '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \n'+
@@ -293,7 +293,7 @@ pcsg.Phpcs = function(resourceBasedir, resourceIndex) {
 
     that.methods.generator.generateHeader = function(name, description, rules) {
         output = 
-            '<?xml version="1.0"?>\n'+
+            '<?xml version="1.0" encoding="UTF-8"?>\n'+
             '<ruleset name="'+name+'">\n'+
             '<description>'+description+'\n</description>\n'+
             rules+
