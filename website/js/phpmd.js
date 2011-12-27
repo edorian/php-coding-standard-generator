@@ -35,7 +35,7 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
         renderRule: function(rule, currentRuleFile, rulefileContainer) {
             ruleContainer = $("<div class='rule'>");
             ruleContainer.appendTo(rulefileContainer);
-            rulename = currentRuleFile+"/"+rule.attr("name");
+            rulename = that.methods.parser.getRulename(currentRuleFile, rule.attr("name"));
             ruleid = that.members.name+"-"+rulename;
             ruleHeader = $("<div class='rule-header'>");
             ruleHeader.append("<input class='rule-selector' type='checkbox' id='"+ruleid+"' name='"+rulename+"'>");
@@ -126,16 +126,15 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
                 return "";
             } 
             if(that.methods.generateIsSimpleRule(checkbox)) {
-                rule = "<rule ref='rulesets/"+checkbox.attr("name")+"'/>\n";
+                rule = that.methods.generator.generateSimpleRule(checkbox.attr("name"));
             } else {
                 properties = checkbox.parent().parent().find(".property-selector");
                 propertyXml = that.methods.generatePropertyXml(properties);
-                rule = 
-                    "<rule ref='rulesets/"+checkbox.attr("name")+"'>\n"+
-                     propertyXml+
-                    "</rule>\n"
-                ;
-            }
+                rule = that.methods.generator.generateRuleWithProperties(
+                    checkbox.attr("name"),
+                    propertyXml
+                );
+                            }
             return rule;
         },
         generatePropertyXml: function(properties) {
@@ -184,8 +183,19 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
                 '</ruleset>'
             ;
             return output;
+        },
+        generateSimpleRule: function(name) {
+            return "<rule ref='rulesets/"+name+"'/>\n";
+        },
+        generateRuleWithProperties: function(name, properties) {
+           return "<rule ref='rulesets/" + checkbox.attr("name") + "'>\n" + propertyXml+ "</rule>\n";
         }
+    }
 
+    that.methods.parser = {
+        getRulename: function(ruleFile, name) {
+            return ruleFile+"/"+name;
+        }
     }
 
     // public
@@ -284,12 +294,22 @@ pcsg.Phpcs = function(resourceBasedir, resourceIndex) {
     that.methods.generator.generateHeader = function(name, description, rules) {
         output = 
             '<?xml version="1.0"?>\n'+
-            '<ruleset name="'+name+'" \n'+
+            '<ruleset name="'+name+'">\n'+
             '<description>'+description+'\n</description>\n'+
             rules+
             '</ruleset>'
         ;
         return output;
+    }
+    that.methods.generator.generateSimpleRule = function(name) {
+        return "<rule ref='" + name + "'/>\n";
+    },
+    that.methods.generator.generateRuleWithProperties = function(name, properties) {
+        return "<rule ref='" + name + "'>\n" + propertyXml+ "</rule>\n";
+    }
+
+    that.methods.parser.getRulename = function(ruleFile, name) {
+        return ruleFile.substr(0, ruleFile.length-3) + name;
     }
     return that;
 }
