@@ -6,6 +6,7 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
 
     that.members = {
         "name": 'phpmd',
+        "collapseRules": true,
         "container": null,
         "errorContainer": null,
         "resourceBasedir": resourceBasedir,
@@ -75,17 +76,12 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
                 rules = rules + that.methods.generateRulesXmlForSection($(this));
             });
 
-            outputTextarea.val(
-                '<?xml version="1.0"?>\n'+
-                '<ruleset name="'+$("#"+that.members.name+"-ruleset-name").val()+'" \n'+
-                '    xmlns="http://pmd.sf.net/ruleset/1.0.0" \n'+
-                '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \n'+
-                '    xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"\n'+
-                '    xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">\n'+
-                '<description>'+$("#"+that.members.name+"-ruleset-description").val()+'\n</description>\n'+
-                rules+
-                '</ruleset>'
-            );
+            that.methods.writer.writeHeader(
+                outputTextarea,
+                $("#"+that.members.name+"-ruleset-name").val(),
+                $("#"+that.members.name+"-ruleset-description").val(),
+                rules
+            )
         },
         generateRulesXmlForSection: function(section) {
             rules = "";
@@ -97,7 +93,7 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
                     allRulesAreActiveAndSimple = false;
                 }
             });
-            if(allRulesAreActiveAndSimple) {
+            if(allRulesAreActiveAndSimple && that.members.collapseRules) {
                 return "<rule ref='rulesets/" + section.attr("name") + "'/>\n";
             }
             section.find(".rule-selector").each(function() {
@@ -171,6 +167,24 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
         }
 
     };
+
+    that.methods.writer = {
+
+        writeHeader: function(outputContainer, name, description, rules) {
+            outputContainer.val(
+                '<?xml version="1.0"?>\n'+
+                '<ruleset name="'+name+'" \n'+
+                '    xmlns="http://pmd.sf.net/ruleset/1.0.0" \n'+
+                '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \n'+
+                '    xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"\n'+
+                '    xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">\n'+
+                '<description>'+rules+'\n</description>\n'+
+                rules+
+                '</ruleset>'
+            );
+        }
+
+    }
 
     // public
     
@@ -263,6 +277,17 @@ pcsg.Phpcs = function(resourceBasedir, resourceIndex) {
 
     var that = pcsg.Phpmd(resourceBasedir, resourceIndex);
     that.members.name = 'phpcs';
+    that.members.collapseRules = false;
+
+    that.methods.writer.writeHeader = function(outputContainer, name, description, rules) {
+        outputContainer.val(
+            '<?xml version="1.0"?>\n'+
+            '<ruleset name="'+name+'" \n'+
+            '<description>'+description+'\n</description>\n'+
+            rules+
+            '</ruleset>'
+        );
+    }
     return that;
 }
 
