@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://edorian.github.com/" />
+<title>New Test</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">New Test</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/php-coding-standard-generator/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPageToLoad</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=phpmd-codesize.xml/CyclomaticComplexity</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=property-codesize.xml/CyclomaticComplexity-reportLevel</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=phpmd-codesize.xml/NPathComplexity</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=phpmd-codesize.xml/ExcessiveMethodLength</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=phpmd-codesize.xml/ExcessiveClassLength</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=phpmd-codesize.xml/ExcessiveParameterList</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=phpmd-codesize.xml/ExcessivePublicCount</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=phpmd-design.xml/ExitExpression</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=phpmd-design.xml/EvalExpression</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=phpmd-design.xml/NumberOfChildren</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=property-design.xml/DepthOfInheritance-minimum</td>
+	<td>60</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=phpmd-naming.xml/ShortVariable</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=phpmd-design.xml/DepthOfInheritance</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=phpmd-naming.xml/LongVariable</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=phpmd-unusedcode.xml/UnusedLocalVariable</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=phpmd-unusedcode.xml/UnusedPrivateMethod</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>id=phpmd-xml</td>
+	<td>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br />&lt;ruleset name=&quot;pcsg-generated-ruleset&quot; <br />&nbsp;&nbsp;&nbsp;&nbsp;xmlns=&quot;http://pmd.sf.net/ruleset/1.0.0&quot; <br />&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; <br />&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation=&quot;http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd&quot;<br />&nbsp;&nbsp;&nbsp;&nbsp;xsi:noNamespaceSchemaLocation=&quot;http://pmd.sf.net/ruleset_xml_schema.xsd&quot;&gt;<br />&lt;description&gt;Created with the PHP Coding Standard Generator.<br />http://edorian.github.com/php-coding-standard-generator/<br />&lt;/description&gt;<br />&lt;rule ref=&quot;rulesets/codesize.xml/CyclomaticComplexity&quot;&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&lt;properties&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property name='reportLevel' value='100' /&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&lt;/properties&gt;<br />&lt;/rule&gt;<br />&lt;rule ref=&quot;rulesets/codesize.xml/NPathComplexity&quot;/&gt;<br />&lt;rule ref=&quot;rulesets/codesize.xml/ExcessiveMethodLength&quot;/&gt;<br />&lt;rule ref=&quot;rulesets/codesize.xml/ExcessiveClassLength&quot;/&gt;<br />&lt;rule ref=&quot;rulesets/codesize.xml/ExcessiveParameterList&quot;/&gt;<br />&lt;rule ref=&quot;rulesets/codesize.xml/ExcessivePublicCount&quot;/&gt;<br />&lt;rule ref=&quot;rulesets/design.xml/ExitExpression&quot;/&gt;<br />&lt;rule ref=&quot;rulesets/design.xml/EvalExpression&quot;/&gt;<br />&lt;rule ref=&quot;rulesets/design.xml/NumberOfChildren&quot;/&gt;<br />&lt;rule ref=&quot;rulesets/design.xml/DepthOfInheritance&quot;&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&lt;properties&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property name='minimum' value='60' /&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&lt;/properties&gt;<br />&lt;/rule&gt;<br />&lt;rule ref=&quot;rulesets/naming.xml/ShortVariable&quot;/&gt;<br />&lt;rule ref=&quot;rulesets/naming.xml/LongVariable&quot;/&gt;<br />&lt;rule ref=&quot;rulesets/unusedcode.xml/UnusedLocalVariable&quot;/&gt;<br />&lt;rule ref=&quot;rulesets/unusedcode.xml/UnusedPrivateMethod&quot;/&gt;<br />&lt;/ruleset&gt;</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
+
