@@ -1,0 +1,96 @@
+#!/usr/bin/env php
+<?php
+
+if($_SERVER['argc'] < 2) {
+    usage();
+}
+
+switch($_SERVER['argv'][1]) {
+    case 'list':
+        if($_SERVER['argc'] > 2) {
+            listStandardGroups($_SERVER['argv'][2]);
+            break;
+        }
+        listStandardGroups();
+        break;
+    case 'create':
+        if($_SERVER['argc'] > 2) {
+            createSniffXml($_SERVER['argv'][2]);
+            break;
+        }
+        usage('"create" needs a sniff group to create something.');
+    default:
+        usage('Unknown command.');
+}
+
+function listStandardGroups($filter = '') {
+    foreach(fetchSniffGroupFolders() as $name => $sniffGroup) {
+        if($filter && strpos($name, $filter) === false) {
+            continue;
+        }
+        $sniffDocumentationXmlFile = __DIR__ . '/phpcs/' . $name . '.xml';
+
+        if(!file_exists($sniffDocumentationXmlFile)) {
+            echo '[ ] ', $name, PHP_EOL;
+            continue;
+        }
+        $sniffs = array_map(
+            function($sniff) {
+                return substr(basename($sniff), 0, -1 * strlen('Sniff.php'));
+            }, 
+            glob($sniffGroup . '/*')
+        );
+        $sniffDocumentationXml = new DomDocument();
+        $sniffDocumentationXml->load($sniffDocumentationXmlFile);
+        $sniffDocumentationQuery = new DomXPath($sniffDocumentationXml);
+        $sniffDocumentationQuery->registerNamespace('x', 'http://pmd.sf.net/ruleset/1.0.0');
+        $documentedSniffs = $sniffDocumentationQuery->query('//x:rule/@name');
+        $documentedSniffs = array_map(
+            function(DomAttr $attribute) { 
+                return $attribute->nodeValue;
+            },
+            iterator_to_array($documentedSniffs)
+        );
+        $missingsSniffs = array_diff($sniffs, $documentedSniffs);
+        if($missingsSniffs) {
+            echo '[~] ', $name, ' - Missing: ', join(', ', $missingsSniffs), PHP_EOL;
+            continue;
+        }
+        echo '[x] ', $name, PHP_EOL;
+    }
+}
+
+function createSniffXml($sniffGroup) {
+    $groups = fetchSniffGroupFolders();
+    if(!isset($groups[$sniffGroup])) {
+        usage("Unknown sniff group '$sniffGroup'");
+    }
+    // Create Xml
+}
+
+
+function fetchSniffGroupFolders() {
+    $sniffGroups = array();
+    foreach(glob(__DIR__ . '/../externals/phpcs/CodeSniffer/Standards/*') as $standard) {
+        if(!is_dir($standard)) {
+            continue;
+        }
+        foreach(glob($standard . '/Sniffs/*') as $sniffGroup) {
+            $name = basename($standard) . '.' . basename($sniffGroup);
+            $sniffGroups[$name] = $sniffGroup;
+        }
+    }
+    return $sniffGroups;
+}
+
+function usage($message = '') {
+    echo 'Usage: ', $_SERVER['argv'][0], ' command <options>', PHP_EOL, PHP_EOL;
+    if($message) {
+        echo "Error: $message", PHP_EOL, PHP_EOL;
+    }
+    echo '  Available commands: ', PHP_EOL;
+    echo '    - list <filter>    Prints all available sniffs and if it exists in sniffDocumentation [x], is incomplete [~], or is missing [ ].', PHP_EOL;
+    echo '    - create <sniff>   Create empty xml structure for the sniff group.', PHP_EOL;
+    echo PHP_EOL;
+    die(-1);
+}
