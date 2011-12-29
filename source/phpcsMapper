@@ -16,9 +16,14 @@ switch($_SERVER['argv'][1]) {
     case 'create':
         if($_SERVER['argc'] > 2) {
             createSniffXml($_SERVER['argv'][2]);
+            echo 'Done', PHP_EOL;
             break;
         }
         usage('"create" needs a sniff group to create something.');
+    case 'todo':
+        listEmptyDescriptionsAndExamples();
+        echo 'Done', PHP_EOL;
+        break;
     default:
         usage('Unknown command.');
 }
@@ -34,12 +39,7 @@ function listStandardGroups($filter = '') {
             echo '[ ] ', $name, PHP_EOL;
             continue;
         }
-        $sniffs = array_map(
-            function($sniff) {
-                return substr(basename($sniff), 0, -1 * strlen('Sniff.php'));
-            }, 
-            glob($sniffGroup . '/*')
-        );
+        $sniffs = fetchSniffsForSniffGroup($sniffGroup);
         $sniffDocumentationXml = new DomDocument();
         $sniffDocumentationXml->load($sniffDocumentationXmlFile);
         $sniffDocumentationQuery = new DomXPath($sniffDocumentationXml);
@@ -65,7 +65,50 @@ function createSniffXml($sniffGroup) {
     if(!isset($groups[$sniffGroup])) {
         usage("Unknown sniff group '$sniffGroup'");
     }
-    // Create Xml
+    $sniffDocumentationXmlFile = __DIR__ . '/phpcs/' . $sniffGroup . '.xml';
+    if(file_exists($sniffDocumentationXmlFile)) {
+        usage("Documentation for '$sniffGroup' already exists");
+    }
+    $sniffXml = new DomDocument('1.0', 'UTF-8');
+    $sniffXml->formatOutput = true;
+    $rootNode = $sniffXml->createElementNs('http://pmd.sf.net/ruleset/1.0.0', 'ruleset');
+    $rootNode->setAttribute('name', str_replace('.', ' - ', $sniffGroup));
+    $rootNode->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
+    $rootNode->setAttribute('xsi:schemaLocation', 'http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd');
+    $rootNode->setAttribute('xsi:noNamespaceSchemaLocation', 'http://pmd.sf.net/ruleset_xml_schema.xsd');
+    $sniffXml->appendChild($rootNode);
+    $rootNode->appendChild($sniffXml->createElement('description', "\n\n  "));
+
+    foreach(fetchSniffsForSniffGroup($groups[$sniffGroup]) as $sniff) {
+        $rule = $sniffXml->createElement('rule');
+        $rule->setAttribute('name', $sniff);
+        $rule->setAttribute('class', str_replace('.', '_Sniffs_', $sniffGroup) . '_' . $sniff . 'Sniff');
+        $rule->appendChild($sniffXml->createElement('description', "\n\n    "));
+        $example = $sniffXml->createElement('example', "\n      ");
+        $example->appendChild($sniffXml->createCDATASection("\n\n      "));
+        $example->appendChild($sniffXml->createTextNode("\n    "));
+        $rule->appendChild($example);
+        $rootNode->appendChild($rule);
+    }
+    $sniffXml->save($sniffDocumentationXmlFile, LIBXML_NOEMPTYTAG);
+
+}
+
+function listEmptyDescriptionsAndExamples() {
+    foreach(glob($sniffDocumentationXmlFile = __DIR__ . '/phpcs/*.xml') as $sniffXmlFile) {
+        $sniffXml = new DomDocument();
+        $sniffXml->load($sniffXmlFile);
+        $sniffQuery = new DomXPath($sniffXml);
+        $emptyTags = $sniffQuery->query('//*[normalize-space(.) = ""]');
+        foreach($emptyTags as $emptyTag) {
+            if($emptyTag->nodeName == "ruleset") { 
+                echo '! No docs at all in ', basename($sniffXmlFile), ' !', PHP_EOL;
+                break;
+            }
+            echo basename($sniffXmlFile), ': Empty: "', $emptyTag->nodeName, '" in "', $emptyTag->parentNode->getAttribute('name'), '"', PHP_EOL;
+        }
+
+    }
 }
 
 
@@ -83,6 +126,17 @@ function fetchSniffGroupFolders() {
     return $sniffGroups;
 }
 
+function fetchSniffsForSniffGroup($sniffGroup) {
+    return array_map(
+        function($sniff) {
+            return substr(basename($sniff), 0, -1 * strlen('Sniff.php'));
+        }, 
+        glob($sniffGroup . '/*')
+    );
+}
+
+ 
+
 function usage($message = '') {
     echo 'Usage: ', $_SERVER['argv'][0], ' command <options>', PHP_EOL, PHP_EOL;
     if($message) {
@@ -91,6 +145,7 @@ function usage($message = '') {
     echo '  Available commands: ', PHP_EOL;
     echo '    - list <filter>    Prints all available sniffs and if it exists in sniffDocumentation [x], is incomplete [~], or is missing [ ].', PHP_EOL;
     echo '    - create <sniff>   Create empty xml structure for the sniff group.', PHP_EOL;
+    echo '    - todo             Prints a list of all empty description and examples tags.', PHP_EOL;
     echo PHP_EOL;
     die(-1);
 }
