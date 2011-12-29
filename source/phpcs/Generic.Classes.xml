@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="Generic - Classes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+
+  </description>
+  <rule name="DuplicateClassName" class="Generic_Sniffs_Classes_DuplicateClassNameSniff">
+    <description>
+
+    </description>
+    <example>
+      <![CDATA[
+
+      ]]>
+    </example>
+  </rule>
+</ruleset>
