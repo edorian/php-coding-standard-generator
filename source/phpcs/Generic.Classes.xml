@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="Generic - Classes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+<ruleset name="Generic - Classes"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
   <description>
-
+Sniffs related to PHP classes
   </description>
+
   <rule name="DuplicateClassName" class="Generic_Sniffs_Classes_DuplicateClassNameSniff">
     <description>
-
+Reports errors if the same class or interface name is used in multiple files.
     </description>
     <example>
       <![CDATA[
-
+// bar.php
+class foo {}
+// foo.php
+class foo {}
       ]]>
     </example>
   </rule>
+
 </ruleset>

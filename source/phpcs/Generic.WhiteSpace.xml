@@ -5,21 +5,39 @@
   </description>
   <rule name="DisallowTabIndent" class="Generic_Sniffs_WhiteSpace_DisallowTabIndentSniff">
     <description>
-
+Reports cases where tabs are used for indentation.
     </description>
     <example>
       <![CDATA[
-
+if($x == 1) {
+TAB something();
+}
       ]]>
     </example>
   </rule>
   <rule name="ScopeIndent" class="Generic_Sniffs_WhiteSpace_ScopeIndentSniff">
     <description>
+Checks that control structures are structured correctly, and their content is indented correctly.
 
+This sniff will throw errors if tabs are used for indentation rather than spaces.
     </description>
+    <properties>
+        <property name="indent" description="The number of spaces code should be indented." value="4" />
+        <property name="exact"
+                  description="Does the indent need to be exactly right? If TRUE, indent needs to be exactly $ident spaces.
+ If FALSE indent needs to be at least $ident spaces (but can be more)"
+                  value="true" />
+    </properties>
     <example>
       <![CDATA[
-
+if($x == 1) {
+        echo "hi"; // should be 4 spaces not 8! sh
+}
+if($x == 1) {
+    if($y == 2) {
+      echo "hi"; // should be 8 spaces not 6!
+    }
+}
       ]]>
     </example>
   </rule>

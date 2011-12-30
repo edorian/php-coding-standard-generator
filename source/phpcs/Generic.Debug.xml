@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="Generic - Debug" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+<ruleset name="Generic - Debug"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
   <description>
-
+Javascript related checking options. Show in general not be needed for phpcs. The named tools have to be installed for these sniffs to work.
   </description>
+
   <rule name="ClosureLinter" class="Generic_Sniffs_Debug_ClosureLinterSniff">
     <description>
-
+Runs 'gjslint' on your javascript files.
     </description>
-    <example>
-      <![CDATA[
-
-      ]]>
-    </example>
   </rule>
   <rule name="JSHint" class="Generic_Sniffs_Debug_JSHintSniff">
     <description>
-
+Runs 'jshint' on your javascript files.
     </description>
     <example>
       <![CDATA[
@@ -23,4 +23,5 @@
       ]]>
     </example>
   </rule>
+
 </ruleset>
