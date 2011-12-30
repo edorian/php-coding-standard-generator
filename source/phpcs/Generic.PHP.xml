@@ -50,7 +50,7 @@ sizeof($bar);
 
   <rule name="LowerCaseConstant" class="Generic_Sniffs_PHP_LowerCaseConstantSniff">
     <description>
-Checks that all uses of true, false and null are lowercase.
+Reports any usage of true, false or null where the statement is not written in lowercase.
     </description>
     <example>
       <![CDATA[
@@ -63,7 +63,7 @@ TrUe, FaLsE, NuLl // Also bad
 
   <rule name="NoSilencedErrors" class="Generic_Sniffs_PHP_NoSilencedErrorsSniff">
     <description>
-Disallows the usage of the @ operator.
+Reports the usage of the @ operator.
     </description>
     <properties>
       <property name="error" description="if true, an error will be reported; otherwise a warning." value="true"/>
@@ -78,7 +78,7 @@ if(@$_GET['stuff']) { }
 
   <rule name="UpperCaseConstant" class="Generic_Sniffs_PHP_UpperCaseConstantSniff">
     <description>
-Checks that all uses of TRUE, FALSE and NULL are uppercase.
+Reports any usage of TRUE, FALSE or NULL where the statement is not written in uppercase.
     </description>
     <example>
       <![CDATA[
