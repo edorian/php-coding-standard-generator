@@ -37,7 +37,7 @@ This sniff will throw errors if tabs are used for indentation rather than spaces
     <example>
       <![CDATA[
 if($x == 1) {
-        echo "hi"; // should be 4 spaces not 8! sh
+        echo "hi"; // should be 4 spaces not 8!
 }
 if($x == 1) {
     if($y == 2) {

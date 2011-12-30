@@ -65,15 +65,15 @@ TrUe, FaLsE, NuLl // Also bad
     <description>
 Disallows the usage of the @ operator.
     </description>
+    <properties>
+      <property name="error" description="if true, an error will be reported; otherwise a warning." value="true"/>
+    </properties>
     <example>
       <![CDATA[
 @stuff();
 if(@$_GET['stuff']) { }
       ]]>
     </example>
-    <properties>
-      <property name="error" description="if true, an error will be reported; otherwise a warning." value="true"/>
-    </properties>
   </rule>
 
   <rule name="UpperCaseConstant" class="Generic_Sniffs_PHP_UpperCaseConstantSniff">
