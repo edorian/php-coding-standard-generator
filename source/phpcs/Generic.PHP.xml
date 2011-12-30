@@ -46,7 +46,6 @@ delete($foo);
 sizeof($bar);
       ]]>
     </example>
-      <prop
   </rule>
 
   <rule name="LowerCaseConstant" class="Generic_Sniffs_PHP_LowerCaseConstantSniff">
