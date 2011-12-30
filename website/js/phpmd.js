@@ -95,7 +95,7 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
                 }
             });
             if(allRulesAreActiveAndSimple && that.members.collapseRules) {
-                return "<rule ref='rulesets/" + section.attr("name") + "'/>\n";
+                return '<rule ref="rulesets/' + section.attr("name") + '"/>\n';
             }
             section.find(".rule-selector").each(function() {
                 rules = rules + that.methods.generateRuleXmlForCheckbox($(this));
@@ -142,7 +142,7 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
             properties.each(function() {
                 that.methods.normalizeCheckboxInput($(this));
                 if($(this).attr("value") != $(this).attr("default")) {
-                    propertiesXml = propertiesXml + "        <property name='"+$(this).attr("name")+"' value='"+$(this).attr("value")+"' />\n";
+                    propertiesXml = propertiesXml + '        <property name="' + $(this).attr("name") + '" value="' + $(this).attr("value")+'" />\n';
                 }
             });
             propertiesXml = propertiesXml + "    </properties>\n";
@@ -188,7 +188,7 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
             return '<rule ref="rulesets/' + name + '"/>\n';
         },
         generateRuleWithProperties: function(name, properties) {
-           return '<rule ref="rulesets/' + name + '">\n' + propertyXml+ '</rule>\n';
+           return '<rule ref="rulesets/' + name + '">\n' + propertyXml + '</rule>\n';
         }
     }
 
@@ -305,7 +305,7 @@ pcsg.Phpcs = function(resourceBasedir, resourceIndex) {
         return '<rule ref="' + name + '"/>\n';
     },
     that.methods.generator.generateRuleWithProperties = function(name, properties) {
-        return '<rule ref="' + name + '">\n"' + propertyXml+ '</rule>\n';
+        return '<rule ref="' + name + '">\n' + propertyXml + '</rule>\n';
     }
 
     that.methods.parser.getRulename = function(ruleFile, name) {
