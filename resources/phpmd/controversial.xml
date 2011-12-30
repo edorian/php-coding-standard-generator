@@ -7,7 +7,7 @@
          xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
 
     <description>
-This ruleset contains a collection of controversial rules. Requires snapshop build of phpmd to work. http://pear.phpmd.org/ - pear install pear.phpmd.org/PHP_PMD-1.2.1snapshot201111251851.tgz
+This ruleset contains a collection of controversial rules.
     </description>
 
     <rule name="Superglobals"
