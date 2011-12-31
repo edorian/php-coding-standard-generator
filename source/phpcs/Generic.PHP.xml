@@ -38,7 +38,7 @@ Reports the use of alias functions that are kept in PHP for compatibility with o
 Can be used to forbid the use of any function when creating your own Sniff class extending from this class.
     </description>
     <properties>
-        <property name="error" description="if true, an error will be reported; otherwise a warning." value="true"/>
+      <property name="error" description="If true, an error will be reported; otherwise a warning." value="true"/>
     </properties>
     <example>
       <![CDATA[
@@ -66,7 +66,7 @@ TrUe, FaLsE, NuLl // Also bad
 Reports the usage of the @ operator.
     </description>
     <properties>
-      <property name="error" description="if true, an error will be reported; otherwise a warning." value="true"/>
+      <property name="error" description="If true, an error will be reported; otherwise a warning." value="true"/>
     </properties>
     <example>
       <![CDATA[

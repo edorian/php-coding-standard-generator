@@ -99,7 +99,7 @@ function listEmptyDescriptionsAndExamples() {
         $sniffXml = new DomDocument();
         $sniffXml->load($sniffXmlFile);
         $sniffQuery = new DomXPath($sniffXml);
-        $emptyTags = $sniffQuery->query('//*[normalize-space(.) = ""]');
+        $emptyTags = $sniffQuery->query('//*[normalize-space(.) = "" and (name() = "ruleset" or name() = "example" or name() = "description") ]');
         foreach($emptyTags as $emptyTag) {
             if($emptyTag->nodeName == "ruleset") { 
                 echo '! No docs at all in ', basename($sniffXmlFile), ' !', PHP_EOL;

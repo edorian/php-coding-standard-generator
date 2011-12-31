@@ -20,8 +20,8 @@ Reports line endings that are not $eolChar. Defaults to making sure that everyth
     </description>
     <properties>
       <property name="eolChar"
-                  description="Use \n for UNIX line endings and \r\n for WINDOWS line endings."
-                  value="\n"/>
+                description="Use \n for UNIX line endings and \r\n for WINDOWS line endings."
+                value="\n"/>
     </properties>
     <example>
       <![CDATA[

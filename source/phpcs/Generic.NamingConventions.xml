@@ -1,25 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="Generic - NamingConventions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+<ruleset name="Generic - NamingConventions"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
   <description>
-
+Sniffs related to naming things
   </description>
   <rule name="ConstructorName" class="Generic_Sniffs_NamingConventions_ConstructorNameSniff">
     <description>
-
+Reports usage of PHP 4 style constructors
     </description>
+    <properties>
+      <property name="error" description="If true, an error will be reported; otherwise a warning." value="true"/>
+    </properties>
     <example>
       <![CDATA[
+class foo {
+  // Old style constructor is not allowed!
+  public function foo() {
 
+  }
+}
       ]]>
     </example>
   </rule>
   <rule name="UpperCaseConstantName" class="Generic_Sniffs_NamingConventions_UpperCaseConstantNameSniff">
     <description>
-
+Reports all cases where constants are not uppercase
     </description>
     <example>
       <![CDATA[
-
+const FOO = 'ok';
+define('bad', 7);
+x = bad; // Not ok
       ]]>
     </example>
   </rule>
