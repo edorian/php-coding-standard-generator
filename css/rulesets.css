@@ -1,6 +1,6 @@
 .rule {
     background-color: #eee;
-    margin-bottom: 30px;
+    margin-top: 20px;
 }
 
 .rule-container {
@@ -55,8 +55,11 @@
 
 .ruleset-description {
     width: 100%;
-    height: 50px;
     y-overflow: scroll;
+    font-size: 0.8em;
+    padding: 0;
+    margin: 0;
+    margin-bottom: -8px;
 }
 
 .rule-example span:hover {

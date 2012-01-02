@@ -195,11 +195,13 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
     that.methods.parser = {
         getRulename: function(ruleFile, name) {
             return ruleFile+"/"+name;
+        },
+        extractRuleidSelector: function(ref) {
+            return ref.substring(9).replace(/(:|\.|\/)/g,'\\$1');
         }
     }
 
     // public
-    
     that.renderInto = function(container, xmlContainer, errorContainer) {
         that.members.container = container;
         that.members.errorContainer = errorContainer;
@@ -252,7 +254,7 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
             $(this).attr("value", $(this).attr("default"));
         });
         rules.each(function() {
-            ruleidSelector = $(this).attr("ref").substring(9).replace(/(:|\.|\/)/g,'\\$1');
+            ruleidSelector = that.methods.parser.extractRuleidSelector($(this).attr("ref"));
             // All rules of this ruleset type rule ( <rule ref="rulesets/unusedcode.xml"/> )
             if(ruleidSelector.match(".xml$") == ".xml") {
                 $(".rule-section[name='"+ruleidSelector+"']").find(".rule-selector").attr("checked", "checked");
@@ -303,13 +305,15 @@ pcsg.Phpcs = function(resourceBasedir, resourceIndex) {
     }
     that.methods.generator.generateSimpleRule = function(name) {
         return '<rule ref="' + name + '"/>\n';
-    },
+    }
     that.methods.generator.generateRuleWithProperties = function(name, properties) {
         return '<rule ref="' + name + '">\n' + propertyXml + '</rule>\n';
     }
-
     that.methods.parser.getRulename = function(ruleFile, name) {
         return ruleFile.substr(0, ruleFile.length-3) + name;
+    }
+    that.methods.parser.extractRuleidSelector = function(ref) {
+        return ref.replace(/(:|\.|\/)/g,'\\$1');
     }
     return that;
 }

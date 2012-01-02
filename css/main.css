@@ -46,7 +46,9 @@ h1 {
     padding:10px;
 }
 h2 {
-    margin:0 0 1em;
+    margin: 0;
+    margin-top: 10px;
+    padding: 0;
 }
 #sidebar {
     float:right;

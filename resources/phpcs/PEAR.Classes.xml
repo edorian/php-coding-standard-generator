@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="PEAR - Classes"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0" 
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+PEAR coding standard sniffs related to classes
+  </description>
+
+  <rule name="ClassDeclaration" class="PEAR_Sniffs_Classes_ClassDeclarationSniff">
+    <description>
+Classes must have their opening brace on a new line and must indeted by $indent spaces.
+
+http://pear.php.net/manual/en/standards.classdef.php
+    </description>
+    <properties>
+      <property name="indent" description="The number of spaces code should be indented" value="4"/>
+    </properties>
+    <example>
+      <![CDATA[
+<?php
+class Foo_Bar
+{
+
+    //... code goes here
+
+}
+?>
+      ]]>
+    </example>
+  </rule>
+
+</ruleset>
