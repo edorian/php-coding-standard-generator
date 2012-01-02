@@ -38,7 +38,7 @@ Reports the use of alias functions that are kept in PHP for compatibility with o
 Can be used to forbid the use of any function when creating your own Sniff class extending from this class.
     </description>
     <properties>
-        <property name="error" description="if true, an error will be reported; otherwise a warning." value="true"/>
+      <property name="error" description="If true, an error will be reported; otherwise a warning." value="true"/>
     </properties>
     <example>
       <![CDATA[
@@ -50,7 +50,7 @@ sizeof($bar);
 
   <rule name="LowerCaseConstant" class="Generic_Sniffs_PHP_LowerCaseConstantSniff">
     <description>
-Checks that all uses of true, false and null are lowercase.
+Reports any usage of true, false or null where the statement is not written in lowercase.
     </description>
     <example>
       <![CDATA[
@@ -63,10 +63,10 @@ TrUe, FaLsE, NuLl // Also bad
 
   <rule name="NoSilencedErrors" class="Generic_Sniffs_PHP_NoSilencedErrorsSniff">
     <description>
-Disallows the usage of the @ operator.
+Reports the usage of the @ operator.
     </description>
     <properties>
-      <property name="error" description="if true, an error will be reported; otherwise a warning." value="true"/>
+      <property name="error" description="If true, an error will be reported; otherwise a warning." value="true"/>
     </properties>
     <example>
       <![CDATA[
@@ -78,7 +78,7 @@ if(@$_GET['stuff']) { }
 
   <rule name="UpperCaseConstant" class="Generic_Sniffs_PHP_UpperCaseConstantSniff">
     <description>
-Checks that all uses of TRUE, FALSE and NULL are uppercase.
+Reports any usage of TRUE, FALSE or NULL where the statement is not written in uppercase.
     </description>
     <example>
       <![CDATA[

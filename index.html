@@ -22,8 +22,8 @@
         </ul>
     </div>
     <div id="main">
-        <div id="phpmd" class="rule-container"></div>
-        <div id="phpcs" class="rule-container"></div>
+        <div id="phpmd-container" class="rule-container"></div>
+        <div id="phpcs-container" class="rule-container"></div>
     </div>
     <div id="sidebar">
         <div id="phpmd-xml-container" class='xmloutput-container'>
@@ -46,41 +46,49 @@
 <script>
     $(document).ready(function () {
         md = new pcsg.Phpmd("resources/phpmd/", "rulesets.json");
-        md.renderInto($("#phpmd"), $("#phpmd-xml"), $("#phpmd-xml-error"));
+        md.renderInto($("#phpmd-container"), $("#phpmd-xml"), $("#phpmd-xml-error"));
         $("#phpmd-xml").change(function() {
-            md.xmlUpateHandler($(this).val(), $("#phpmd"));
+            md.xmlUpateHandler($(this).val(), $("#phpmd-container"));
         });
         $("#phpmd-xml").keyup(function() {
-            md.xmlUpateHandler($(this).val(), $("#phpmd"));
+            md.xmlUpateHandler($(this).val(), $("#phpmd-container"));
         });
         cs = new pcsg.Phpcs("resources/phpcs/", "rulesets.json");
-        cs.renderInto($("#phpcs"), $("#phpcs-xml"), $("#phpcs-xml-error"));
+        cs.renderInto($("#phpcs-container"), $("#phpcs-xml"), $("#phpcs-xml-error"));
         $("#phpcs-xml").change(function() {
-            cs.xmlUpateHandler($(this).val(), $("#phpcs"));
+            cs.xmlUpateHandler($(this).val(), $("#phpcs-container"));
         });
         $("#phpcs-xml").keyup(function() {
-            cs.xmlUpateHandler($(this).val(), $("#phpcs"));
+            cs.xmlUpateHandler($(this).val(), $("#phpcs-container"));
         });
-        $('#phpcs').hide();
-        $('#phpcs-xml-container').hide();
-        $('#phpmd-activate').addClass('active');
 
         $('#phpcs-activate').click(function() {
-            $('#phpmd').hide();
+            document.location.hash = 'phpcs';
+            $('#phpmd-container').hide();
             $('#phpmd-xml-container').hide();
-            $('#phpcs').show();
+            $('#phpcs-container').show();
             $('#phpcs-xml-container').show();
             $('#phpcs-activate').addClass('active');
             $('#phpmd-activate').removeClass('active');
         });
         $('#phpmd-activate').click(function() {
-            $('#phpcs').hide();
+            document.location.hash = 'phpmd';
+            $('#phpcs-container').hide();
             $('#phpcs-xml-container').hide();
-            $('#phpmd').show();
+            $('#phpmd-container').show();
             $('#phpmd-xml-container').show();
             $('#phpmd-activate').addClass('active');
             $('#phpcs-activate').removeClass('active');
         });
+        hash = document.location.hash;
+        if(hash.length > 0) {
+            hash = hash.substring(1);
+        }
+        if(hash == 'phpcs') {
+            $('#phpcs-activate').click();
+        } else {
+            $('#phpmd-activate').click();
+        }
     });
 </script>
 
@@ -88,6 +96,19 @@
 <a href="http://github.com/edorian/php-coding-standard-generator"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://d3nwyuy0nl342s.cloudfront.net/img/abad93f42020b733148435e2cd92ce15c542d320/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub"></a>
 <!-- /Github ribbon -->
 
+<script type="text/javascript">
 
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28040153-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  
 </body>
 </html>

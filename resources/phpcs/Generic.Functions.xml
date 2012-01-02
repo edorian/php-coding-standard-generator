@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Generic - Functions"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+Sniffs related to function arguments and brace styles
+  </description>
+
+  <rule name="CallTimePassByReference" class="Generic_Sniffs_Functions_CallTimePassByReferenceSniff">
+    <description>
+Reports usage of call-time pass-by-reference. See: http://php.net/manual/en/language.references.pass.php
+    </description>
+    <example>
+      <![CDATA[
+//Invalid
+function foo($bar) {
+  $bar++;
+}
+$x = 1;
+foo(&$x);
+//Valid
+function foo(&$bar) {
+  $bar++;
+}
+$x = 1;
+foo($x);
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="FunctionCallArgumentSpacing" class="Generic_Sniffs_Functions_FunctionCallArgumentSpacingSniff">
+    <description>
+NO DOCUMENTATION AVAILABLE. Contributions welcome. I didn't want to reverse engineer what this is supposed to do and how it works *exactly*.
+    </description>
+    <example>
+      <![CDATA[
+NO SAMPLE AVAILABLE. Contributions welcome.
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="OpeningFunctionBraceBsdAllman" class="Generic_Sniffs_Functions_OpeningFunctionBraceBsdAllmanSniff ">
+    <description>
+Function declarations must follow the "BSD/Allman style".
+
+The function brace is on the line following the function declaration and is indented to the same column as the start of the function declaration.
+    </description>
+    <example>
+      <![CDATA[
+//Valid
+function foo()
+{
+    // ...
+}
+//Invalid
+function foo() {
+    // ...
+}
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="OpeningFunctionBraceKernighanRitchie" class="Generic_Sniffs_Functions_OpeningFunctionBraceKernighanRitchieSniff">
+    <description>
+Function declarations follow the "Kernighan/Ritchie style".
+
+The function brace is on the same line as the function declaration. One space is required between the closing parenthesis and the brace.
+    </description>
+    <example>
+      <![CDATA[
+//Valid
+function foo() {
+    // ...
+}
+//Invalid
+function foo()
+{
+    // ...
+}
+      ]]>
+    </example>
+  </rule>
+
+</ruleset>
