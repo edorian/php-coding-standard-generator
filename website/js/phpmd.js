@@ -142,7 +142,7 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
             properties.each(function() {
                 that.methods.normalizeCheckboxInput($(this));
                 if($(this).attr("value") != $(this).attr("default")) {
-                    propertiesXml = propertiesXml + '        <property name="' + $(this).attr("name") + '" value="' + $(this).attr("value")+'" />\n';
+                    propertiesXml = propertiesXml + '        <property name="' + $(this).attr("name") + '" value="' + $(this).attr("value")+'"/>\n';
                 }
             });
             propertiesXml = propertiesXml + "    </properties>\n";
@@ -210,7 +210,7 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
             success: function(data) {
                 rulesetNameId = that.members.name + '-ruleset-name';
                 rulesetDescriptionId = that.members.name + '-ruleset-description';
-                that.members.container.append('Ruleset name: <input type="text" id="'+rulesetNameId+'" size="30" value="pcsg-generated-ruleset" /><br /><br />');
+                that.members.container.append('Ruleset name: <input type="text" id="'+rulesetNameId+'" size="30" value="pcsg-generated-ruleset"/><br /><br />');
                 that.members.container.append(
                     'Ruleset description:<br />'+
                     '<textarea id="'+rulesetDescriptionId+'" class="ruleset-description">'+
