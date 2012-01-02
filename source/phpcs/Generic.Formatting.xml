@@ -23,6 +23,11 @@ $x = 6; $y = 7; $z = 6 * 7;
     <description>
 Reports unaligned assignments. If there are multiple adjacent assignments, the equals signs of each assignment have to be aligned.
     </description>
+    <properties>
+        <property name="error" description="If true, an error will be reported; otherwise a warning." value="true"/>
+        <property name="maxPadding" description="The maximum amount of padding before the alignment is ignored." value="1000"></property>
+        <property name="ignoreMultiLine" description="If true, multi-line assignments are not checked." value="false"></property>
+    </properties>
     <example>
       <![CDATA[
 //Valid
@@ -37,7 +42,7 @@ $myOtherVariable = 2;
 
 $x = 100; // Must not be indeted because of the blank line!
 while($x--) {
-    echo $x, PHP_EOL;
+  echo $x, PHP_EOL;
 }
       ]]>
     </example>
