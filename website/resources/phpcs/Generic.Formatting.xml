@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Generic - Formatting"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+Sniffs related to basic formatting
+  </description>
+
+  <rule name="DisallowMultipleStatements" class="Generic_Sniffs_Formatting_DisallowMultipleStatementsSniff">
+    <description>
+Reports cases where there is more than one statement per line.
+    </description>
+    <example>
+      <![CDATA[
+$x = 6; $y = 7; $z = 6 * 7;
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="MultipleStatementAlignment" class="Generic_Sniffs_Formatting_MultipleStatementAlignmentSniff">
+    <description>
+Reports unaligned assignments. If there are multiple adjacent assignments, the equals signs of each assignment have to be aligned.
+    </description>
+    <example>
+      <![CDATA[
+//Valid
+$stuff      = 1;
+$otherStuff = 2;
+//Invalid
+$stuff = 1;
+$otherStuff = 2;
+//Also valid
+$myVar           = 1
+$myOtherVariable = 2;
+
+$x = 100; // Must not be indeted because of the blank line!
+while($x--) {
+    echo $x, PHP_EOL;
+}
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="NoSpaceAfterCast" class="Generic_Sniffs_Formatting_NoSpaceAfterCastSniff">
+    <description>
+Reports cases where there are spaces after cast statements
+    </description>
+    <example>
+      <![CDATA[
+//Valid
+$x = (string)1;
+//Invalid
+$x = (string) 1;
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="SpaceAfterCast" class="Generic_Sniffs_Formatting_SpaceAfterCastSniff">
+    <description>
+Reports cases where there is no space after a cast statement
+    </description>
+    <example>
+      <![CDATA[
+//Valid
+$x = (string) 1;
+//Invalid
+$x = (string)1;
+//Also invalid
+$x = (string)  1; // Only 1 space allowed!
+      ]]>
+    </example>
+  </rule>
+
+</ruleset>

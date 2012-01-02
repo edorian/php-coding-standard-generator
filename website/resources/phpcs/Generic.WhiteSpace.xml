@@ -23,7 +23,7 @@ TAB something();
 
   <rule name="ScopeIndent" class="Generic_Sniffs_WhiteSpace_ScopeIndentSniff">
     <description>
-Checks that control structures are structured correctly, and their content is indented correctly.
+Checks that control structures are structured correctly and their content is indented correctly.
 
 This sniff will throw errors if tabs are used for indentation rather than spaces.
     </description>

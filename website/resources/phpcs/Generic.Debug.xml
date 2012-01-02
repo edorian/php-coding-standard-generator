@@ -17,11 +17,6 @@ Runs 'gjslint' on your javascript files.
     <description>
 Runs 'jshint' on your javascript files.
     </description>
-    <example>
-      <![CDATA[
-
-      ]]>
-    </example>
   </rule>
 
 </ruleset>

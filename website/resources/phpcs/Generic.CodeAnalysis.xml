@@ -23,7 +23,7 @@ if($x == 5) {
 
   <rule name="ForLoopShouldBeWhileLoop" class="Generic_Sniffs_CodeAnalysis_ForLoopShouldBeWhileLoopSniff">
     <description>
-Detects for loops that can be simplified to a while-loop.
+Reports 'for' loops that can be simplified to a 'while' loop.
     </description>
     <example>
       <![CDATA[
@@ -56,7 +56,7 @@ For loops test expressions may not have function calls in them.
 
   <rule name="JumbledIncrementer" class="Generic_Sniffs_CodeAnalysis_JumbledIncrementerSniff">
     <description>
-Detects incrementer jumbling in for loops.
+Reports incrementer jumbling in for loops.
     </description>
     <example>
       <![CDATA[
@@ -73,7 +73,7 @@ Detects incrementer jumbling in for loops.
 
   <rule name="UnconditionalIfStatement" class="Generic_Sniffs_CodeAnalysis_UnconditionalIfStatementSniff">
     <description>
-Detects unconditional if- and elseif-statements.
+Reports unconditional if- and elseif-statements.
     </description>
     <example>
       <![CDATA[
@@ -85,7 +85,7 @@ if(true) {
 
   <rule name="UnnecessaryFinalModifier" class="Generic_Sniffs_CodeAnalysis_UnnecessaryFinalModifierSniff">
     <description>
-Detects unnecessary final modifiers inside of final classes.
+Reports unnecessary final modifiers inside of final classes.
     </description>
     <example>
       <![CDATA[
@@ -99,7 +99,7 @@ final class Bar {
 
   <rule name="UnusedFunctionParameter" class="Generic_Sniffs_CodeAnalysis_UnusedFunctionParameterSniff">
     <description>
-Checks for unused function parameters.
+Reports unused function parameters.
     </description>
     <example>
       <![CDATA[
@@ -112,7 +112,7 @@ function bar($x, $y) {
 
   <rule name="UselessOverridingMethod" class="Generic_Sniffs_CodeAnalysis_UselessOverridingMethodSniff">
     <description>
-Detects unnecessary overriden methods that simply call their parent.
+Reports unnecessary overriden methods that simply call their parent.
     </description>
     <example>
       <![CDATA[
