@@ -10,7 +10,7 @@ Sniffs related to code metrics
 
   <rule name="CyclomaticComplexity" class="Generic_Sniffs_Metrics_CyclomaticComplexitySniff">
     <description>
-Reports to complex function determined by the cyclomatic complexity (McCabe, http://en.wikipedia.org/wiki/Cyclomatic_complexity) of that function.
+Disallows to complex function determined by the cyclomatic complexity (McCabe, http://en.wikipedia.org/wiki/Cyclomatic_complexity) of that function.
 
 If $absoluteComplexity has the same value as $complexity then there will be only errors and no warnings.
     </description>
@@ -27,7 +27,7 @@ Just check Wikipedia for the details
 
   <rule name="NestingLevel" class="Generic_Sniffs_Metrics_NestingLevelSniff">
     <description>
-Reports functions that are to deeply nested.
+Defines a maximum $nestingLevel and $absoluteNestingLevel for functions.
 
 If $nestingLevel has the same value as $absoluteNestingLevel then there will be only errors and no warnings.
     </description>

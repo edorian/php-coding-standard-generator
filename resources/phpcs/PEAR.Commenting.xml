@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="PEAR - Commenting"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+Sniffs related to how PEAR thinks structures should be commented.
+  </description>
+  <rule name="ClassComment" class="PEAR_Sniffs_Commenting_ClassCommentSniff">
+    <description>
+Enforces class comments and their format. For a detailed rule description check the example section.
+    </description>
+    <example>
+      <![CDATA[
+Rules:
+- A doc comment must exist.
+- There has to be a blank newline after the short description.
+- There has to be a blank newline between the long and short description.
+- There has to be a blank newline between the long description and tags.
+- The tags have to appear in the following order. A question mark denotes optional tags:
+  @category, @package, @subpackage?, @author, @copyright?,
+  @license?, @version, @link, @see?, @since?, @deprecated?
+- Check the indentation of each tag.
+- Check required and optional tags and the format of their content.
+
+/**
+ * Sample class short comment
+ *
+ * Sample long desc
+ *
+ * @category  Something
+ * @package   MyPackage
+ * @author    name
+ * @copyright something
+ * @license   BSD Licence
+ * @version
+ * @link      url
+ */
+ class TheCommentedClass {
+ }
+      ]]>
+    </example>
+  </rule>
+  <rule name="FileComment" class="PEAR_Sniffs_Commenting_FileCommentSniff">
+    <description>
+Enforces file comments and their format. For a detailed rule description check the example section.
+    </description>
+    <example>
+      <![CDATA[
+Rules:
+- A doc comment must exist.
+- There has to be a blank newline after the short description.
+- There has to be a blank newline between the long and short description.
+- There has to be a blank newline between the long description and tags.
+- A PHP version must be specified.
+- The tags have to appear in the following order. A question mark denotes optional tags:
+  @category, @package, @subpackage?, @author, @copyright?,
+  @license?, @version, @link, @see?, @since?, @deprecated?
+- Check the indentation of each tag.
+- Check required and optional tags and the format of their content.
+
+/**
+ * Sample file short comment
+ *
+ * Sample long desc
+ *
+ * PHP Version: 1.2.3
+ *
+ * @category  Something
+ * @package   MyPackage
+ * @author    name
+ * @copyright something
+ * @license   BSD Licence
+ * @version
+ * @link      url
+ */
+
+/**
+ * // class docs
+ */
+class MyClass {
+}
+      ]]>
+    </example>
+  </rule>
+  <rule name="FunctionComment" class="PEAR_Sniffs_Commenting_FunctionCommentSniff">
+    <description>
+Enforces function comments and their format. For a detailed rule description check the example section.
+    </description>
+    <example>
+      <![CDATA[
+Rules:
+- A comment must exist
+- There must be a blank newline after the short description.
+- There must be a blank newline between the long and short description.
+- There must be a blank newline between the long description and tags.
+- Parameter names must represent those in the method.
+- Parameter comments must be in the correct order
+- Parameter comments must be complete
+- A space must be present before the first and after the last parameter
+- A return type tag must exists
+- There must be one blank line between body and headline comments
+- Any throw tag must have an exception class.
+      ]]>
+    </example>
+  </rule>
+  <rule name="InlineComment" class="PEAR_Sniffs_Commenting_InlineCommentSniff">
+    <description>
+Checks that no perl-style comments (#) are used.
+    </description>
+    <example>
+      <![CDATA[
+function foo {
+    # Invalid comment
+    // Valid comment
+    /* Also valid */
+}
+      ]]>
+    </example>
+  </rule>
+</ruleset>

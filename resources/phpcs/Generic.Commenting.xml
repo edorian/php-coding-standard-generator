@@ -10,7 +10,7 @@ Detects patterns in comments
 
   <rule name="Todo" class="Generic_Sniffs_Commenting_TodoSniff">
     <description>
-Reports 'TODO' comments
+There may not be any 'TODO' comments
     </description>
     <example>
       <![CDATA[

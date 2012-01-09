@@ -10,13 +10,13 @@ Sniffs related to file layout
 
   <rule name="ByteOrderMark" class="Generic_Sniffs_Files_ByteOrderMarkSniff">
     <description>
-Reports if a byte order mark is found in any PHP file to avoid application failures.
+Reports cases where a byte order mark is found in any PHP file to avoid application failures.
     </description>
   </rule>
 
   <rule name="LineEndings" class="Generic_Sniffs_Files_LineEndingsSniff">
     <description>
-Reports line endings that are not $eolChar. Defaults to making sure that everything has UNIX line endings.
+Line endings must be $eolChar. Defaults to making sure that everything has UNIX line endings.
     </description>
     <properties>
       <property name="eolChar"
@@ -34,7 +34,7 @@ echo "My other line";\n
 
   <rule name="LineLength" class="Generic_Sniffs_Files_LineLengthSniff">
     <description>
-Reports lines that are longer than $lineLimit and $absoluteLineLimit.
+Lines should not longer than $lineLimit (warning) and must not be longer than $absoluteLineLimit (error).
 
 If $lineLimit and $absoluteLineLimit are configured to have the same value only one error is reported.
 To turn of $absoluteLineLimit '0' can be used.
