@@ -10,7 +10,7 @@ Sniffs related whitespace usage for structuring source files.
 
   <rule name="DisallowTabIndent" class="Generic_Sniffs_WhiteSpace_DisallowTabIndentSniff">
     <description>
-Reports cases where tabs are used for indentation.
+Spaces, not tabs, must be used for indentation.
     </description>
     <example>
       <![CDATA[

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="PEAR - Formatting"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+Sniffs related to how code should be formatted.
+  </description>
+  <rule name="MultiLineAssignment" class="PEAR_Sniffs_Formatting_MultiLineAssignmentSniff">
+    <description>
+Assignment that spawn two lines must have their equal sign indented and on the new line
+    </description>
+    <example>
+      <![CDATA[
+// Valid
+$GLOBALS['TSFE']->additionalHeaderData[$this->strApplicationName]
+    = $this->xajax->getJavascript(t3lib_extMgm::siteRelPath('nr_xajax'));
+
+// Invalid, wrong indention depth
+$GLOBALS['TSFE']->additionalHeaderData[$this->strApplicationName]
+     = $this->xajax->getJavascript(t3lib_extMgm::siteRelPath('nr_xajax'));
+
+// Invalid, wrong indention depth
+$GLOBALS['TSFE']->additionalHeaderData[$this->strApplicationName]
+   = $this->xajax->getJavascript(t3lib_extMgm::siteRelPath('nr_xajax'));
+
+// Invalid, equals sign needs to be on the next line
+$GLOBALS['TSFE']->additionalHeaderData[$this->strApplicationName] =
+    $this->xajax->getJavascript(t3lib_extMgm::siteRelPath('nr_xajax'));
+      ]]>
+    </example>
+  </rule>
+</ruleset>

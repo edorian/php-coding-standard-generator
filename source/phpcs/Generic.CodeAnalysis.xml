@@ -23,7 +23,7 @@ if($x == 5) {
 
   <rule name="ForLoopShouldBeWhileLoop" class="Generic_Sniffs_CodeAnalysis_ForLoopShouldBeWhileLoopSniff">
     <description>
-Reports 'for' loops that can be simplified to a 'while' loop.
+All 'for' loops that could be simplified to a 'while' loop must be simplified.
     </description>
     <example>
       <![CDATA[
@@ -56,7 +56,7 @@ For loops test expressions may not have function calls in them.
 
   <rule name="JumbledIncrementer" class="Generic_Sniffs_CodeAnalysis_JumbledIncrementerSniff">
     <description>
-Reports incrementer jumbling in for loops.
+Reports cases where incrementer jumbling might happen in 'for' loops.
     </description>
     <example>
       <![CDATA[
@@ -73,7 +73,7 @@ Reports incrementer jumbling in for loops.
 
   <rule name="UnconditionalIfStatement" class="Generic_Sniffs_CodeAnalysis_UnconditionalIfStatementSniff">
     <description>
-Reports unconditional if- and elseif-statements.
+If- and elseif-statements may not be unconditional.
     </description>
     <example>
       <![CDATA[
@@ -85,7 +85,7 @@ if(true) {
 
   <rule name="UnnecessaryFinalModifier" class="Generic_Sniffs_CodeAnalysis_UnnecessaryFinalModifierSniff">
     <description>
-Reports unnecessary final modifiers inside of final classes.
+No unnecessary final modifiers inside of final classes.
     </description>
     <example>
       <![CDATA[
@@ -99,7 +99,7 @@ final class Bar {
 
   <rule name="UnusedFunctionParameter" class="Generic_Sniffs_CodeAnalysis_UnusedFunctionParameterSniff">
     <description>
-Reports unused function parameters.
+No unused function parameters are allowed.
     </description>
     <example>
       <![CDATA[
@@ -112,7 +112,7 @@ function bar($x, $y) {
 
   <rule name="UselessOverridingMethod" class="Generic_Sniffs_CodeAnalysis_UselessOverridingMethodSniff">
     <description>
-Reports unnecessary overriden methods that simply call their parent.
+No unnecessary overridden methods, that simply call their parent, are allowed.
     </description>
     <example>
       <![CDATA[

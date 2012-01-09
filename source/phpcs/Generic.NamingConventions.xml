@@ -9,7 +9,7 @@ Sniffs related to naming things
   </description>
   <rule name="ConstructorName" class="Generic_Sniffs_NamingConventions_ConstructorNameSniff">
     <description>
-Reports usage of PHP 4 style constructors
+Disallows usage of PHP 4 style constructors
     </description>
     <properties>
       <property name="error" description="If true, an error will be reported; otherwise a warning." value="true"/>
@@ -27,7 +27,7 @@ class foo {
   </rule>
   <rule name="UpperCaseConstantName" class="Generic_Sniffs_NamingConventions_UpperCaseConstantNameSniff">
     <description>
-Reports all cases where constants are not uppercase
+Constants must be uppercase
     </description>
     <example>
       <![CDATA[

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="PEAR - NamingConventions"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+Sniffs related to PEAR naming conventions
+  </description>
+  <rule name="ValidClassName" class="PEAR_Sniffs_NamingConventions_ValidClassNameSniff">
+    <description>
+Class and interface names must start with a capital letter for each part of the name, separated by underscores.
+    </description>
+    <example>
+      <![CDATA[
+class VALID_Name {}
+
+class Valid_Name {}
+
+class ValidName {}
+
+class Invalid_name {} // N needs to be uppercase
+
+class invalid_name {}
+      ]]>
+    </example>
+  </rule>
+  <rule name="ValidFunctionName" class="PEAR_Sniffs_NamingConventions_ValidFunctionNameSniff">
+    <description>
+Protected and private functions must start with an underscore.
+Public functions may not start with an underscore.
+    </description>
+    <example>
+      <![CDATA[
+//Valid
+public function abc() {}
+private function _test() {}
+
+//Invalid
+public function _abc() {}
+private function test() {}
+      ]]>
+    </example>
+  </rule>
+  <rule name="ValidVariableName" class="PEAR_Sniffs_NamingConventions_ValidVariableNameSniff">
+    <description>
+Private members must have an underscore in front, public members must not.
+    </description>
+    <example>
+      <![CDATA[
+// Valid
+private $_foo;
+public $bar;
+
+//Invalid
+private $foo;
+public $_bar;
+      ]]>
+    </example>
+  </rule>
+</ruleset>
