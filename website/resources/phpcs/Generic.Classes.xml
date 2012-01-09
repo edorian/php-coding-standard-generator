@@ -10,7 +10,7 @@ Sniffs related to PHP classes
 
   <rule name="DuplicateClassName" class="Generic_Sniffs_Classes_DuplicateClassNameSniff">
     <description>
-Reports errors if the same class or interface name is used in multiple files.
+A class or interface must not be defined in multiple files.
     </description>
     <example>
       <![CDATA[

@@ -9,7 +9,7 @@ Sniffs related to version control
   </description>
   <rule name="SubversionProperties" class="Generic_Sniffs_VersionControl_SubversionPropertiesSniff">
     <description>
-Reports missing subversion properties on files.
+Ensures expected subversion properties exist on files.
 
 By default the expected properties are svn:keywords and svn:eol-style.
     </description>

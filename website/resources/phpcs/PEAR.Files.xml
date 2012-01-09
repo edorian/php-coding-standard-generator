@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="PEAR - Files"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+Sniffs related to how file inclusion works in PEAR.
+  </description>
+  <rule name="IncludingFile" class="PEAR_Sniffs_Files_IncludingFileSniff">
+    <description>
+Checks that the include_once is used in conditional situations, and require_once is used elsewhere.
+Also checks that brackets do not surround the file being included.
+    </description>
+    <example>
+      <![CDATA[
+// These are statements and should not have brackets.
+require_once('blank.inc');
+require('blank.inc');
+
+// Conditionally including a class file: use include_once
+if ($test) {
+    require_once 'blank.inc';
+    require 'blank.inc';
+}
+
+// Unconditionally including a class file: use require_once
+include_once 'blank.inc';
+include 'blank.inc';
+
+// These are ok
+if ($test) {
+    include_once 'blank.inc';
+    include 'blank.inc';
+}
+      ]]>
+    </example>
+  </rule>
+</ruleset>

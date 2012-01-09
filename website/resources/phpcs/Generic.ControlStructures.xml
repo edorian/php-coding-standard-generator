@@ -10,7 +10,7 @@ Sniffs related to control structures
 
   <rule name="InlineControlStructure" class="Generic_Sniffs_ControlStructures_InlineControlStructureSniff">
     <description>
-Reports inline control structures like if($a) continue;
+Inline control structures like 'if($a) continue;' are not allowed
     </description>
     <example>
       <![CDATA[

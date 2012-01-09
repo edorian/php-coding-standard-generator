@@ -10,7 +10,7 @@ Sniffs related to basic formatting
 
   <rule name="DisallowMultipleStatements" class="Generic_Sniffs_Formatting_DisallowMultipleStatementsSniff">
     <description>
-Reports cases where there is more than one statement per line.
+There must be only on statement per line.
     </description>
     <example>
       <![CDATA[
@@ -21,7 +21,7 @@ $x = 6; $y = 7; $z = 6 * 7;
 
   <rule name="MultipleStatementAlignment" class="Generic_Sniffs_Formatting_MultipleStatementAlignmentSniff">
     <description>
-Reports unaligned assignments. If there are multiple adjacent assignments, the equals signs of each assignment have to be aligned.
+If there are multiple adjacent assignments, the equals signs of each assignment have to be aligned.
     </description>
     <properties>
         <property name="error" description="If true, an error will be reported; otherwise a warning." value="true"/>
@@ -50,7 +50,7 @@ while($x--) {
 
   <rule name="NoSpaceAfterCast" class="Generic_Sniffs_Formatting_NoSpaceAfterCastSniff">
     <description>
-Reports cases where there are spaces after cast statements
+There may be no spaces after cast statements.
     </description>
     <example>
       <![CDATA[
@@ -64,7 +64,7 @@ $x = (string) 1;
 
   <rule name="SpaceAfterCast" class="Generic_Sniffs_Formatting_SpaceAfterCastSniff">
     <description>
-Reports cases where there is no space after a cast statement
+There must be a space after a cast statement.
     </description>
     <example>
       <![CDATA[

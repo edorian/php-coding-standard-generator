@@ -10,7 +10,7 @@ Sniffs related to function arguments and brace styles
 
   <rule name="CallTimePassByReference" class="Generic_Sniffs_Functions_CallTimePassByReferenceSniff">
     <description>
-Reports usage of call-time pass-by-reference. See: http://php.net/manual/en/language.references.pass.php
+Disallows usage of call-time pass-by-reference. See: http://php.net/manual/en/language.references.pass.php
     </description>
     <example>
       <![CDATA[
