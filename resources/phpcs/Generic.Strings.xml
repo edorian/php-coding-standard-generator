@@ -12,6 +12,9 @@ Sniffs related to string handling
     <description>
 Strings must not be concatenated when they could be written as one string.
     </description>
+    <properties>
+        <property name="error" description="If true, an error will be reported; otherwise a warning." value="true"/>
+    </properties>
     <example>
       <![CDATA[
 echo "hi" . "ho";

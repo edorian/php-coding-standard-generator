@@ -12,6 +12,9 @@ Sniffs related to control structures
     <description>
 Inline control structures like 'if($a) continue;' are not allowed
     </description>
+    <properties>
+        <property name="error" description="If true, an error will be reported; otherwise a warning." value="true"/>
+    </properties>
     <example>
       <![CDATA[
 // No braces! Gets reported!
