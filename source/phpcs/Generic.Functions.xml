@@ -41,7 +41,7 @@ NO SAMPLE AVAILABLE. Contributions welcome.
     </example>
   </rule>
 
-  <rule name="OpeningFunctionBraceBsdAllman" class="Generic_Sniffs_Functions_OpeningFunctionBraceBsdAllmanSniff ">
+  <rule name="OpeningFunctionBraceBsdAllman" class="Generic_Sniffs_Functions_OpeningFunctionBraceBsdAllmanSniff">
     <description>
 Function declarations must follow the "BSD/Allman style".
 
