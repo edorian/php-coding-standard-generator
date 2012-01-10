@@ -82,9 +82,22 @@ function createSniffXml($sniffGroup) {
 
     foreach(fetchSniffsForSniffGroup($groups[$sniffGroup]) as $sniff) {
         $rule = $sniffXml->createElement('rule');
+        $class = str_replace('.', '_Sniffs_', $sniffGroup) . '_' . $sniff . 'Sniff';
+        $properties = fetchPropertiesFromClass($class); 
         $rule->setAttribute('name', $sniff);
-        $rule->setAttribute('class', str_replace('.', '_Sniffs_', $sniffGroup) . '_' . $sniff . 'Sniff');
+        $rule->setAttribute('class', $class);
         $rule->appendChild($sniffXml->createElement('description', "\n\n    "));
+        if($properties) {
+            $propertiesNode = $sniffXml->createElement('properties');
+            foreach($properties as $propertyName => $defaultValue) {
+                $propertyNode = $sniffXml->createElement('property');
+                $propertyNode->setAttribute('name', $propertyName);
+                $propertyNode->setAttribute('description', '');
+                $propertyNode->setAttribute('value', $defaultValue);
+                $propertiesNode->appendChild($propertyNode);
+            }
+            $rule->appendChild($propertiesNode);
+        }
         $example = $sniffXml->createElement('example', "\n      ");
         $example->appendChild($sniffXml->createCDATASection("\n\n      "));
         $example->appendChild($sniffXml->createTextNode("\n    "));
@@ -121,26 +134,37 @@ function listMissingProperties() {
         $rules = $sniffQuery->query('//x:rule');
         foreach($rules as $rule) {
             $class = $rule->getAttribute('class');
-            list($standard, $sniffs, $folder, $sniff) = explode('_', $class);
-            $file = __DIR__ . "/../externals/phpcs/CodeSniffer/Standards/$standard/Sniffs/$folder/$sniff.php";
-            preg_match_all(
-                '(public\s+\$(?P<publicProperty>\w+)\s*=\s*(?P<defaultValue>\w+))', 
-                file_get_contents($file),
-                $matches
-            );
-            foreach($matches['publicProperty'] as $index => $match) {
-                $value = $matches['defaultValue'][$index];
-                if($value == 'array') {
-                    continue;
-                }
-                $property = $sniffQuery->query("//x:rule[@class='$class']/x:properties/x:property[@name='$match']");
+            foreach(fetchPropertiesFromClass($class) as $property => $defaultValue) {
+                $property = $sniffQuery->query("//x:rule[@class='$class']/x:properties/x:property[@name='$property']");
                 if($property->length == 0) {
                     echo basename($sniffXmlFile), ": Missing property '$match' for sniff '$sniff'", PHP_EOL;
                 }
             }
         }
     }
+}
 
+function fetchPropertiesFromClass($class) {
+    list($standard, $sniffs, $folder, $sniff) = explode('_', $class);
+    $file = __DIR__ . "/../externals/phpcs/CodeSniffer/Standards/$standard/Sniffs/$folder/$sniff.php";
+    $foundProperties = preg_match_all(
+        '(public\s+\$(?P<publicProperty>\w+)\s*=\s*(?P<defaultValue>\w+))', 
+        file_get_contents($file),
+        $matches
+    );
+    if($foundProperties == 0) {
+        return array();
+    }
+    foreach($matches['defaultValue'] as $index => $value) {
+        if($value == 'array') {
+            unset($matches['defaultValue'][$index]);
+            unset($matches['publicProperty'][$index]);
+        }
+    }
+    if(count($matches['defaultValue']) == 0) {
+        return array();
+    }
+    return array_combine($matches['publicProperty'], $matches['defaultValue']);
 }
 
 function fetchSniffGroupFolders() {
