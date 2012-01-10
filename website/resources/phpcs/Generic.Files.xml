@@ -41,7 +41,7 @@ To turn of $absoluteLineLimit '0' can be used.
     </description>
     <properties>
       <property name="lineLimit" description="Lines longer than this value will raising a warning" value="80"/>
-      <property name="absolutelineLimit" description="Lines longer than this value will raising an error" value="120"/>
+      <property name="absoluteLineLimit" description="Lines longer than this value will raising an error" value="120"/>
     </properties>
   </rule>
 
