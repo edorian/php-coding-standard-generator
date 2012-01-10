@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="PEAR - ControlStructures"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+Sniffs related to control structures
+  </description>
+  <rule name="ControlSignature" class="PEAR_Sniffs_ControlStructures_ControlSignatureSniff">
+    <description>
+Enforces show control signatures are spaced. See the examples.
+Also a great base class to easily specify ow you want your own signatures to be spaced.
+    </description>
+    <example>
+      <![CDATA[
+do {EOL...} while (...);EOL
+
+while (...) {EOL
+
+for (...) {EOL
+
+if (...) {EOL
+
+foreach (...) {EOL
+
+} else if (...) {EOL
+
+} elseif (...) {EOL
+
+} else {EOL
+
+do {EOL'
+      ]]>
+    </example>
+  </rule>
+  <rule name="MultiLineCondition" class="PEAR_Sniffs_ControlStructures_MultiLineConditionSniff">
+    <description>
+Closing parenthesis of a multi-line IF statement must be on a new line,
+each line must begin with a boolean operator and there must be a single space between the closing parenthesis and the opening brace.
+    </description>
+    <example>
+      <![CDATA[
+if (($condition1
+    || $condition2)
+    && $condition3
+    && $condition4
+    && $condition5
+) {
+}
+      ]]>
+    </example>
+  </rule>
+</ruleset>
