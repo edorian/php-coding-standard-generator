@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Zend - NamingConventions"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+Zend Framework variable naming conventions
+  </description>
+  <rule name="ValidVariableName" class="Zend_Sniffs_NamingConventions_ValidVariableNameSniff">
+    <description>
+Variables have to be camel case and should not contain numbers
+    </description>
+    <example>
+      <![CDATA[
+// Valid
+$varName  = 'hello';
+$varname  = 'hello';
+
+class MyClass
+{
+    $varName  = 'hello';
+    // This is ok as ZF uses it to denote private vars
+    $_varName = 'hello';
+}
+
+// Invalid
+$var_name = 'hello';
+
+class MyClass
+{
+    $var_name = 'hello';
+}
+
+
+// Discouraged
+$varname2 = 'hello';
+
+class MyClass
+{
+    $varName2 = 'hello';
+}
+      ]]>
+    </example>
+  </rule>
+</ruleset>
