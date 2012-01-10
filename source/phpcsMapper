@@ -22,6 +22,7 @@ switch($_SERVER['argv'][1]) {
         usage('"create" needs a sniff group to create something.');
     case 'todo':
         listEmptyDescriptionsAndExamples();
+        listMissingProperties();
         echo 'Done', PHP_EOL;
         break;
     default:
@@ -111,6 +112,36 @@ function listEmptyDescriptionsAndExamples() {
     }
 }
 
+function listMissingProperties() {
+    foreach(glob($sniffDocumentationXmlFile = __DIR__ . '/phpcs/*.xml') as $sniffXmlFile) {
+        $sniffXml = new DomDocument();
+        $sniffXml->load($sniffXmlFile);
+        $sniffQuery = new DomXPath($sniffXml);
+        $sniffQuery->registerNamespace('x', 'http://pmd.sf.net/ruleset/1.0.0');
+        $rules = $sniffQuery->query('//x:rule');
+        foreach($rules as $rule) {
+            $class = $rule->getAttribute('class');
+            list($standard, $sniffs, $folder, $sniff) = explode('_', $class);
+            $file = __DIR__ . "/../externals/phpcs/CodeSniffer/Standards/$standard/Sniffs/$folder/$sniff.php";
+            preg_match_all(
+                '(public\s+\$(?P<publicProperty>\w+)\s*=\s*(?P<defaultValue>\w+))', 
+                file_get_contents($file),
+                $matches
+            );
+            foreach($matches['publicProperty'] as $index => $match) {
+                $value = $matches['defaultValue'][$index];
+                if($value == 'array') {
+                    continue;
+                }
+                $property = $sniffQuery->query("//x:rule[@class='$class']/x:properties/x:property[@name='$match']");
+                if($property->length == 0) {
+                    echo basename($sniffXmlFile), ": Missing property '$match' for sniff '$sniff'", PHP_EOL;
+                }
+            }
+        }
+    }
+
+}
 
 function fetchSniffGroupFolders() {
     $sniffGroups = array();
@@ -135,8 +166,6 @@ function fetchSniffsForSniffGroup($sniffGroup) {
     );
 }
 
- 
-
 function usage($message = '') {
     echo 'Usage: ', $_SERVER['argv'][0], ' command <options>', PHP_EOL, PHP_EOL;
     if($message) {
@@ -149,3 +178,4 @@ function usage($message = '') {
     echo PHP_EOL;
     die(-1);
 }
+
