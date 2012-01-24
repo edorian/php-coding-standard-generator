@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>PHP Coding Standard Generator</title>
+    <script src="js/libs/jquery-1.5.1.min.js"></script>
+    <script src="js/phpmd.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/rulesets.css"></link>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+        <h1>PHP Coding Standard Generator</h1>
+        <p>The goal of this site is to enable you do very quickly create and maintain your own coding standard.</p>
+        <p><a href="http://phpmd.org">PHP Mess Detector</a> <a href="http://phpmd.org/documentation/creating-a-ruleset.html">rule sets files</a> are supported and support for <a href="http://pear.php.net/PHP_CodeSniffer">PHP Code Sniffer</a> is in eary alpha.</p>
+    </div>
+    <div id="nav">
+        <ul>
+            <li id='phpmd-activate'>PHPMD</li>
+            <li id='phpcs-activate'>PHPCS - ALPHA!</li>
+        </ul>
+    </div>
+    <div id="main">
+        <div id="phpmd-container" class="rule-container">
+            Ruleset name: 
+            <input type="text" id="phpmd-ruleset-name" size="30" value="pcsg-generated-ruleset"/>
+            <br/>
+            <br/>
+            Ruleset description:
+            <br/>
+            <textarea id="phpmd-ruleset-description" class="ruleset-description">Created with the PHP Coding Standard Generator. http://edorian.github.com/php-coding-standard-generator/</textarea>
+            {phpmd}
+        </div>
+        <div id="phpcs-container" class="rule-container">
+            Ruleset name: 
+            <input type="text" id="phpcs-ruleset-name" size="30" value="pcsg-generated-ruleset"/>
+            <br/>
+            <br/>
+            Ruleset description:
+            <br/>
+            <textarea id="phpcs-ruleset-description" class="ruleset-description">Created with the PHP Coding Standard Generator. http://edorian.github.com/php-coding-standard-generator/</textarea>
+            {phpcs}
+        </div>
+    </div>
+    <div id="sidebar">
+        <div id="phpmd-xml-container" class='xmloutput-container'>
+            <div>You can also edit this box directly. The site will reflect any changes you make.<br/>If you already have an <strong>phpmd.xml</strong> just paste it in.</div>
+            <div id='phpmd-xml-error' class='xml-error' style='display: none;'></div>
+            <textarea spellcheck="false" id='phpmd-xml' class='xmloutput'>Your XML will go here</textarea>
+        </div>
+        <div id="phpcs-xml-container" class='xmloutput-container'>
+            <div>You can also edit this box directly. The site will reflect any changes you make.<br/>If you already have an <strong>phpcs.xml</strong> just paste it in.</div>
+            <div id='phpcs-xml-error' class='xml-error' style='display: none;'></div>
+            <textarea spellcheck="false" id='phpcs-xml' class='xmloutput'>Your XML will go here</textarea>
+        </div>
+    </div>
+    <div id="footer">
+        <p>If you want to reach me: I'm <a href="https://twitter.com/__edorian">@__edorian</a> over on Twitter or just 'edorian' on freenodeIRC.</p>
+        <p>If you have an issue with the generator, a feature request or want to help out in any way check out <a href="https://github.com/edorian/php-coding-standard-generator">the gitHub page of this project.</a>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        md = new pcsg.Phpmd("resources/phpmd/", "rulesets.json", $("#phpmd-container"), $("#phpmd-xml-error"));
+        generate = function() { 
+            md.methods.generateXmlInto($("#phpmd-xml"));
+        };
+        $('#phpmd-container .rule').click(generate);
+        $('#phpmd-container .property-selector').change(generate); 
+        $('#phpmd-container .property-selector').keyup(generate); 
+        $('#phpmd-ruleset-name').keyup(generate);
+        $('#phpmd-ruleset-description').keyup(generate);
+
+        $("#phpmd-xml").change(function() {
+            md.xmlUpateHandler($(this).val(), $("#phpmd-container"));
+        });
+        $("#phpmd-xml").keyup(function() {
+            md.xmlUpateHandler($(this).val(), $("#phpmd-container"));
+        });
+
+        cs = new pcsg.Phpcs("resources/phpcs/", "rulesets.json", $("#phpcs-container"), $("#phpcs-xml-error"));
+        generate = function() { 
+            cs.methods.generateXmlInto($("#phpcs-xml"));
+        };
+        $('#phpcs-container .rule').click(generate);
+        $('#phpcs-container .property-selector').change(generate); 
+        $('#phpcs-container .property-selector').keyup(generate); 
+        $('#phpcs-ruleset-name').keyup(generate);
+        $('#phpcs-ruleset-description').keyup(generate);
+
+        $("#phpcs-xml").change(function() {
+            cs.xmlUpateHandler($(this).val(), $("#phpcs-container"));
+        });
+        $("#phpcs-xml").keyup(function() {
+            cs.xmlUpateHandler($(this).val(), $("#phpcs-container"));
+        });
+
+        $('#phpcs-activate').click(function() {
+            document.location.hash = 'phpcs';
+            $('#phpmd-container').hide();
+            $('#phpmd-xml-container').hide();
+            $('#phpcs-container').show();
+            $('#phpcs-xml-container').show();
+            $('#phpcs-activate').addClass('active');
+            $('#phpmd-activate').removeClass('active');
+        });
+        $('#phpmd-activate').click(function() {
+            document.location.hash = 'phpmd';
+            $('#phpcs-container').hide();
+            $('#phpcs-xml-container').hide();
+            $('#phpmd-container').show();
+            $('#phpmd-xml-container').show();
+            $('#phpmd-activate').addClass('active');
+            $('#phpcs-activate').removeClass('active');
+        });
+        hash = document.location.hash;
+        if(hash.length > 0) {
+            hash = hash.substring(1);
+        }
+        if(hash == 'phpcs') {
+            $('#phpcs-activate').click();
+        } else {
+            $('#phpmd-activate').click();
+        }
+    });
+</script>
+
+<!-- Github ribbon -->
+<a href="http://github.com/edorian/php-coding-standard-generator"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://d3nwyuy0nl342s.cloudfront.net/img/abad93f42020b733148435e2cd92ce15c542d320/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub"></a>
+<!-- /Github ribbon -->
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28040153-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  
+</body>
+</html>
