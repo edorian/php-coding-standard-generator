@@ -1,10 +1,9 @@
 #!/bin/bash
 
-php=`which php`
-
 git submodule init
 git submodule update
 
-$php source/pushRulesetFilesToWebsite.php
+cd source
+./build.sh
 
 echo "Done";
