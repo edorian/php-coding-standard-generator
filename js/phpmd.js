@@ -1,72 +1,19 @@
 var pcsg = pcsg || {};
 
-pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
+pcsg.Phpmd = function(resourceBasedir, resourceIndex, container, errorContainer) {
 
     var that = {}
 
     that.members = {
         "name": 'phpmd',
         "collapseRules": true,
-        "container": null,
-        "errorContainer": null,
+        "container": container,
+        "errorContainer": errorContainer,
         "resourceBasedir": resourceBasedir,
         "resourceIndex": resourceIndex,
     }
 
     that.methods = {
-        renderFile: function(file) {
-            $.ajax({
-                type: "GET",
-                url: that.members.resourceBasedir + file,
-                dataType: "xml",
-                async: false,
-                success: function(xml) {
-                    that.members.container.append('<h2>' + $(xml).find('ruleset').attr("name") + '</h2>');
-                    desc = $(xml).find('ruleset > description').text();
-                    that.members.container.append("<p class='ruleset-description'>" + desc + "</p>");
-                    rulefileContainer = $("<div class='rule-section' name='"+file+"'>");
-                    that.members.container.append(rulefileContainer);
-                    $(xml).find('ruleset > rule').each(function() {
-                        that.methods.renderRule($(this), file, rulefileContainer);
-                    });
-                }
-            });
-        },
-        renderRule: function(rule, currentRuleFile, rulefileContainer) {
-            ruleContainer = $("<div class='rule'>");
-            ruleContainer.appendTo(rulefileContainer);
-            rulename = that.methods.parser.getRulename(currentRuleFile, rule.attr("name"));
-            ruleid = that.members.name+"-"+rulename;
-            ruleHeader = $("<div class='rule-header'>");
-            ruleHeader.append("<input class='rule-selector' type='checkbox' id='"+ruleid+"' name='"+rulename+"'>");
-            ruleHeader.append("<div class='rule-name'><label for='"+ruleid+"'>"+rule.attr("name")+"</label></div>");
-            example = rule.find("example").text().trim().replace("\n", "<br/>");
-            if(example != "") {
-                ruleHeader.append("<div class='rule-example'><span>Example<span><pre>"+example+"</pre></span></span></div>");
-            }
-            ruleHeader.append("<div style='clear: both'></div>");
-            ruleHeader.appendTo(ruleContainer);
-            ruleContainer.append("<div class='rule-description'><label for='"+ruleid+"'>"+rule.find("description").text()+"</label></div>");
-            rule.find('properties property').each(function() {
-                that.methods.renderProperty($(this), ruleContainer, rulename);
-            });
-        },
-        renderProperty: function(property, ruleContainer, rulename) {
-            prop = $("<div class='property'>");
-            prop.appendTo(ruleContainer);
-            prop.append(property.attr("name")+": ");
-            propertyid = "property-"+rulename+"-"+property.attr("name");
-            if(property.attr("value") == "true" || property.attr("value") == "false") {
-                checked = "";
-                if(property.attr("value") == "true") {
-                    checked = "checked='checked'";
-                }
-                prop.append("<input type='checkbox' "+checked+" class='property-selector' id='"+propertyid+"' name='"+property.attr("name")+"' value='"+property.attr("value")+"' default='"+property.attr("value")+"'></input>");
-            } else {
-                prop.append("<input type='text' size=5 class='property-selector' id='"+propertyid+"' name='"+property.attr("name")+"' value='"+property.attr("value")+"' default='"+property.attr("value")+"'></input>");
-            }
-            prop.append("<div class='property-description'><label for='"+propertyid+"'>"+property.attr("description")+"</label></div>");
-        },
         generateXmlInto: function(outputTextarea) {
             xmlContainer = $('<ruleset>');
 
@@ -202,38 +149,6 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
     }
 
     // public
-    that.renderInto = function(container, xmlContainer, errorContainer) {
-        that.members.container = container;
-        that.members.errorContainer = errorContainer;
-        $.ajax({
-            type: "GET",
-            url: that.members.resourceBasedir + that.members.resourceIndex,
-            dataType: "json",
-            success: function(data) {
-                rulesetNameId = that.members.name + '-ruleset-name';
-                rulesetDescriptionId = that.members.name + '-ruleset-description';
-                that.members.container.append('Ruleset name: <input type="text" id="'+rulesetNameId+'" size="30" value="pcsg-generated-ruleset"/><br /><br />');
-                that.members.container.append(
-                    'Ruleset description:<br />'+
-                    '<textarea id="'+rulesetDescriptionId+'" class="ruleset-description">'+
-                        'Created with the PHP Coding Standard Generator.\n'+
-                        'http://edorian.github.com/php-coding-standard-generator/'+
-                    '</textarea>'
-                );
-                $.each(data, function() {
-                    that.methods.renderFile(this); 
-                });
-                generate = function() { 
-                    that.methods.generateXmlInto(xmlContainer);
-                };
-                $('.rule').click(generate);
-                $('.property-selector').change(generate); 
-                $('.property-selector').keyup(generate); 
-                $('#'+rulesetNameId).keyup(generate);
-                $('#'+rulesetDescriptionId).keyup(generate);
-            }
-        });
-    };
     that.xmlUpateHandler = function(updatedXmlString, renderedPage) {
         try {
             xml = $.parseXML(updatedXmlString);
@@ -287,9 +202,9 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex) {
     return that;
 };
 
-pcsg.Phpcs = function(resourceBasedir, resourceIndex) {
-
-    var that = pcsg.Phpmd(resourceBasedir, resourceIndex);
+pcsg.Phpcs = function(resourceBasedir, resourceIndex, container, errorContainer) {
+    
+    var that = pcsg.Phpmd(resourceBasedir, resourceIndex, container, errorContainer);
     that.members.name = 'phpcs';
     that.members.collapseRules = false;
 
