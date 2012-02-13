@@ -134,10 +134,10 @@ function listMissingProperties() {
         $rules = $sniffQuery->query('//x:rule');
         foreach($rules as $rule) {
             $class = $rule->getAttribute('class');
-            foreach(fetchPropertiesFromClass($class) as $property => $defaultValue) {
-                $property = $sniffQuery->query("//x:rule[@class='$class']/x:properties/x:property[@name='$property']");
+            foreach(fetchPropertiesFromClass($class) as $propertyName => $defaultValue) {
+                $property = $sniffQuery->query("//x:rule[@class='$class']/x:properties/x:property[@name='$propertyName']");
                 if($property->length == 0) {
-                    echo basename($sniffXmlFile), ": Missing property '$match' for sniff '$sniff'", PHP_EOL;
+                    echo basename($sniffXmlFile), ": Missing property '$propertyName' for sniff '$class'", PHP_EOL;
                 }
             }
         }
@@ -148,7 +148,7 @@ function fetchPropertiesFromClass($class) {
     list($standard, $sniffs, $folder, $sniff) = explode('_', $class);
     $file = __DIR__ . "/../externals/phpcs/CodeSniffer/Standards/$standard/Sniffs/$folder/$sniff.php";
     $foundProperties = preg_match_all(
-        '(public\s+\$(?P<publicProperty>\w+)\s*=\s*(?P<defaultValue>\w+))', 
+        '(public\s+\$(?P<publicProperty>\w+)\s*=\s*\'?"?\s*(?P<defaultValue>\w+))', 
         file_get_contents($file),
         $matches
     );
@@ -170,6 +170,9 @@ function fetchPropertiesFromClass($class) {
 function fetchSniffGroupFolders() {
     $sniffGroups = array();
     foreach(glob(__DIR__ . '/../externals/phpcs/CodeSniffer/Standards/*') as $standard) {
+        if(is_link($standard)) {
+            $standard = realpath($standard);
+        }
         if(!is_dir($standard)) {
             continue;
         }

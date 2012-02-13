@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="PHPUnitStandard - Testing"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+A coding standard for PHPUnit tests written and mainted by @elblinkin.
+
+You will need to install an addition pear package in order to use these Sniffs! See: https://github.com/elblinkin/PHPUnit-CodeSniffer
+  </description>
+  <rule name="AllowedFunctionOverride" class="PHPUnitStandard_Sniffs_Testing_AllowedFunctionOverrideSniff">
+    <description>
+Only a certain set of protected functions are allowed to be overriden
+    </description>
+    <example>
+      <![CDATA[
+class FooTest extends PHPUnit_Framework_TestCase {
+    protected function setUp() {
+        // ok
+    }
+
+    protected function somethingSomethingTestHelper() {
+        // not allowed
+    }
+
+}
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="ClassName" class="PHPUnitStandard_Sniffs_Testing_ClassNameSniff">
+    <description>
+Class names should match the path within the unit test folder.
+
+The folder is currently */tests/phpunit/* and this is not configurable so use only if that convention applies to your project.
+    </description>
+    <example>
+      <![CDATA[
+// File: project/tests/phpunit/foo/bar/BazTest.php
+// Should contain:
+class Foo_Bar_BazTest {
+
+}
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="ExtraneousClass" class="PHPUnitStandard_Sniffs_Testing_ExtraneousClassSniff">
+    <description>
+Tests are expected to reside somewhere in */tests/phpunit/*.
+
+This is not the offical PHPUnit recommendation and for now the path is not configurable.
+    </description>
+    <example>
+      <![CDATA[
+project/tests/phpunit/foo/bar/BazTest.php // ok
+project/tests/otherTool/but/by/accident/containts/a/phpunit/testcase.php // Not ok
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="FileNameSuffix" class="PHPUnitStandard_Sniffs_Testing_FileNameSuffixSniff">
+      <properties>
+          <property name="suffix"
+                    description="The suffix all PHPUnit test case files should have."
+                    value="Test.php"/>
+      </properties>
+      <example>
+      <![CDATA[
+project/tests/unit/FooTest.php // ok
+project/tests/unit/BarTes.php // not ok!
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="NoInterfaces" class="PHPUnitStandard_Sniffs_Testing_NoInterfacesSniff">
+    <description>
+No Interfaces may be defined in test cases
+    </description>
+  </rule>
+
+  <rule name="NoOutputFunctions" class="PHPUnitStandard_Sniffs_Testing_NoOutputFunctionsSniff">
+    <description>
+Tests may not contain output functions
+    </description>
+    <example>
+      <![CDATA[
+class FooTest {
+    public function testBar() {
+        $this->expectedOutputString('string(3) "foo"');
+        var_dump("foo"); // No! Use assertions for compairing!
+    }
+
+}
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="NoOutputStatements" class="PHPUnitStandard_Sniffs_Testing_NoOutputStatementsSniff">
+    <description>
+Tests may not contain output statements
+    </description>
+    <example>
+      <![CDATA[
+class FooTest {
+    public function testBar() {
+        $this->expectedOutputString('foo');
+        echo "foo"; // No! Use assertions for compairing!
+    }
+
+}
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="NoPrivateMethods" class="PHPUnitStandard_Sniffs_Testing_NoPrivateMethodsSniff">
+    <description>
+Tests may not have private helper methods. See: http://elblinkin.info/2011/11/an-example-avoid-private-functions-in-unit-tests/
+    </description>
+  </rule>
+
+  <rule name="NoReflection" class="PHPUnitStandard_Sniffs_Testing_NoReflectionSniff">
+    <description>
+Tests may not use reflection functionality.
+    </description>
+    <example>
+      <![CDATA[
+class FooTest extends PHPUnit_Framework_TestCase {
+    public function testPrivateMethod() {
+        $method = new ReflectionMethod( // No! Testing private methods is not allowed!
+          'Foo',
+          'doSomethingPrivate'
+        );
+        $method->setAccessible(TRUE);
+
+        $x = new Foo();
+        $this->assertEquals(
+          'blah',
+          $x->doSomethingPrivate();
+        );
+    }
+}
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="ProvenTestCase" class="PHPUnitStandard_Sniffs_Testing_ProvenTestCaseSniff">
+    <description>
+Only the default set of PHPUnit test case classes may be used when extending.
+
+You can't have your own base classes or you need to extend the test and whitelist them.
+    </description>
+  </rule>
+
+  <rule name="TestOrProviderFunctionsOnly" class="PHPUnitStandard_Sniffs_Testing_TestOrProviderFunctionsOnlySniff">
+    <description>
+Test cases may only consist of test and data provider functions. No helper methods are allowed. See: http://elblinkin.info/2011/11/an-example-avoid-private-functions-in-unit-tests/
+    </description>
+    <example>
+      <![CDATA[
+
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="TestOrProviderIsPublic" class="PHPUnitStandard_Sniffs_Testing_TestOrProviderIsPublicSniff">
+    <description>
+Test cases and data provders have to be public. This allows you to find tests that wouldn't get executed by mistake.
+    </description>
+    <example>
+      <![CDATA[
+
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="UnusedProvider" class="PHPUnitStandard_Sniffs_Testing_UnusedProviderSniff">
+    <description>
+Data providers must be used at least once. This allows you to find unused code.
+    </description>
+    <example>
+      <![CDATA[
+
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="ValidFunctionName" class="PHPUnitStandard_Sniffs_Testing_ValidFunctionNameSniff">
+    <description>
+Test functions may only start with "test" or "provider" and contain one underscore at most and have to be camelCaps.
+    </description>
+    <example>
+      <![CDATA[
+
+      ]]>
+    </example>
+  </rule>
+
+</ruleset>
