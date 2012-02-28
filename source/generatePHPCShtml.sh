@@ -17,3 +17,7 @@ do
     xsltproc --stringparam file $filename --stringparam tool phpcs ruleset.xslt $file >> $OUTPUT
 done
 
+sed 's/\.xml\//./g' $OUTPUT > temp
+
+mv temp $OUTPUT
+
