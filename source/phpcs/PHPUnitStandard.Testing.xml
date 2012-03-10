@@ -50,7 +50,7 @@ class Foo_Bar_BazTest {
     <description>
 Tests are expected to reside somewhere in */tests/phpunit/*.
 
-This is not the offical PHPUnit recommendation and for now the path is not configurable.
+This is not the official PHPUnit recommendation and for now the path is not configurable.
     </description>
     <example>
       <![CDATA[
@@ -157,20 +157,28 @@ You can't have your own base classes or you need to extend the test and whitelis
     <description>
 Test cases may only consist of test and data provider functions. No helper methods are allowed. See: http://elblinkin.info/2011/11/an-example-avoid-private-functions-in-unit-tests/
     </description>
-    <example>
-      <![CDATA[
-
-      ]]>
-    </example>
   </rule>
 
   <rule name="TestOrProviderIsPublic" class="PHPUnitStandard_Sniffs_Testing_TestOrProviderIsPublicSniff">
     <description>
-Test cases and data provders have to be public. This allows you to find tests that wouldn't get executed by mistake.
+Test cases and data providers have to be public. This allows you to find tests that wouldn't get executed by mistake.
     </description>
     <example>
       <![CDATA[
+protected function testImportantBehavior() {
+    // Will not get executed because it is not public
+}
 
+/**
+ * @dataProvider provideDataForTest
+ */
+public function testSomething($a, $b) {
+
+}
+
+protected function provideDataForTest() {
+    // Test will fail as there is no executable data provider method
+}
       ]]>
     </example>
   </rule>
@@ -179,22 +187,12 @@ Test cases and data provders have to be public. This allows you to find tests th
     <description>
 Data providers must be used at least once. This allows you to find unused code.
     </description>
-    <example>
-      <![CDATA[
-
-      ]]>
-    </example>
   </rule>
 
   <rule name="ValidFunctionName" class="PHPUnitStandard_Sniffs_Testing_ValidFunctionNameSniff">
     <description>
 Test functions may only start with "test" or "provider" and contain one underscore at most and have to be camelCaps.
     </description>
-    <example>
-      <![CDATA[
-
-      ]]>
-    </example>
   </rule>
 
 </ruleset>
