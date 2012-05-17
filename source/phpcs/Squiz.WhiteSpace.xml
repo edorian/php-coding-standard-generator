@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="Squiz - WhiteSpace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+Squiz coding standard sniffs related whitespace usage for structuring source files.
+The sniffs are general and can be widely used.
+  </description>
+  <rule name="CastSpacing" class="Squiz_Sniffs_WhiteSpace_CastSpacingSniff">
+    <description>
+Ensure cast statements dont contain whitespace.
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+$x = ( array)"foo";
+$x = (array )"foo";
+// Allowed
+$x = (array)"foo";
+      ]]>
+    </example>
+  </rule>
+  <rule name="ControlStructureSpacing" class="Squiz_Sniffs_WhiteSpace_ControlStructureSpacingSniff">
+    <description>
+Ensures that control structures have a certain style of spacing around brackets.
+For other spacing styles there is the possibility of extending PHP_CodeSniffer_Standards_AbstractPatternSniff.
+    </description>
+    <example>
+      <![CDATA[
+// No spaces after opening bracket and no spaces before closing bracket
+// No blank lines at the start or the end of a control structure
+      ]]>
+    </example>
+  </rule>
+  <rule name="FunctionClosingBraceSpace" class="Squiz_Sniffs_WhiteSpace_FunctionClosingBraceSpaceSniff">
+    <description>
+Checks that there is one empty line before the closing brace of a function but zero before the closing the brace of nested functions.
+    </description>
+  </rule>
+  <rule name="FunctionOpeningBraceSpace" class="Squiz_Sniffs_WhiteSpace_FunctionOpeningBraceSpaceSniff">
+    <description>
+Checks that there are no blank lines after a functions opening brace and that opening braces are on the new line.
+    </description>
+  </rule>
+  <rule name="FunctionSpacing" class="Squiz_Sniffs_WhiteSpace_FunctionSpacingSniff">
+    <description>
+Checks the separation between methods in a class or interface. Methods are expected to have two blank lines between them.
+    </description>
+    <example>
+      <![CDATA[
+class foo {
+
+
+    public function bar() {
+
+    }
+
+
+    public function baz() {
+
+    }
+    
+    
+}
+      ]]>
+    </example>
+  </rule>
+  <rule name="LanguageConstructSpacing" class="Squiz_Sniffs_WhiteSpace_LanguageConstructSpacingSniff">
+    <description>
+Ensures all language constructs (without brackets) contain a single space between themselves and their content.
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+echo"hi";
+echo   "hi";
+$x = new   StdClass();
+// Allowed
+echo "hi";
+$x = new StdClass();
+      ]]>
+    </example>
+  </rule>
+  <rule name="LogicalOperatorSpacing" class="Squiz_Sniffs_WhiteSpace_LogicalOperatorSpacingSniff">
+    <description>
+Ensures that there is one space before and after a logical operator.
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+if($x&& $y) {}
+if($x &&$y) {}
+if($x &&   $y) {}
+if($x   && $y) {}
+// Allowed
+if($x && $y) {}
+      ]]>
+    </example>
+  </rule>
+  <rule name="MemberVarSpacing" class="Squiz_Sniffs_WhiteSpace_MemberVarSpacingSniff">
+    <description>
+Ensures that there is one blank lines between each member declaration
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+class foo {
+    private $foo;
+    private $bar;
+}
+// Allowed
+class foo {
+    private $foo;
+
+    private $bar;
+}
+// Also allowed
+class foo {
+    private $foo;
+
+    /**
+     * @var string
+     */
+    private $bar;
+}
+      ]]>
+    </example>
+  </rule>
+  <rule name="ObjectOperatorSpacing" class="Squiz_Sniffs_WhiteSpace_ObjectOperatorSpacingSniff">
+    <description>
+Ensures there is no whitespace before a ObjectOperator ( -> )
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+$x = new StdClass();
+$x -> foo = 1;
+// Allowed
+$x = new StdClass();
+$x->foo = 1;
+echo "foo";
+      ]]>
+    </example>
+  </rule>
+  <rule name="OperatorSpacing" class="Squiz_Sniffs_WhiteSpace_OperatorSpacingSniff">
+    <description>
+Ensures that operators have one space surrounding them.
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+$x = $a&$b;
+$x=$y;
+$x=& $y;
+// Allowed
+$x = $a & $b;
+$x = $y;
+$x =& $y;
+      ]]>
+    </example>
+  </rule>
+  <rule name="PropertyLabelSpacing" class="Squiz_Sniffs_WhiteSpace_PropertyLabelSpacingSniff">
+    <description>
+Javascript: Ensures that the colon in a property or label definition has a single space after it and no space before it.
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+x = {
+    a:  'x',
+    b : 1,
+    c :  2,
+    }
+// Allowed
+x = {
+    a: 'x',
+    b:  1,
+    c: 2,
+}
+      ]]>
+    </example>
+  </rule>
+  <rule name="ScopeClosingBrace" class="Squiz_Sniffs_WhiteSpace_ScopeClosingBraceSniff">
+    <description>
+Ensures that the closing braces of scopes are on a new line and indented correctly.
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+function foo() {
+   }
+function foo() {
+    echo "bar"; }
+// Allowed
+function foo() {
+}
+      ]]>
+    </example>
+  </rule>
+  <rule name="ScopeKeywordSpacing" class="Squiz_Sniffs_WhiteSpace_ScopeKeywordSpacingSniff">
+    <description>
+Ensure there is a single space after scope keywords.
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+public    function
+protected  function
+// Allowed
+public function
+protected function
+      ]]>
+    </example>
+  </rule>
+  <rule name="SemicolonSpacing" class="Squiz_Sniffs_WhiteSpace_SemicolonSpacingSniff">
+    <description>
+Ensures that there is no whitespace before a semicolon.
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+$x = 1  ;
+echo "foo" ;
+// Allowed
+$x = 1;
+echo "foo";
+      ]]>
+    </example>
+  </rule>
+  <rule name="SuperfluousWhitespace" class="Squiz_Sniffs_WhiteSpace_SuperfluousWhitespaceSniff">
+    <description>
+Checks that no whitespace proceeds the first content of the file, exists after the last content of the file, resides after content on any line, or are two empty lines in functions.
+    </description>
+    <example>
+      <![CDATA[
+Checks that no whitespace proceeds the first content of the file, exists after the last content of the file, resides after content on any line, or are two empty lines in functions.
+      ]]>
+    </example>
+  </rule>
+</ruleset>
