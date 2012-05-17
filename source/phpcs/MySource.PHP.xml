@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="MySource - PHP" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+Sniffs related to basic PHP usage
+  </description>
+  <rule name="EvalObjectFactory" class="MySource_Sniffs_PHP_EvalObjectFactorySniff">
+    <description>
+Ensures that eval() is not used to create objects.
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+$class = "...";
+$args = "1, 'string', 'dynamicBuildingArgs'";
+eval("$x = new $bar($args)");
+// Use
+$x = new $bar($arg1, $arg2); // No eval
+// Or use Reflection
+$x = new ReflectionClass($bar);
+$args = array(1, 'string', 'dynamicBuildingArgs');
+$x->newInstanceArgs($args);
+      ]]>
+    </example>
+  </rule>
+  <rule name="GetRequestData" class="MySource_Sniffs_PHP_GetRequestDataSniff">
+    <description>
+Disallows the direct usage of $_REQUEST, $_GET, $_POST and $_FILES.
+It's only allowed in a class called "Security" in a function called "getRequestData".
+The Sniff is very specific and not useful in general but it can be used as template sniff for your own take on it.
+
+If you are using a request object instantiated in your bootstrap or a external lib then this sniff will also work for you. 
+    </description>
+    <example>
+      <![CDATA[
+class foo {
+    function bar() {
+        $x = $_GET['hi']; // Forbidden!
+    }
+}
+      ]]>
+    </example>
+  </rule>
+  <rule name="ReturnFunctionValue" class="MySource_Sniffs_PHP_ReturnFunctionValueSniff">
+    <description>
+Warns when function values are returned directly. The Sniff enforces that the result of a function call should be assigned to a variable before being returned.
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+function bar() {
+    return foo();
+}
+// Allowed
+function bar() {
+    $x = foo();
+    return $x;
+}
+]]>
+    </example>
+  </rule>
+</ruleset>
