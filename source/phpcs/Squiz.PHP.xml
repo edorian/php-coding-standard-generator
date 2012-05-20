@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="Squiz - PHP" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+Squiz coding standard related to PHP usage
+  </description>
+  <rule name="CommentedOutCode" class="Squiz_Sniffs_PHP_CommentedOutCodeSniff">
+    <description>
+Try to ensure that there is no commented out code
+    </description>
+  </rule>
+  <rule name="DisallowComparisonAssignment" class="Squiz_Sniffs_PHP_DisallowComparisonAssignmentSniff">
+    <description>
+Ensures that the value of a comparison is not assigned to a variable
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+$var = !$foo;
+$var = ($foo || $bar);
+$var = ($foo === TRUE);
+$var = ($foo === TRUE
+        || $bar === FALSE);
+$var = (!$foo);
+      ]]>
+    </example>
+  </rule>
+  <rule name="DisallowInlineIf" class="Squiz_Sniffs_PHP_DisallowInlineIfSniff">
+    <description>
+Ensures no inline if statements are used
+    </description>
+    <example>
+      <![CDATA[
+
+      ]]>
+    </example>
+  </rule>
+  <rule name="DisallowMultipleAssignments" class="Squiz_Sniffs_PHP_DisallowMultipleAssignmentsSniff">
+    <description>
+Ensures that there is only one value assignment on a line, and that it is the first thing on the line.
+    </description>
+    <example>
+      <![CDATA[
+      // Forbidden
+$x = $y = 4;
+if($x = 5) {}
+// Allowed
+$x = 4;
+$y = $x;
+if($x == 5) {}
+      ]]>
+    </example>
+  </rule>
+  <rule name="DisallowObEndFlush" class="Squiz_Sniffs_PHP_DisallowObEndFlushSniff">
+    <description>
+Ensures that the ob_end_flush function is not used
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+echo "foo";
+ob_end_flush();
+// Allowed
+$output = ob_get_contents();
+ob_end_clean();
+      ]]>
+    </example>
+  </rule>
+  <rule name="DisallowSizeFunctionsInLoops" class="Squiz_Sniffs_PHP_DisallowSizeFunctionsInLoopsSniff">
+    <description>
+Ensures no size-based functions are used in loop conditions to avoid unneccarry function calls
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+for($i = 0; $i < count($i); ++$i) {
+
+}
+// Allowed
+$amountOfElements = count($i);
+for($i = 0; $i < $amountOfElements; ++$i) {
+
+}
+      ]]>
+    </example>
+  </rule>
+  <rule name="DiscouragedFunctions" class="Squiz_Sniffs_PHP_DiscouragedFunctionsSniff">
+    <description>
+Ensures that there are no `error_log` and `print_r` function calls. The Sniff can be extended used to disallow any function
+    </description>
+    <properties>
+      <property name="error" description="If true, an error will be thrown; otherwise a warning." value="false" />
+    </properties>
+  </rule>
+  <rule name="EmbeddedPhp" class="Squiz_Sniffs_PHP_EmbeddedPhpSniff">
+    <description>
+        Ensures an style for the indentation of embedded PHP code segments.
+
+        - No empty embedded tags
+        - No blank lines after the opening tag of the embedded code
+        - No blank lines before the closing tag of the embedded code
+        - Opening tag must be on a new line by its self
+        - Closing tag must be on a line by itself
+        - Indenting inside the php tags
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+<?php echo "hi"; ?>
+// Allowed
+<?php
+echo "hi";
+?>
+// Also forbidden
+<?php
+
+echo "hi";
+?>
+      ]]>
+    </example>
+  </rule>
+  <rule name="Eval" class="Squiz_Sniffs_PHP_EvalSniff">
+    <description>
+Warns about usage for the eval() function
+    </description>
+  </rule>
+  <rule name="ForbiddenFunctions" class="Squiz_Sniffs_PHP_ForbiddenFunctionsSniff">
+    <description>
+Discourages the use of alias functions that are kept in PHP for compatibility with older versions. Can be subclassed to forbid the use of any function and suggest alternatives.
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden functions
+sizeof
+delete
+print
+is_null
+create_function
+      ]]>
+    </example>
+  </rule>
+  <rule name="GlobalKeyword" class="Squiz_Sniffs_PHP_GlobalKeywordSniff">
+    <description>
+Ensures that the "global" keyword isn't used.
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+function bar() {
+    global $foo;
+}
+      ]]>
+    </example>
+  </rule>
+  <rule name="Heredoc" class="Squiz_Sniffs_PHP_HeredocSniff">
+    <description>
+Ensures that no Heredoc statements are used.
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+$x = <<<BAR
+    asdf
+    jkl;
+    BAR;
+// Allowed
+$x = 'asdf' . PHP_EOL . 'jkl;'
+      ]]>
+    </example>
+  </rule>
+  <rule name="InnerFunctions" class="Squiz_Sniffs_PHP_InnerFunctionsSniff">
+    <description>
+Ensures that there are no function definitions inside of functions. Closure are ok.
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+function bar() {
+    function foo() {
+
+    }
+}
+      ]]>
+    </example>
+  </rule>
+  <rule name="LowercasePHPFunctions" class="Squiz_Sniffs_PHP_LowercasePHPFunctionsSniff">
+    <description>
+Ensures all calls to builtin PHP functions are lowercase.
+    </description>
+    <example>
+      <![CDATA[
+      // Forbidden
+      Array_Map(...);
+      array_Map(...);
+      array_maP(...);
+      Array_map(...);
+      // Allowed
+      array_map(...);
+      ]]>
+    </example>
+  </rule>
+  <rule name="NonExecutableCode" class="Squiz_Sniffs_PHP_NonExecutableCodeSniff">
+    <description>
+Warns about code that can never been executed. This happens when a function returns before the code, or a break ends execution of a statement etc.
+    </description>
+    <example>
+      <![CDATA[
+      // Forbidden
+      function foo() {
+          echo "Hallo";
+          return;
+          echo "World"; // Dead code
+      }
+      ]]>
+    </example>
+  </rule>
+</ruleset>
