@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="Squiz - Files" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+Squiz coding standard releated to files
+  </description>
+  <rule name="FileExtension" class="Squiz_Sniffs_Files_FileExtensionSniff">
+    <description>
+Enforces class and interfaces to be in ".inc" files while everything else should go into ".php" files.
+    </description>
+  </rule>
+</ruleset>
