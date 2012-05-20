@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="Squiz - Scope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+Squiz coding standard related to scoping
+  </description>
+  <rule name="MemberVarScope" class="Squiz_Sniffs_Scope_MemberVarScopeSniff">
+    <description>
+Ensures that class members have scope modifiers
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+class foo {
+    var $x = 1;
+}
+// Allowed
+class foo {
+    public $a = 1;
+    protected $b = 2;
+    private $c = 3;
+}
+      ]]>
+    </example>
+  </rule>
+  <rule name="MethodScope" class="Squiz_Sniffs_Scope_MethodScopeSniff">
+    <description>
+Ensures that methods have scope modifiers
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+class foo {
+    function bar() {
+    }
+}
+// Allowed
+class foo {
+    public function bar() {
+    }
+    protected function baz() {
+    }
+    private fuction bak() {
+    }
+}
+      ]]>
+    </example>
+  </rule>
+  <rule name="StaticThisUsage" class="Squiz_Sniffs_Scope_StaticThisUsageSniff">
+    <description>
+Ensures that $this is not used in static methods to avoid runtime errors
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+class foo {
+    public static function bar() {
+        $this->isNotWorking();
+    }
+}
+// Allowed
+class foo {
+    public function bar() {
+        $this->isWorking();
+    }
+    public static function baz() {
+        self::isAlsoWorking();
+    }
+}
+      ]]>
+    </example>
+  </rule>
+</ruleset>
