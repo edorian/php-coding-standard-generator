@@ -1708,6 +1708,83 @@ This sniff will throw errors if tabs are used for indentation rather than spaces
 </div>
 </div>
 </div>
+<h2>MySource - PHP</h2><p class="ruleset-description">
+Sniffs related to basic PHP usage
+  </p><div class="rule-section" name="MySource.PHP.xml">
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-MySource.PHP.EvalObjectFactory" name="MySource.PHP.EvalObjectFactory"><div class="rule-name"><label for="phpcs-MySource.PHP.EvalObjectFactory">EvalObjectFactory</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+$class = "...";
+$args = "1, 'string', 'dynamicBuildingArgs'";
+eval("$x = new $bar($args)");
+// Use
+$x = new $bar($arg1, $arg2); // No eval
+// Or use Reflection
+$x = new ReflectionClass($bar);
+$args = array(1, 'string', 'dynamicBuildingArgs');
+$x-&gt;newInstanceArgs($args);
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="MySource.PHP.EvalObjectFactory">
+Ensures that eval() is not used to create objects.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-MySource.PHP.GetRequestData" name="MySource.PHP.GetRequestData"><div class="rule-name"><label for="phpcs-MySource.PHP.GetRequestData">GetRequestData</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+class foo {
+    function bar() {
+        $x = $_GET['hi']; // Forbidden!
+    }
+}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="MySource.PHP.GetRequestData">
+Disallows the direct usage of $_REQUEST, $_GET, $_POST and $_FILES.
+It's only allowed in a class called "Security" in a function called "getRequestData".
+The Sniff is very specific and not useful in general but it can be used as template sniff for your own take on it.
+
+If you are using a request object instantiated in your bootstrap or a external lib then this sniff will also work for you. 
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-MySource.PHP.ReturnFunctionValue" name="MySource.PHP.ReturnFunctionValue"><div class="rule-name"><label for="phpcs-MySource.PHP.ReturnFunctionValue">ReturnFunctionValue</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+function bar() {
+    return foo();
+}
+// Allowed
+function bar() {
+    $x = foo();
+    return $x;
+}
+
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="MySource.PHP.ReturnFunctionValue">
+Warns when function values are returned directly. The Sniff enforces that the result of a function call should be assigned to a variable before being returned.
+    </label></div>
+</div>
+</div>
 <h2>PEAR - Classes</h2><p class="ruleset-description">
 PEAR coding standard sniffs related to classes
   </p><div class="rule-section" name="PEAR.Classes.xml"><div class="rule">
@@ -2371,7 +2448,7 @@ project/tests/otherTool/but/by/accident/containts/a/phpunit/testcase.php // Not 
 <div class="rule-description"><label for="PHPUnitStandard.Testing.ExtraneousClass">
 Tests are expected to reside somewhere in */tests/phpunit/*.
 
-This is not the offical PHPUnit recommendation and for now the path is not configurable.
+This is not the official PHPUnit recommendation and for now the path is not configurable.
     </label></div>
 </div>
 <div class="rule">
@@ -2498,13 +2575,6 @@ You can't have your own base classes or you need to extend the test and whitelis
 <div class="rule">
 <div class="rule-header">
 <input class="rule-selector" type="checkbox" id="phpcs-PHPUnitStandard.Testing.TestOrProviderFunctionsOnly" name="PHPUnitStandard.Testing.TestOrProviderFunctionsOnly"><div class="rule-name"><label for="phpcs-PHPUnitStandard.Testing.TestOrProviderFunctionsOnly">TestOrProviderFunctionsOnly</label></div>
-<div class="rule-example"><span>
-                Example
-                <span><pre>
-      
-
-      
-    </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="PHPUnitStandard.Testing.TestOrProviderFunctionsOnly">
@@ -2518,25 +2588,31 @@ Test cases may only consist of test and data provider functions. No helper metho
                 Example
                 <span><pre>
       
+protected function testImportantBehavior() {
+    // Will not get executed because it is not public
+}
 
+/**
+ * @dataProvider provideDataForTest
+ */
+public function testSomething($a, $b) {
+
+}
+
+protected function provideDataForTest() {
+    // Test will fail as there is no executable data provider method
+}
       
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="PHPUnitStandard.Testing.TestOrProviderIsPublic">
-Test cases and data provders have to be public. This allows you to find tests that wouldn't get executed by mistake.
+Test cases and data providers have to be public. This allows you to find tests that wouldn't get executed by mistake.
     </label></div>
 </div>
 <div class="rule">
 <div class="rule-header">
 <input class="rule-selector" type="checkbox" id="phpcs-PHPUnitStandard.Testing.UnusedProvider" name="PHPUnitStandard.Testing.UnusedProvider"><div class="rule-name"><label for="phpcs-PHPUnitStandard.Testing.UnusedProvider">UnusedProvider</label></div>
-<div class="rule-example"><span>
-                Example
-                <span><pre>
-      
-
-      
-    </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="PHPUnitStandard.Testing.UnusedProvider">
@@ -2546,6 +2622,61 @@ Data providers must be used at least once. This allows you to find unused code.
 <div class="rule">
 <div class="rule-header">
 <input class="rule-selector" type="checkbox" id="phpcs-PHPUnitStandard.Testing.ValidFunctionName" name="PHPUnitStandard.Testing.ValidFunctionName"><div class="rule-name"><label for="phpcs-PHPUnitStandard.Testing.ValidFunctionName">ValidFunctionName</label></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="PHPUnitStandard.Testing.ValidFunctionName">
+Test functions may only start with "test" or "provider" and contain one underscore at most and have to be camelCaps.
+    </label></div>
+</div>
+</div>
+<h2>Squiz - Files</h2><p class="ruleset-description">
+Squiz coding standard releated to files
+  </p><div class="rule-section" name="Squiz.Files.xml"><div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.Files.FileExtension" name="Squiz.Files.FileExtension"><div class="rule-name"><label for="phpcs-Squiz.Files.FileExtension">FileExtension</label></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.Files.FileExtension">
+Enforces class and interfaces to be in ".inc" files while everything else should go into ".php" files.
+    </label></div>
+</div></div>
+<h2>Squiz - PHP</h2><p class="ruleset-description">
+Squiz coding standard related to PHP usage
+  </p><div class="rule-section" name="Squiz.PHP.xml">
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.PHP.CommentedOutCode" name="Squiz.PHP.CommentedOutCode"><div class="rule-name"><label for="phpcs-Squiz.PHP.CommentedOutCode">CommentedOutCode</label></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.PHP.CommentedOutCode">
+Try to ensure that there is no commented out code
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.PHP.DisallowComparisonAssignment" name="Squiz.PHP.DisallowComparisonAssignment"><div class="rule-name"><label for="phpcs-Squiz.PHP.DisallowComparisonAssignment">DisallowComparisonAssignment</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+$var = !$foo;
+$var = ($foo || $bar);
+$var = ($foo === TRUE);
+$var = ($foo === TRUE
+        || $bar === FALSE);
+$var = (!$foo);
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.PHP.DisallowComparisonAssignment">
+Ensures that the value of a comparison is not assigned to a variable
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.PHP.DisallowInlineIf" name="Squiz.PHP.DisallowInlineIf"><div class="rule-name"><label for="phpcs-Squiz.PHP.DisallowInlineIf">DisallowInlineIf</label></div>
 <div class="rule-example"><span>
                 Example
                 <span><pre>
@@ -2555,8 +2686,665 @@ Data providers must be used at least once. This allows you to find unused code.
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
-<div class="rule-description"><label for="PHPUnitStandard.Testing.ValidFunctionName">
-Test functions may only start with "test" or "provider" and contain one underscore at most and have to be camelCaps.
+<div class="rule-description"><label for="Squiz.PHP.DisallowInlineIf">
+Ensures no inline if statements are used
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.PHP.DisallowMultipleAssignments" name="Squiz.PHP.DisallowMultipleAssignments"><div class="rule-name"><label for="phpcs-Squiz.PHP.DisallowMultipleAssignments">DisallowMultipleAssignments</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+      // Forbidden
+$x = $y = 4;
+if($x = 5) {}
+// Allowed
+$x = 4;
+$y = $x;
+if($x == 5) {}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.PHP.DisallowMultipleAssignments">
+Ensures that there is only one value assignment on a line, and that it is the first thing on the line.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.PHP.DisallowObEndFlush" name="Squiz.PHP.DisallowObEndFlush"><div class="rule-name"><label for="phpcs-Squiz.PHP.DisallowObEndFlush">DisallowObEndFlush</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+echo "foo";
+ob_end_flush();
+// Allowed
+$output = ob_get_contents();
+ob_end_clean();
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.PHP.DisallowObEndFlush">
+Ensures that the ob_end_flush function is not used
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.PHP.DisallowSizeFunctionsInLoops" name="Squiz.PHP.DisallowSizeFunctionsInLoops"><div class="rule-name"><label for="phpcs-Squiz.PHP.DisallowSizeFunctionsInLoops">DisallowSizeFunctionsInLoops</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+for($i = 0; $i &lt; count($i); ++$i) {
+
+}
+// Allowed
+$amountOfElements = count($i);
+for($i = 0; $i &lt; $amountOfElements; ++$i) {
+
+}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.PHP.DisallowSizeFunctionsInLoops">
+Ensures no size-based functions are used in loop conditions to avoid unneccarry function calls
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.PHP.DiscouragedFunctions" name="Squiz.PHP.DiscouragedFunctions"><div class="rule-name"><label for="phpcs-Squiz.PHP.DiscouragedFunctions">DiscouragedFunctions</label></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.PHP.DiscouragedFunctions">
+Ensures that there are no `error_log` and `print_r` function calls. The Sniff can be extended used to disallow any function
+    </label></div>
+<div class="property">error:
+            <input type="checkbox" class="property-selector" id="property-Squiz.PHP.DiscouragedFunctions-error" name="error" value="false" default="false"><div class="property-description"><label for="property-Squiz.PHP.DiscouragedFunctions-error">If true, an error will be thrown; otherwise a warning.</label></div>
+</div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.PHP.EmbeddedPhp" name="Squiz.PHP.EmbeddedPhp"><div class="rule-name"><label for="phpcs-Squiz.PHP.EmbeddedPhp">EmbeddedPhp</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+&lt;?php echo "hi"; ?&gt;
+// Allowed
+&lt;?php
+echo "hi";
+?&gt;
+// Also forbidden
+&lt;?php
+
+echo "hi";
+?&gt;
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.PHP.EmbeddedPhp">
+        Ensures an style for the indentation of embedded PHP code segments.
+
+        - No empty embedded tags
+        - No blank lines after the opening tag of the embedded code
+        - No blank lines before the closing tag of the embedded code
+        - Opening tag must be on a new line by its self
+        - Closing tag must be on a line by itself
+        - Indenting inside the php tags
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.PHP.Eval" name="Squiz.PHP.Eval"><div class="rule-name"><label for="phpcs-Squiz.PHP.Eval">Eval</label></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.PHP.Eval">
+Warns about usage for the eval() function
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.PHP.ForbiddenFunctions" name="Squiz.PHP.ForbiddenFunctions"><div class="rule-name"><label for="phpcs-Squiz.PHP.ForbiddenFunctions">ForbiddenFunctions</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden functions
+sizeof
+delete
+print
+is_null
+create_function
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.PHP.ForbiddenFunctions">
+Discourages the use of alias functions that are kept in PHP for compatibility with older versions. Can be subclassed to forbid the use of any function and suggest alternatives.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.PHP.GlobalKeyword" name="Squiz.PHP.GlobalKeyword"><div class="rule-name"><label for="phpcs-Squiz.PHP.GlobalKeyword">GlobalKeyword</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+function bar() {
+    global $foo;
+}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.PHP.GlobalKeyword">
+Ensures that the "global" keyword isn't used.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.PHP.Heredoc" name="Squiz.PHP.Heredoc"><div class="rule-name"><label for="phpcs-Squiz.PHP.Heredoc">Heredoc</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+$x = &lt;&lt;&lt;BAR
+    asdf
+    jkl;
+    BAR;
+// Allowed
+$x = 'asdf' . PHP_EOL . 'jkl;'
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.PHP.Heredoc">
+Ensures that no Heredoc statements are used.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.PHP.InnerFunctions" name="Squiz.PHP.InnerFunctions"><div class="rule-name"><label for="phpcs-Squiz.PHP.InnerFunctions">InnerFunctions</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+function bar() {
+    function foo() {
+
+    }
+}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.PHP.InnerFunctions">
+Ensures that there are no function definitions inside of functions. Closure are ok.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.PHP.LowercasePHPFunctions" name="Squiz.PHP.LowercasePHPFunctions"><div class="rule-name"><label for="phpcs-Squiz.PHP.LowercasePHPFunctions">LowercasePHPFunctions</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+      // Forbidden
+      Array_Map(...);
+      array_Map(...);
+      array_maP(...);
+      Array_map(...);
+      // Allowed
+      array_map(...);
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.PHP.LowercasePHPFunctions">
+Ensures all calls to builtin PHP functions are lowercase.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.PHP.NonExecutableCode" name="Squiz.PHP.NonExecutableCode"><div class="rule-name"><label for="phpcs-Squiz.PHP.NonExecutableCode">NonExecutableCode</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+      // Forbidden
+      function foo() {
+          echo "Hallo";
+          return;
+          echo "World"; // Dead code
+      }
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.PHP.NonExecutableCode">
+Warns about code that can never been executed. This happens when a function returns before the code, or a break ends execution of a statement etc.
+    </label></div>
+</div>
+</div>
+<h2>Squiz - Scope</h2><p class="ruleset-description">
+Squiz coding standard related to scoping
+  </p><div class="rule-section" name="Squiz.Scope.xml">
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.Scope.MemberVarScope" name="Squiz.Scope.MemberVarScope"><div class="rule-name"><label for="phpcs-Squiz.Scope.MemberVarScope">MemberVarScope</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+class foo {
+    var $x = 1;
+}
+// Allowed
+class foo {
+    public $a = 1;
+    protected $b = 2;
+    private $c = 3;
+}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.Scope.MemberVarScope">
+Ensures that class members have scope modifiers
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.Scope.MethodScope" name="Squiz.Scope.MethodScope"><div class="rule-name"><label for="phpcs-Squiz.Scope.MethodScope">MethodScope</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+class foo {
+    function bar() {
+    }
+}
+// Allowed
+class foo {
+    public function bar() {
+    }
+    protected function baz() {
+    }
+    private fuction bak() {
+    }
+}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.Scope.MethodScope">
+Ensures that methods have scope modifiers
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.Scope.StaticThisUsage" name="Squiz.Scope.StaticThisUsage"><div class="rule-name"><label for="phpcs-Squiz.Scope.StaticThisUsage">StaticThisUsage</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+class foo {
+    public static function bar() {
+        $this-&gt;isNotWorking();
+    }
+}
+// Allowed
+class foo {
+    public function bar() {
+        $this-&gt;isWorking();
+    }
+    public static function baz() {
+        self::isAlsoWorking();
+    }
+}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.Scope.StaticThisUsage">
+Ensures that $this is not used in static methods to avoid runtime errors
+    </label></div>
+</div>
+</div>
+<h2>Squiz - WhiteSpace</h2><p class="ruleset-description">
+Squiz coding standard sniffs related whitespace usage for structuring source files.
+The sniffs are general and can be widely used.
+  </p><div class="rule-section" name="Squiz.WhiteSpace.xml">
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.WhiteSpace.CastSpacing" name="Squiz.WhiteSpace.CastSpacing"><div class="rule-name"><label for="phpcs-Squiz.WhiteSpace.CastSpacing">CastSpacing</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+$x = ( array)"foo";
+$x = (array )"foo";
+// Allowed
+$x = (array)"foo";
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.WhiteSpace.CastSpacing">
+Ensure cast statements dont contain whitespace.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.WhiteSpace.ControlStructureSpacing" name="Squiz.WhiteSpace.ControlStructureSpacing"><div class="rule-name"><label for="phpcs-Squiz.WhiteSpace.ControlStructureSpacing">ControlStructureSpacing</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// No spaces after opening bracket and no spaces before closing bracket
+// No blank lines at the start or the end of a control structure
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.WhiteSpace.ControlStructureSpacing">
+Ensures that control structures have a certain style of spacing around brackets.
+For other spacing styles there is the possibility of extending PHP_CodeSniffer_Standards_AbstractPatternSniff.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.WhiteSpace.FunctionClosingBraceSpace" name="Squiz.WhiteSpace.FunctionClosingBraceSpace"><div class="rule-name"><label for="phpcs-Squiz.WhiteSpace.FunctionClosingBraceSpace">FunctionClosingBraceSpace</label></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.WhiteSpace.FunctionClosingBraceSpace">
+Checks that there is one empty line before the closing brace of a function but zero before the closing the brace of nested functions.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.WhiteSpace.FunctionOpeningBraceSpace" name="Squiz.WhiteSpace.FunctionOpeningBraceSpace"><div class="rule-name"><label for="phpcs-Squiz.WhiteSpace.FunctionOpeningBraceSpace">FunctionOpeningBraceSpace</label></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.WhiteSpace.FunctionOpeningBraceSpace">
+Checks that there are no blank lines after a functions opening brace and that opening braces are on the new line.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.WhiteSpace.FunctionSpacing" name="Squiz.WhiteSpace.FunctionSpacing"><div class="rule-name"><label for="phpcs-Squiz.WhiteSpace.FunctionSpacing">FunctionSpacing</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+class foo {
+
+
+    public function bar() {
+
+    }
+
+
+    public function baz() {
+
+    }
+    
+    
+}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.WhiteSpace.FunctionSpacing">
+Checks the separation between methods in a class or interface. Methods are expected to have two blank lines between them.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.WhiteSpace.LanguageConstructSpacing" name="Squiz.WhiteSpace.LanguageConstructSpacing"><div class="rule-name"><label for="phpcs-Squiz.WhiteSpace.LanguageConstructSpacing">LanguageConstructSpacing</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+echo"hi";
+echo   "hi";
+$x = new   StdClass();
+// Allowed
+echo "hi";
+$x = new StdClass();
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.WhiteSpace.LanguageConstructSpacing">
+Ensures all language constructs (without brackets) contain a single space between themselves and their content.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.WhiteSpace.LogicalOperatorSpacing" name="Squiz.WhiteSpace.LogicalOperatorSpacing"><div class="rule-name"><label for="phpcs-Squiz.WhiteSpace.LogicalOperatorSpacing">LogicalOperatorSpacing</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+if($x&amp;&amp; $y) {}
+if($x &amp;&amp;$y) {}
+if($x &amp;&amp;   $y) {}
+if($x   &amp;&amp; $y) {}
+// Allowed
+if($x &amp;&amp; $y) {}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.WhiteSpace.LogicalOperatorSpacing">
+Ensures that there is one space before and after a logical operator.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.WhiteSpace.MemberVarSpacing" name="Squiz.WhiteSpace.MemberVarSpacing"><div class="rule-name"><label for="phpcs-Squiz.WhiteSpace.MemberVarSpacing">MemberVarSpacing</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+class foo {
+    private $foo;
+    private $bar;
+}
+// Allowed
+class foo {
+    private $foo;
+
+    private $bar;
+}
+// Also allowed
+class foo {
+    private $foo;
+
+    /**
+     * @var string
+     */
+    private $bar;
+}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.WhiteSpace.MemberVarSpacing">
+Ensures that there is one blank lines between each member declaration
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.WhiteSpace.ObjectOperatorSpacing" name="Squiz.WhiteSpace.ObjectOperatorSpacing"><div class="rule-name"><label for="phpcs-Squiz.WhiteSpace.ObjectOperatorSpacing">ObjectOperatorSpacing</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+$x = new StdClass();
+$x -&gt; foo = 1;
+// Allowed
+$x = new StdClass();
+$x-&gt;foo = 1;
+echo "foo";
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.WhiteSpace.ObjectOperatorSpacing">
+Ensures there is no whitespace before a ObjectOperator ( -&gt; )
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.WhiteSpace.OperatorSpacing" name="Squiz.WhiteSpace.OperatorSpacing"><div class="rule-name"><label for="phpcs-Squiz.WhiteSpace.OperatorSpacing">OperatorSpacing</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+$x = $a&amp;$b;
+$x=$y;
+$x=&amp; $y;
+// Allowed
+$x = $a &amp; $b;
+$x = $y;
+$x =&amp; $y;
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.WhiteSpace.OperatorSpacing">
+Ensures that operators have one space surrounding them.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.WhiteSpace.PropertyLabelSpacing" name="Squiz.WhiteSpace.PropertyLabelSpacing"><div class="rule-name"><label for="phpcs-Squiz.WhiteSpace.PropertyLabelSpacing">PropertyLabelSpacing</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+x = {
+    a:  'x',
+    b : 1,
+    c :  2,
+    }
+// Allowed
+x = {
+    a: 'x',
+    b:  1,
+    c: 2,
+}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.WhiteSpace.PropertyLabelSpacing">
+Javascript: Ensures that the colon in a property or label definition has a single space after it and no space before it.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.WhiteSpace.ScopeClosingBrace" name="Squiz.WhiteSpace.ScopeClosingBrace"><div class="rule-name"><label for="phpcs-Squiz.WhiteSpace.ScopeClosingBrace">ScopeClosingBrace</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+function foo() {
+   }
+function foo() {
+    echo "bar"; }
+// Allowed
+function foo() {
+}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.WhiteSpace.ScopeClosingBrace">
+Ensures that the closing braces of scopes are on a new line and indented correctly.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.WhiteSpace.ScopeKeywordSpacing" name="Squiz.WhiteSpace.ScopeKeywordSpacing"><div class="rule-name"><label for="phpcs-Squiz.WhiteSpace.ScopeKeywordSpacing">ScopeKeywordSpacing</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+public    function
+protected  function
+// Allowed
+public function
+protected function
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.WhiteSpace.ScopeKeywordSpacing">
+Ensure there is a single space after scope keywords.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.WhiteSpace.SemicolonSpacing" name="Squiz.WhiteSpace.SemicolonSpacing"><div class="rule-name"><label for="phpcs-Squiz.WhiteSpace.SemicolonSpacing">SemicolonSpacing</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+$x = 1  ;
+echo "foo" ;
+// Allowed
+$x = 1;
+echo "foo";
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.WhiteSpace.SemicolonSpacing">
+Ensures that there is no whitespace before a semicolon.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Squiz.WhiteSpace.SuperfluousWhitespace" name="Squiz.WhiteSpace.SuperfluousWhitespace"><div class="rule-name"><label for="phpcs-Squiz.WhiteSpace.SuperfluousWhitespace">SuperfluousWhitespace</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+Checks that no whitespace proceeds the first content of the file, exists after the last content of the file, resides after content on any line, or are two empty lines in functions.
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Squiz.WhiteSpace.SuperfluousWhitespace">
+Checks that no whitespace proceeds the first content of the file, exists after the last content of the file, resides after content on any line, or are two empty lines in functions.
     </label></div>
 </div>
 </div>
