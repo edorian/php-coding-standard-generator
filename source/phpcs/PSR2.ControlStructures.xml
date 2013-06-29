@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="PSR2 - ControlStructures" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+PSR2 control structures rules
+  </description>
+  <rule name="ControlStructureSpacing" class="PSR2_Sniffs_ControlStructures_ControlStructureSpacingSniff">
+    <description>
+Checks that control structures have PSR2 style spacing around brackets
+    </description>
+    <example>
+      <![CDATA[
+- 0 spaces after opening bracket
+- 0 spaces before closing bracket
+      ]]>
+    </example>
+  </rule>
+  <rule name="ElseIfDeclaration" class="PSR2_Sniffs_ControlStructures_ElseIfDeclarationSniff">
+    <description>
+Verifies that there are no else if statements. Elseif should be used instead
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+if ($x) {
+    // ...
+} else if ($y) {
+    // ...
+}
+// Allowed
+if ($x) {
+    // ...
+} elseif ($y) {
+    // ...
+}
+      ]]>
+    </example>
+  </rule>
+  <rule name="SwitchDeclaration" class="PSR2_Sniffs_ControlStructures_SwitchDeclarationSniff">
+    <description>
+Ensures that switch statements are defined according to PSR2
+    </description>
+    <properties>
+      <property name="indent" description="The number of spaces code should be indented" value="4"/>
+    </properties>
+    <example>
+      <![CDATA[
+- Keywords must be lowercase
+- Keywords must be indented $indent spaces from SWITCH keyword
+- CASE keyword must be followed by a single space
+- There must be no space before the colon in a case statement
+- Statements must not be defined using curly braces
+- Terminating statement must be indented to the same level as the CASE body
+- There must be a comment when fall-through is intentional in a non-empty case body
+      ]]>
+    </example>
+  </rule>
+</ruleset>

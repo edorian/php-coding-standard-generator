@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="PSR2 - Namespaces" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+PSR2 method rules
+  </description>
+  <rule name="NamespaceDeclaration" class="PSR2_Sniffs_Namespaces_NamespaceDeclarationSniff">
+    <description>
+There must be one blank line after the namespace declaration
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+<?php
+namespace foo\bar;
+class x {
+}
+// Allowed
+<?php
+namespace foo\bar;
+
+class x {
+}
+      ]]>
+    </example>
+  </rule>
+  <rule name="UseDeclaration" class="PSR2_Sniffs_Namespaces_UseDeclarationSniff">
+    <description>
+Ensures USE blocks are declared according to PSR2
+    </description>
+    <example>
+      <![CDATA[
+- There must be one USE keyword per declaration
+- USE declarations must go after the first namespace declaration
+- There must be one blank line after the last USE statement
+      ]]>
+    </example>
+  </rule>
+</ruleset>

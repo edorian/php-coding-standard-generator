@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="PSR2 - Files" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+PSR2 file rules
+  </description>
+  <rule name="EndFileNewline" class="PSR2_Sniffs_Files_EndFileNewlineSniff">
+    <description>
+Ensures the file ends with a newline character
+    </description>
+    <example>
+      <![CDATA[
+// Forbidden
+// ---------
+<?php
+  //...
+?>EOL
+
+// Allowed
+// -------
+<?php
+  //...
+>?\n
+EOL
+      ]]>
+    </example>
+  </rule>
+</ruleset>

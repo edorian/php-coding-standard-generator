@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="PSR2 - Methods" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+PSR2 method rules
+  </description>
+  <rule name="MethodDeclaration" class="PSR2_Sniffs_Methods_MethodDeclarationSniff">
+    <description>
+Check that the method declaration adheres to all PSR2 rules
+    </description>
+    <example>
+      <![CDATA[
+- Method name should not be prefixed with an underscore to indicate visibility
+- The static declaration must come after the visibility declaration
+- The final declaration must precede the visibility declaration
+- The abstract declaration must precede the visibility declaration
+      ]]>
+    </example>
+  </rule>
+</ruleset>
