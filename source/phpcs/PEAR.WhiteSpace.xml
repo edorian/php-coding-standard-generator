@@ -11,6 +11,9 @@ Sniffs related to white space and indention in PEAR.
     <description>
 Object operators must be indented 4 spaces if they are the first thing on a line.
     </description>
+    <properties>
+      <property name="indent" description="The number of spaces code should be indented." value="4" />
+    </properties>
     <example>
       <![CDATA[
 $object
@@ -23,6 +26,9 @@ $object
     <description>
 Closing braces of scopes must be aligned correctly. See the example.
     </description>
+    <properties>
+      <property name="indent" description="The number of spaces code should be indented." value="4" />
+    </properties>
     <example>
       <![CDATA[
 class Test

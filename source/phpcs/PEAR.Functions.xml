@@ -11,6 +11,10 @@ Sniffs related to functions calling and declarations.
     <description>
 Enforces function call signatures "foo($a, $b, $c)" style reporting all other whitespaces.
     </description>
+    <properties>
+      <property name="indent" description="The number of spaces code should be indented." value="4" />
+      <property name="allowMultipleArguments" description="If TRUE, multiple arguments can be defined per line in a multi-line call." value="true" />
+    </properties>
     <example>
       <![CDATA[
 // Valid

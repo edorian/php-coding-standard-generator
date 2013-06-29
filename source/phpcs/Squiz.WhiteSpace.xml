@@ -44,6 +44,9 @@ Checks that there are no blank lines after a functions opening brace and that op
     <description>
 Checks the separation between methods in a class or interface. Methods are expected to have two blank lines between them.
     </description>
+    <properties>
+      <property name="spacing" description="The number of blank lines between functions" value="2"></property>
+    </properties>
     <example>
       <![CDATA[
 class foo {
@@ -229,6 +232,9 @@ echo "foo";
     <description>
 Checks that no whitespace proceeds the first content of the file, exists after the last content of the file, resides after content on any line, or are two empty lines in functions.
     </description>
+    <properties>
+      <property name="ignoreBlankLines" description="If TRUE, whitespace rules are not checked for blank lines" value="false"></property>
+    </properties>
     <example>
       <![CDATA[
 Checks that no whitespace proceeds the first content of the file, exists after the last content of the file, resides after content on any line, or are two empty lines in functions.

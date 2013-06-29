@@ -7,6 +7,9 @@ Squiz coding standard related to PHP usage
     <description>
 Try to ensure that there is no commented out code
     </description>
+    <properties>
+      <property name="maxPercentage" description="If a comment is more than $value percent code, a warning will be shown." value="35" />
+    </properties>
   </rule>
   <rule name="DisallowComparisonAssignment" class="Squiz_Sniffs_PHP_DisallowComparisonAssignmentSniff">
     <description>
@@ -30,7 +33,8 @@ Ensures no inline if statements are used
     </description>
     <example>
       <![CDATA[
-
+// Forbidden
+$x = $y ? 1 : 2;
       ]]>
     </example>
   </rule>
