@@ -18,7 +18,7 @@
     <div id="nav">
         <ul>
             <li id='phpmd-activate'>PHPMD</li>
-            <li id='phpcs-activate'>PHPCS - ALPHA!</li>
+            <li id='phpcs-activate'>PHPCS - Incomplete</li>
         </ul>
     </div>
     <div id="main">
@@ -1069,7 +1069,8 @@ No unnecessary overridden methods, that simply call their parent, are allowed.
 </div>
 <h2>Generic - Commenting</h2><p class="ruleset-description">
 Detects patterns in comments
-  </p><div class="rule-section" name="Generic.Commenting.xml"><div class="rule">
+  </p><div class="rule-section" name="Generic.Commenting.xml">
+<div class="rule">
 <div class="rule-header">
 <input class="rule-selector" type="checkbox" id="phpcs-Generic.Commenting.Todo" name="Generic.Commenting.Todo"><div class="rule-name"><label for="phpcs-Generic.Commenting.Todo">Todo</label></div>
 <div class="rule-example"><span>
@@ -1077,16 +1078,35 @@ Detects patterns in comments
                 <span><pre>
       
 function worldPeace() {
-  // TODO: Achive this
+  // TODO: Achieve this
 }
       
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="Generic.Commenting.Todo">
-There may not be any 'TODO' comments
+      There may not be any 'TODO' comments
     </label></div>
-</div></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Generic.Commenting.Fixme" name="Generic.Commenting.Fixme"><div class="rule-name"><label for="phpcs-Generic.Commenting.Fixme">Fixme</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+function worldPeace() {
+  // FIXME: Not working yet
+}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Generic.Commenting.Fixme">
+      There may not be any 'FIXME' comments
+    </label></div>
+</div>
+</div>
 <h2>Generic - ControlStructures</h2><p class="ruleset-description">
 Sniffs related to control structures
   </p><div class="rule-section" name="Generic.ControlStructures.xml"><div class="rule">
@@ -1136,7 +1156,16 @@ Runs 'gjslint' on your javascript files.
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="Generic.Debug.JSHint">
-Runs 'jshint' on your javascript files.
+      Runs 'jshint' on your javascript files.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Generic.Debug.CSSLint" name="Generic.Debug.CSSLint"><div class="rule-name"><label for="phpcs-Generic.Debug.CSSLint">CSSLint</label></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Generic.Debug.CSSLint">
+      Runs 'csslint' on your css files.
     </label></div>
 </div>
 </div>
@@ -1496,7 +1525,16 @@ x = bad; // Not ok
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="Generic.NamingConventions.UpperCaseConstantName">
-Constants must be uppercase
+      Constants must be uppercase
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Generic.NamingConventions.CamelCapsFunctionName" name="Generic.NamingConventions.CamelCapsFunctionName"><div class="rule-name"><label for="phpcs-Generic.NamingConventions.CamelCapsFunctionName">CamelCapsFunctionName</label></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Generic.NamingConventions.CamelCapsFunctionName">
+      Ensures camel case function naming and that only PHP core functions have a double underscore
     </label></div>
 </div>
 </div>
@@ -1696,9 +1734,9 @@ if($x == 1) {
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="Generic.WhiteSpace.ScopeIndent">
-Checks that control structures are structured correctly and their content is indented correctly.
+      Checks that control structures are structured correctly and their content is indented correctly.
 
-This sniff will throw errors if tabs are used for indentation rather than spaces.
+      This sniff will throw errors if tabs are used for indentation rather than spaces.
     </label></div>
 <div class="property">indent:
             <input type="text" size="5" class="property-selector" id="property-Generic.WhiteSpace.ScopeIndent-indent" name="indent" value="4" default="4"><div class="property-description"><label for="property-Generic.WhiteSpace.ScopeIndent-indent">The number of spaces code should be indented.</label></div>
@@ -1706,6 +1744,14 @@ This sniff will throw errors if tabs are used for indentation rather than spaces
 <div class="property">exact:
             <input type="checkbox" checked class="property-selector" id="property-Generic.WhiteSpace.ScopeIndent-exact" name="exact" value="true" default="true"><div class="property-description"><label for="property-Generic.WhiteSpace.ScopeIndent-exact">Does the indent need to be exactly right? If TRUE, indent needs to be exactly $ident spaces.  If FALSE indent needs to be at least $ident spaces (but can be more)</label></div>
 </div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-Generic.WhiteSpace.DisallowSpaceIndent" name="Generic.WhiteSpace.DisallowSpaceIndent"><div class="rule-name"><label for="phpcs-Generic.WhiteSpace.DisallowSpaceIndent">DisallowSpaceIndent</label></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="Generic.WhiteSpace.DisallowSpaceIndent">
+Tabs, not spaces, must be used for indentation.    </label></div>
 </div>
 </div>
 <h2>MySource - PHP</h2><p class="ruleset-description">
@@ -1781,7 +1827,16 @@ function bar() {
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="MySource.PHP.ReturnFunctionValue">
-Warns when function values are returned directly. The Sniff enforces that the result of a function call should be assigned to a variable before being returned.
+      Warns when function values are returned directly. The Sniff enforces that the result of a function call should be assigned to a variable before being returned.
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-MySource.PHP.AjaxNullComparison" name="MySource.PHP.AjaxNullComparison"><div class="rule-name"><label for="phpcs-MySource.PHP.AjaxNullComparison">AjaxNullComparison</label></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="MySource.PHP.AjaxNullComparison">
+      Functions with an @api annotation may not make null comparisons but have to use empty()
     </label></div>
 </div>
 </div>
@@ -1990,6 +2045,9 @@ do {EOL'
 Enforces show control signatures are spaced. See the examples.
 Also a great base class to easily specify ow you want your own signatures to be spaced.
     </label></div>
+<div class="property">ignoreComments:
+            <input type="checkbox" checked class="property-selector" id="property-PEAR.ControlStructures.ControlSignature-ignoreComments" name="ignoreComments" value="true" default="true"><div class="property-description"><label for="property-PEAR.ControlStructures.ControlSignature-ignoreComments">If true, comments will be ignored if they are found in the code.</label></div>
+</div>
 </div>
 <div class="rule">
 <div class="rule-header">
@@ -2124,6 +2182,12 @@ EOH
 <div class="rule-description"><label for="PEAR.Functions.FunctionCallSignature">
 Enforces function call signatures "foo($a, $b, $c)" style reporting all other whitespaces.
     </label></div>
+<div class="property">indent:
+            <input type="text" size="5" class="property-selector" id="property-PEAR.Functions.FunctionCallSignature-indent" name="indent" value="4" default="4"><div class="property-description"><label for="property-PEAR.Functions.FunctionCallSignature-indent">The number of spaces code should be indented.</label></div>
+</div>
+<div class="property">allowMultipleArguments:
+            <input type="checkbox" checked class="property-selector" id="property-PEAR.Functions.FunctionCallSignature-allowMultipleArguments" name="allowMultipleArguments" value="true" default="true"><div class="property-description"><label for="property-PEAR.Functions.FunctionCallSignature-allowMultipleArguments">If TRUE, multiple arguments can be defined per line in a multi-line call.</label></div>
+</div>
 </div>
 <div class="rule">
 <div class="rule-header">
@@ -2283,6 +2347,9 @@ $object
 <div class="rule-description"><label for="PEAR.WhiteSpace.ObjectOperatorIndent">
 Object operators must be indented 4 spaces if they are the first thing on a line.
     </label></div>
+<div class="property">indent:
+            <input type="text" size="5" class="property-selector" id="property-PEAR.WhiteSpace.ObjectOperatorIndent-indent" name="indent" value="4" default="4"><div class="property-description"><label for="property-PEAR.WhiteSpace.ObjectOperatorIndent-indent">The number of spaces code should be indented.</label></div>
+</div>
 </div>
 <div class="rule">
 <div class="rule-header">
@@ -2317,6 +2384,9 @@ class Test
 <div class="rule-description"><label for="PEAR.WhiteSpace.ScopeClosingBrace">
 Closing braces of scopes must be aligned correctly. See the example.
     </label></div>
+<div class="property">indent:
+            <input type="text" size="5" class="property-selector" id="property-PEAR.WhiteSpace.ScopeClosingBrace-indent" name="indent" value="4" default="4"><div class="property-description"><label for="property-PEAR.WhiteSpace.ScopeClosingBrace-indent">The number of spaces code should be indented.</label></div>
+</div>
 </div>
 <div class="rule">
 <div class="rule-header">
@@ -2629,6 +2699,286 @@ Test functions may only start with "test" or "provider" and contain one undersco
     </label></div>
 </div>
 </div>
+<h2>PSR1 - Classes</h2><p class="ruleset-description">
+PSR1 class rules
+  </p><div class="rule-section" name="PSR1.Classes.xml"><div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-PSR1.Classes.ClassDeclaration" name="PSR1.Classes.ClassDeclaration"><div class="rule-name"><label for="phpcs-PSR1.Classes.ClassDeclaration">ClassDeclaration</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+class Foo {
+
+}
+class Bar {
+
+}
+// Allowed:
+
+// Foo.php
+namespace \my\vendor;
+class Foo {
+
+}
+
+// Bar.php
+namespace \my\vendor;
+class Bar {
+
+}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="PSR1.Classes.ClassDeclaration">
+      Each class must be in a file by itself and must be in a namespace of at least one level depth.
+    </label></div>
+</div></div>
+<h2>PSR1 - Files</h2><p class="ruleset-description">
+PSR1 file rules
+  </p><div class="rule-section" name="PSR1.Files.xml"><div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-PSR1.Files.SideEffects" name="PSR1.Files.SideEffects"><div class="rule-name"><label for="phpcs-PSR1.Files.SideEffects">SideEffects</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+
+if (!defined(FOO)) {
+  die(1);
+}
+
+class Foo {
+
+  // ...
+
+}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="PSR1.Files.SideEffects">
+      Ensures a file declare new symbols and causes no other side effects, or executes logic with side effects, but not both.
+    </label></div>
+</div></div>
+<h2>PSR2 - Classes</h2><p class="ruleset-description">
+PSR2 class rules
+  </p><div class="rule-section" name="PSR2.Classes.xml">
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-PSR2.Classes.ClassDeclaration" name="PSR2.Classes.ClassDeclaration"><div class="rule-name"><label for="phpcs-PSR2.Classes.ClassDeclaration">ClassDeclaration</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+        
+- 1 space between keywords
+- 1 space after class name
+- The keyword must be on the same line as the class name
+- Only one interface may be specified per line in a multi-line implements declaration
+- The closing braces for interface methods must go on the next line after the body
+- Closing brace must be on a line by itself
+        
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="PSR2.Classes.ClassDeclaration">
+Check that the class declaration adheres to all PSR2 rules
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-PSR2.Classes.PropertyDeclaration" name="PSR2.Classes.PropertyDeclaration"><div class="rule-name"><label for="phpcs-PSR2.Classes.PropertyDeclaration">PropertyDeclaration</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+- Property names should not be prefixed with an underscore to indicate visibility
+- The var keyword must not be used to declare a property
+- There must not be more than one property declared per statement
+- Visibility must be declared on all properties
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="PSR2.Classes.PropertyDeclaration">
+Check that the property declaration adheres to all PSR2 rules
+    </label></div>
+</div>
+</div>
+<h2>PSR2 - ControlStructures</h2><p class="ruleset-description">
+PSR2 control structures rules
+  </p><div class="rule-section" name="PSR2.ControlStructures.xml">
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-PSR2.ControlStructures.ControlStructureSpacing" name="PSR2.ControlStructures.ControlStructureSpacing"><div class="rule-name"><label for="phpcs-PSR2.ControlStructures.ControlStructureSpacing">ControlStructureSpacing</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+- 0 spaces after opening bracket
+- 0 spaces before closing bracket
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="PSR2.ControlStructures.ControlStructureSpacing">
+Checks that control structures have PSR2 style spacing around brackets
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-PSR2.ControlStructures.ElseIfDeclaration" name="PSR2.ControlStructures.ElseIfDeclaration"><div class="rule-name"><label for="phpcs-PSR2.ControlStructures.ElseIfDeclaration">ElseIfDeclaration</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+if ($x) {
+    // ...
+} else if ($y) {
+    // ...
+}
+// Allowed
+if ($x) {
+    // ...
+} elseif ($y) {
+    // ...
+}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="PSR2.ControlStructures.ElseIfDeclaration">
+Verifies that there are no else if statements. Elseif should be used instead
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-PSR2.ControlStructures.SwitchDeclaration" name="PSR2.ControlStructures.SwitchDeclaration"><div class="rule-name"><label for="phpcs-PSR2.ControlStructures.SwitchDeclaration">SwitchDeclaration</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+- Keywords must be lowercase
+- Keywords must be indented $indent spaces from SWITCH keyword
+- CASE keyword must be followed by a single space
+- There must be no space before the colon in a case statement
+- Statements must not be defined using curly braces
+- Terminating statement must be indented to the same level as the CASE body
+- There must be a comment when fall-through is intentional in a non-empty case body
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="PSR2.ControlStructures.SwitchDeclaration">
+Ensures that switch statements are defined according to PSR2
+    </label></div>
+<div class="property">indent:
+            <input type="text" size="5" class="property-selector" id="property-PSR2.ControlStructures.SwitchDeclaration-indent" name="indent" value="4" default="4"><div class="property-description"><label for="property-PSR2.ControlStructures.SwitchDeclaration-indent">The number of spaces code should be indented</label></div>
+</div>
+</div>
+</div>
+<h2>PSR2 - Files</h2><p class="ruleset-description">
+PSR2 file rules
+  </p><div class="rule-section" name="PSR2.Files.xml"><div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-PSR2.Files.EndFileNewline" name="PSR2.Files.EndFileNewline"><div class="rule-name"><label for="phpcs-PSR2.Files.EndFileNewline">EndFileNewline</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+// ---------
+&lt;?php
+  //...
+?&gt;EOL
+
+// Allowed
+// -------
+&lt;?php
+  //...
+&gt;?\n
+EOL
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="PSR2.Files.EndFileNewline">
+Ensures the file ends with a newline character
+    </label></div>
+</div></div>
+<h2>PSR2 - Methods</h2><p class="ruleset-description">
+PSR2 method rules
+  </p><div class="rule-section" name="PSR2.Methods.xml"><div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-PSR2.Methods.MethodDeclaration" name="PSR2.Methods.MethodDeclaration"><div class="rule-name"><label for="phpcs-PSR2.Methods.MethodDeclaration">MethodDeclaration</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+- Method name should not be prefixed with an underscore to indicate visibility
+- The static declaration must come after the visibility declaration
+- The final declaration must precede the visibility declaration
+- The abstract declaration must precede the visibility declaration
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="PSR2.Methods.MethodDeclaration">
+Check that the method declaration adheres to all PSR2 rules
+    </label></div>
+</div></div>
+<h2>PSR2 - Namespaces</h2><p class="ruleset-description">
+PSR2 method rules
+  </p><div class="rule-section" name="PSR2.Namespaces.xml">
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-PSR2.Namespaces.NamespaceDeclaration" name="PSR2.Namespaces.NamespaceDeclaration"><div class="rule-name"><label for="phpcs-PSR2.Namespaces.NamespaceDeclaration">NamespaceDeclaration</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+// Forbidden
+&lt;?php
+namespace foo\bar;
+class x {
+}
+// Allowed
+&lt;?php
+namespace foo\bar;
+
+class x {
+}
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="PSR2.Namespaces.NamespaceDeclaration">
+There must be one blank line after the namespace declaration
+    </label></div>
+</div>
+<div class="rule">
+<div class="rule-header">
+<input class="rule-selector" type="checkbox" id="phpcs-PSR2.Namespaces.UseDeclaration" name="PSR2.Namespaces.UseDeclaration"><div class="rule-name"><label for="phpcs-PSR2.Namespaces.UseDeclaration">UseDeclaration</label></div>
+<div class="rule-example"><span>
+                Example
+                <span><pre>
+      
+- There must be one USE keyword per declaration
+- USE declarations must go after the first namespace declaration
+- There must be one blank line after the last USE statement
+      
+    </pre></span></span></div>
+<div style="clear: both"></div>
+</div>
+<div class="rule-description"><label for="PSR2.Namespaces.UseDeclaration">
+Ensures USE blocks are declared according to PSR2
+    </label></div>
+</div>
+</div>
 <h2>Squiz - Files</h2><p class="ruleset-description">
 Squiz coding standard releated to files
   </p><div class="rule-section" name="Squiz.Files.xml"><div class="rule">
@@ -2651,6 +3001,9 @@ Squiz coding standard related to PHP usage
 <div class="rule-description"><label for="Squiz.PHP.CommentedOutCode">
 Try to ensure that there is no commented out code
     </label></div>
+<div class="property">maxPercentage:
+            <input type="text" size="5" class="property-selector" id="property-Squiz.PHP.CommentedOutCode-maxPercentage" name="maxPercentage" value="35" default="35"><div class="property-description"><label for="property-Squiz.PHP.CommentedOutCode-maxPercentage">If a comment is more than $value percent code, a warning will be shown.</label></div>
+</div>
 </div>
 <div class="rule">
 <div class="rule-header">
@@ -2681,7 +3034,8 @@ Ensures that the value of a comparison is not assigned to a variable
                 Example
                 <span><pre>
       
-
+// Forbidden
+$x = $y ? 1 : 2;
       
     </pre></span></span></div>
 <div style="clear: both"></div>
@@ -3114,6 +3468,9 @@ class foo {
 <div class="rule-description"><label for="Squiz.WhiteSpace.FunctionSpacing">
 Checks the separation between methods in a class or interface. Methods are expected to have two blank lines between them.
     </label></div>
+<div class="property">spacing:
+            <input type="text" size="5" class="property-selector" id="property-Squiz.WhiteSpace.FunctionSpacing-spacing" name="spacing" value="2" default="2"><div class="property-description"><label for="property-Squiz.WhiteSpace.FunctionSpacing-spacing">The number of blank lines between functions</label></div>
+</div>
 </div>
 <div class="rule">
 <div class="rule-header">
@@ -3346,6 +3703,9 @@ Checks that no whitespace proceeds the first content of the file, exists after t
 <div class="rule-description"><label for="Squiz.WhiteSpace.SuperfluousWhitespace">
 Checks that no whitespace proceeds the first content of the file, exists after the last content of the file, resides after content on any line, or are two empty lines in functions.
     </label></div>
+<div class="property">ignoreBlankLines:
+            <input type="checkbox" class="property-selector" id="property-Squiz.WhiteSpace.SuperfluousWhitespace-ignoreBlankLines" name="ignoreBlankLines" value="false" default="false"><div class="property-description"><label for="property-Squiz.WhiteSpace.SuperfluousWhitespace-ignoreBlankLines">If TRUE, whitespace rules are not checked for blank lines</label></div>
+</div>
 </div>
 </div>
 <h2>Zend - Debug</h2><p class="ruleset-description">
@@ -3438,7 +3798,7 @@ Variables have to be camel case and should not contain numbers
     </div>
     <div id="sidebar">
         <div id="phpmd-xml-container" class='xmloutput-container'>
-            <div>You can also edit this box directly. The site will reflect any changes you make.<br/>If you already have an <strong>phpmd.xml</strong> just paste it in.</div>
+            <div>You can also edit this box directly.<br/>The site will reflect any changes you make.<br/>If you already have an <strong>phpmd.xml</strong> just paste it in.</div>
             <div id='phpmd-xml-error' class='xml-error' style='display: none;'></div>
             <textarea spellcheck="false" id='phpmd-xml' class='xmloutput'>Your XML will go here</textarea>
         </div>
