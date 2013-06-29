@@ -18,7 +18,7 @@
     <div id="nav">
         <ul>
             <li id='phpmd-activate'>PHPMD</li>
-            <li id='phpcs-activate'>PHPCS - ALPHA!</li>
+            <li id='phpcs-activate'>PHPCS - Incomplete</li>
         </ul>
     </div>
     <div id="main">
@@ -45,7 +45,7 @@
     </div>
     <div id="sidebar">
         <div id="phpmd-xml-container" class='xmloutput-container'>
-            <div>You can also edit this box directly. The site will reflect any changes you make.<br/>If you already have an <strong>phpmd.xml</strong> just paste it in.</div>
+            <div>You can also edit this box directly.<br/>The site will reflect any changes you make.<br/>If you already have an <strong>phpmd.xml</strong> just paste it in.</div>
             <div id='phpmd-xml-error' class='xml-error' style='display: none;'></div>
             <textarea spellcheck="false" id='phpmd-xml' class='xmloutput'>Your XML will go here</textarea>
         </div>
