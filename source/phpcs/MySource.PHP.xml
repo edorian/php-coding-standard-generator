@@ -42,7 +42,7 @@ class foo {
   </rule>
   <rule name="ReturnFunctionValue" class="MySource_Sniffs_PHP_ReturnFunctionValueSniff">
     <description>
-Warns when function values are returned directly. The Sniff enforces that the result of a function call should be assigned to a variable before being returned.
+      Warns when function values are returned directly. The Sniff enforces that the result of a function call should be assigned to a variable before being returned.
     </description>
     <example>
       <![CDATA[
@@ -58,4 +58,10 @@ function bar() {
 ]]>
     </example>
   </rule>
+  <rule name="AjaxNullComparison" class="MySource_Sniffs_PHP_AjaxNullComparisonSniff">
+    <description>
+      Functions with an @api annotation may not make null comparisons but have to use empty()
+    </description>
+  </rule>
+
 </ruleset>

@@ -15,8 +15,12 @@ Runs 'gjslint' on your javascript files.
   </rule>
   <rule name="JSHint" class="Generic_Sniffs_Debug_JSHintSniff">
     <description>
-Runs 'jshint' on your javascript files.
+      Runs 'jshint' on your javascript files.
     </description>
   </rule>
-
+  <rule name="CSSLint" class="Generic_Sniffs_Debug_CSSLintSniff">
+    <description>
+      Runs 'csslint' on your css files.
+    </description>
+  </rule>
 </ruleset>

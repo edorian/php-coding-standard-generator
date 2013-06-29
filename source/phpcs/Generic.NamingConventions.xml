@@ -27,7 +27,7 @@ class foo {
   </rule>
   <rule name="UpperCaseConstantName" class="Generic_Sniffs_NamingConventions_UpperCaseConstantNameSniff">
     <description>
-Constants must be uppercase
+      Constants must be uppercase
     </description>
     <example>
       <![CDATA[
@@ -36,5 +36,10 @@ define('bad', 7);
 x = bad; // Not ok
       ]]>
     </example>
+  </rule>
+  <rule name="CamelCapsFunctionName" class="Generic_Sniffs_NamingConventions_CamelCapsFunctionNameSniff">
+    <description>
+      Ensures camel case function naming and that only PHP core functions have a double underscore
+    </description>
   </rule>
 </ruleset>

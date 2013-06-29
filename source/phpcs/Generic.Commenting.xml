@@ -10,12 +10,25 @@ Detects patterns in comments
 
   <rule name="Todo" class="Generic_Sniffs_Commenting_TodoSniff">
     <description>
-There may not be any 'TODO' comments
+      There may not be any 'TODO' comments
     </description>
     <example>
       <![CDATA[
 function worldPeace() {
-  // TODO: Achive this
+  // TODO: Achieve this
+}
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="Fixme" class="Generic_Sniffs_Commenting_FixmeSniff">
+    <description>
+      There may not be any 'FIXME' comments
+    </description>
+    <example>
+      <![CDATA[
+function worldPeace() {
+  // FIXME: Not working yet
 }
       ]]>
     </example>
