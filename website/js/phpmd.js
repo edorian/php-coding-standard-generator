@@ -25,8 +25,8 @@ pcsg.Phpmd = function(resourceBasedir, resourceIndex, container, errorContainer)
             
             outputTextarea.val(
                 that.methods.generator.generateHeader(
-                    $("."+that.members.name+"-ruleset-name").val(),
-                    $("."+that.members.name+"-ruleset-description").val(),
+                    $("#"+that.members.name+"-ruleset-name").val(),
+                    $("#"+that.members.name+"-ruleset-description").val(),
                     rules
                 )
             );
