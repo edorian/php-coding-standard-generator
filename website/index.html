@@ -6,31 +6,35 @@
     <script src="js/libs/jquery-1.5.1.min.js"></script>
     <script src="js/phpmd.js"></script>
     <link rel="stylesheet" type="text/css" href="css/main.css"></link>
-    <link rel="stylesheet" type="text/css" href="css/rulesets.css"></link>
 </head>
 <body>
-<div id="wrap">
+<div class="title">
+<h1>PHP Coding Standard</h1>
+<h2>Generator</h2>
+</div>
     <div id="header">
-        <h1>PHP Coding Standard Generator</h1>
-        <p>The goal of this site is to enable you do very quickly create and maintain your own coding standard.</p>
-        <p><a href="http://phpmd.org">PHP Mess Detector</a> <a href="http://phpmd.org/documentation/creating-a-ruleset.html">rule sets files</a> are supported and support for <a href="http://pear.php.net/PHP_CodeSniffer">PHP Code Sniffer</a> is in eary alpha.</p>
-    </div>
-    <div id="nav">
+        <div class="heading-wrap">
+        <h3>The goal of this site is to enable you do very quickly create and maintain your own coding standard.</h3>
+        </div>
+        <p><a href="http://phpmd.org">PHP Mess Detector</a> <a href="http://phpmd.org/documentation/creating-a-ruleset.html">rule sets files</a> are supported and support for <a href="http://pear.php.net/PHP_CodeSniffer">PHP Code Sniffer</a> is in early alpha.</p>
+        <div id="nav">
         <ul>
             <li id='phpmd-activate'>PHPMD</li>
-            <li id='phpcs-activate'>PHPCS - Incomplete</li>
+            <li id='phpcs-activate'>PHPCS<span class="smaller">Incomplete</span></li>
         </ul>
     </div>
+    </div>
+<div id="wrap">
     <div id="main">
         <div id="phpmd-container" class="rule-container">
-            Ruleset name: 
+            <p class="inline">Ruleset name:</p> 
             <input type="text" id="phpmd-ruleset-name" size="30" value="pcsg-generated-ruleset"/>
             <br/>
             <br/>
-            Ruleset description:
+            <p class="inline">Ruleset description:</p>
             <br/>
             <textarea id="phpmd-ruleset-description" class="ruleset-description">Created with the PHP Coding Standard Generator. http://edorian.github.com/php-coding-standard-generator/</textarea>
-<h2>Code Size Rules</h2><p class="ruleset-description">
+<h2 class="rules">Code Size Rules</h2><p class="ruleset-description">
 The Code Size Ruleset contains a collection of rules that find code size related problems.
     </p><div class="rule-section" name="codesize.xml">
 <div class="rule">
@@ -3803,16 +3807,17 @@ Variables have to be camel case and should not contain numbers
             <textarea spellcheck="false" id='phpmd-xml' class='xmloutput'>Your XML will go here</textarea>
         </div>
         <div id="phpcs-xml-container" class='xmloutput-container'>
-            <div>You can also edit this box directly. The site will reflect any changes you make.<br/>If you already have an <strong>phpcs.xml</strong> just paste it in.</div>
+            <div>You can also edit this box directly.<br/> The site will reflect any changes you make.<br/>If you already have an <strong>phpcs.xml</strong> just paste it in.</div>
             <div id='phpcs-xml-error' class='xml-error' style='display: none;'></div>
             <textarea spellcheck="false" id='phpcs-xml' class='xmloutput'>Your XML will go here</textarea>
         </div>
     </div>
-    <div id="footer">
-        <p>If you want to reach me: I'm <a href="https://twitter.com/__edorian">@__edorian</a> over on Twitter or just 'edorian' on freenodeIRC.</p>
-        <p>If you have an issue with the generator, a feature request or want to help out in any way check out <a href="https://github.com/edorian/php-coding-standard-generator">the gitHub page of this project.</a>
     </div>
+<div id="footer">
+    <p>If you want to reach me: I'm <a href="https://twitter.com/__edorian">@__edorian</a> over on Twitter or just 'edorian' on freenodeIRC.</p>
+    <p>If you have an issue with the generator, a feature request or want to help out in any way check out <a href="https://github.com/edorian/php-coding-standard-generator">the gitHub page of this project.</a>
 </div>
+
 
 <script>
     $(document).ready(function () {
@@ -3881,7 +3886,7 @@ Variables have to be camel case and should not contain numbers
 </script>
 
 <!-- Github ribbon -->
-<a href="http://github.com/edorian/php-coding-standard-generator"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://d3nwyuy0nl342s.cloudfront.net/img/abad93f42020b733148435e2cd92ce15c542d320/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub"></a>
+<a href="http://github.com/edorian/php-coding-standard-generator"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 <!-- /Github ribbon -->
 
 <script type="text/javascript">
