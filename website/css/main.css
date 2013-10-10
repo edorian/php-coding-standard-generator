@@ -1,24 +1,119 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+   */
+
+   html, body, div, span, applet, object, iframe,
+   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+   a, abbr, acronym, address, big, cite, code,
+   del, dfn, em, img, ins, kbd, q, s, samp,
+   small, strike, strong, sub, sup, tt, var,
+   b, u, i, center,
+   dl, dt, dd, ol, ul, li,
+   fieldset, form, label, legend,
+   table, caption, tbody, tfoot, thead, tr, th, td,
+   article, aside, canvas, details, embed, 
+   figure, figcaption, footer, header, hgroup, 
+   menu, nav, output, ruby, section, summary,
+   time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,300,900);
+
+@font-face {
+  font-family: 'Rokkitt';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Rokkitt'), url(http://themes.googleusercontent.com/static/fonts/rokkitt/v5/4Z-2qkHrI1biwaOxvW6ZTA.woff) format('woff');
+}
+@font-face {
+  font-family: 'Rokkitt';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Rokkitt Bold'), local('Rokkitt-Bold'), url(http://themes.googleusercontent.com/static/fonts/rokkitt/v5/Mef17w3J4CtS0lw4Wa_8rxsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
+}
+
 body,
 html {
     margin:0;
     padding:0;
-    color:#000;
+    color:#1c1e25;
+    font-family: sans-serif;
+    background: #FFF;
 }
 #wrap {
     width:1000px;
     margin:0 auto;
 }
 
+
 #nav ul li {
-    border: 2px outset black;
     margin: 2px;
-    padding: 2px;
+    padding: 11px;
     cursor: pointer;
     font-size: 1.5em;
+    color: #fff;
+    font-family: 'Raleway';
+    font-weight: 900;
+    position: relative;
+    letter-spacing: 2.5px;
+    -webkit-transition: color .75s ease;
+    transition: color .75s ease;
 }
 
 #nav ul li.active {
-    background-color: #7e7;
+    background-color: #fff;
+    color: #1C1E25;
+}
+
+.smaller {
+    font-weight: 300;
+    font-size: 15px;
+    display: block;
+    position: absolute;
+    bottom: 2px;
+    left: 10.5px;
+    letter-spacing: 1px;
+}
+
+.rule-container h2 {
+    font-family: 'Rokkitt';
+    font-size: 32px;
+    font-weight: 700;
+    margin: 15px 0;
 }
 
 #header {
@@ -29,6 +124,7 @@ h1 {
 }
 #nav {
     padding:5px 10px;
+    margin-top: 30px;
 }
 #nav ul {
     margin:0;
@@ -39,12 +135,15 @@ h1 {
     display:inline;
     margin:0;
     padding:0;
+    background: #1C1E25;
 }
 #main {
     float:left;
     width:530px;
     padding:10px;
+    margin-top: -40px;
 }
+
 h2 {
     margin: 0;
     margin-top: 10px;
@@ -58,12 +157,207 @@ h2 {
 #footer {
     clear:both;
     padding:5px 10px;
+    text-align: center;
+    background: #1c1e25;
+    color: #fff;
+    margin-top: 20px;
 }
+
 #footer p {
     margin:0;
 }
+
+#footer a {
+    color: #5b949f;
+}
+
 * html #footer {
     height:1px;
 }
 
+.clear {
+    clear: both;
+}
+
+.title h1 {
+	text-align: center;
+	font-family: 'Rokkitt', sans-serif;
+	padding: 20px 0 10px 0;
+	font-size: 56px;
+    font-weight: 700;
+}
+
+.title h2 {
+    font-family: 'Raleway';
+    text-align: center;
+    font-size: 21px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #5B949F;
+}
+
+.title {
+	background: #1C1E25;
+	color: #FFF;
+    padding: 0 0 20px 0;
+
+}
+
+#header {
+    padding: 40px 0 50px 0;
+    width: 100%;
+    text-align: center;
+    background: #5b949f;
+    margin-bottom: 50px;
+}
+
+#header a {
+    color: #1c1e25;
+}
+
+#header p {
+    letter-spacing: 0.3px;
+    word-spacing: 0.4px;
+}
+
+.heading-wrap {
+    width: 720px;
+    margin: 0 auto 40px auto;
+}
+
+.heading-wrap h3 {
+    font-family: 'Raleway';
+    font-size: 25px;
+    text-align: center;
+    line-height: 31px;
+    word-wrap: break-word;
+    text-rendering: auto;
+}
+
+
+
+
+.inline {
+	display: inline;
+}
+
+
+/* RULESETS*/
+
+.rule {
+    background-color: #5b949f;
+    margin: 20px 0;
+    color: #fff;
+    padding: 10px;
+}
+
+.rule-container {
+    width: 100%;
+}
+
+.rule-description {
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.rule-selector {
+    float: left;
+    margin: 13px 4px;
+}
+
+.rule-name {
+    display: inline;
+    float: left;
+    font-weight: bold;
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.rule-example {
+    float: right;
+    font-size: 0.8em;
+    font-family: "Courier New";
+}
+
+.property {
+
+    font-size: 18px;
+    text-transform: capitalize;
+    margin: 10px 0;
+}
+
+.property-description {
+    display: inline;
+    font-size: 12px;
+}
+
+.xmloutput {
+    width: 100%;
+    height: 100%;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.xmloutput-container {
+    height: 400px;
+    width: 430px;
+    position: fixed;
+    margin-top: -50px;
+}
+
+.xmloutput-container > div {
+    padding: 10px 0;
+    text-align: center;
+}
+
+.xml-error {
+    background-color: #E66;
+}
+
+.ruleset-description {
+    width: 100%;
+    font-size: 0.8em;
+    padding: 0;
+    margin: 0;
+    margin-bottom: -8px;
+    max-width: 100%;
+}
+
+textarea.ruleset-description {
+    height: 150px;
+    font-size: 12px;
+    resize: none;
+}
+
+textarea,input {
+  outline: none;
+}
+
+
+
+
+.rule-example span:hover {
+    z-index: 25;
+    position: relative;
+    cursor: default;
+}
+
+.rule-example > span {
+    margin: 10px 0;
+}
+
+.rule-example span span {
+    display: none;
+}
+
+.rule-example span:hover span {
+    display: block;
+    position: absolute;
+    left: 75px;
+    top: -50px;
+    background-color: #1c1e25;
+    padding: 0 20px;
+    font-family: "Courier New";
+    font-size: 15px;
+}
 
