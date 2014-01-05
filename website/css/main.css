@@ -96,7 +96,8 @@ html {
     padding:0;
     color:#1c1e25;
     font-family: sans-serif;
-    background: #FFF;
+    background-image: url('../img/light_grey.png');
+    background-color: #eee;
 }
 #wrap {
     width:1000px;
@@ -165,7 +166,6 @@ h1 {
     float:left;
     width:530px;
     padding:10px;
-    margin-top: -40px;
 }
 
 h2 {
@@ -310,7 +310,6 @@ h2 {
 
     font-size: 18px;
     line-height: 24px;
-    text-transform: capitalize;
     margin: 10px 0;
 }
 
@@ -358,7 +357,8 @@ textarea.ruleset-description {
 }
 
 textarea,input {
-  outline: none;
+  outline none;
+  vertical-align: middle;
 }
 
 

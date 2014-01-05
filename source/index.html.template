@@ -13,16 +13,17 @@
     <div id="header">
         <h1>PHP Coding Standard Generator</h1>
         <p>The goal of this site is to enable you do very quickly create and maintain your own coding standard.</p>
-        <p><a href="http://phpmd.org">PHP Mess Detector</a> <a href="http://phpmd.org/documentation/creating-a-ruleset.html">rule sets files</a> are supported and support for <a href="http://pear.php.net/PHP_CodeSniffer">PHP Code Sniffer</a> is in eary alpha.</p>
+        <p><a href="http://phpmd.org">PHP Mess Detector</a> <a href="http://phpmd.org/documentation/creating-a-ruleset.html">rule sets files</a> and <a href="http://pear.php.net/PHP_CodeSniffer">PHP Code Sniffer</a> rulesets are supported.</p>
     </div>
     <div id="nav">
         <ul>
             <li id='phpmd-activate'>PHPMD</li>
-            <li id='phpcs-activate'>PHPCS - Incomplete</li>
+            <li id='phpcs-activate'>PHPCS</li>
         </ul>
     </div>
     <div id="main">
         <div id="phpmd-container" class="rule-container">
+            <h2>PHP Mess Detector</h2>
             Ruleset name: 
             <input type="text" id="phpmd-ruleset-name" size="30" value="pcsg-generated-ruleset"/>
             <br/>
@@ -33,6 +34,7 @@
             {phpmd}
         </div>
         <div id="phpcs-container" class="rule-container">
+            <h2>PHP Code Sniffer</h2>
             Ruleset name: 
             <input type="text" id="phpcs-ruleset-name" size="30" value="pcsg-generated-ruleset"/>
             <br/>
@@ -59,7 +61,7 @@
     </div>
     <div id="footer">
         <p>If you want to reach me: I'm <a href="https://twitter.com/__edorian">@__edorian</a> over on Twitter or just 'edorian' on freenodeIRC.</p>
-        <p>If you have an issue with the generator, a feature request or want to help out in any way check out <a href="https://github.com/edorian/php-coding-standard-generator">the gitHub page of this project.</a>
+        <p>If you have an issue with the generator, a feature request or want to help out in any way check out <a href="https://github.com/edorian/php-coding-standard-generator">the GitHub page of this project.</a>
     </div>
 </div>
 
