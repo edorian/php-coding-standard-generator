@@ -6,7 +6,7 @@ The sniffs are general and can be widely used.
   </description>
   <rule name="CastSpacing" class="Squiz_Sniffs_WhiteSpace_CastSpacingSniff">
     <description>
-Ensure cast statements dont contain whitespace.
+Ensure cast statements don't contain whitespace.
     </description>
     <example>
       <![CDATA[
@@ -60,8 +60,8 @@ class foo {
     public function baz() {
 
     }
-    
-    
+
+
 }
       ]]>
     </example>
