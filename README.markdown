@@ -23,6 +23,7 @@ To see if any rules are missing or need to be updated there is a helper utility 
         - list <filter>    Prints all available sniffs and if it exists in sniffDocumentation [x], is incomplete [~], or is missing [ ].
         - create <sniff>   Create empty xml structure for the sniff group.
         - todo             Prints a list of all empty description and examples tags.
+        - sync             Create empty xml structure for the sniff and group that not present in sniffDocumentation.
 
 These basic commands hopefully make it easy to get stared.
 
