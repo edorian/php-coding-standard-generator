@@ -34,6 +34,10 @@ switch($_SERVER['argv'][1]) {
         usage('Unknown command.');
 }
 
+/**
+ * @param string $filter
+ * @return array
+ */
 function getListStandardGroups($filter = '') {
 
     $list = [];
@@ -69,6 +73,9 @@ function getListStandardGroups($filter = '') {
     return $list;
 }
 
+/**
+ * @param string $filter
+ */
 function listStandardGroups($filter = '') {
 
     $list = getListStandardGroups($filter);
@@ -80,6 +87,9 @@ function listStandardGroups($filter = '') {
     }
 }
 
+/**
+ * @param $sniffGroup
+ */
 function createSniffXml($sniffGroup) {
     $groups = fetchSniffGroupFolders();
     if(!isset($groups[$sniffGroup])) {
@@ -148,6 +158,9 @@ function createSniffRuleXml(DomDocument $groupXml, $sniffGroup, $sniff) {
 
 }
 
+/**
+ * @param $sniffGroup
+ */
 function updateSniffXml($sniffGroup) {
 
     $groups = fetchSniffGroupFolders();
@@ -161,7 +174,6 @@ function updateSniffXml($sniffGroup) {
     $xml = file_get_contents($sniffDocumentationXmlFile);
     $sniffXml = new DomDocument();
     $sniffXml->loadXML($xml);
-    $rootNode = $sniffXml->documentElement;
     $result = getListStandardGroups($sniffGroup);
     $list = current($result);
 
@@ -174,6 +186,9 @@ function updateSniffXml($sniffGroup) {
     $sniffXml->save($sniffDocumentationXmlFile);
 }
 
+/**
+ *
+ */
 function listEmptyDescriptionsAndExamples() {
     foreach(glob($sniffDocumentationXmlFile = __DIR__ . '/phpcs/*.xml') as $sniffXmlFile) {
         $sniffXml = new DomDocument();
@@ -191,6 +206,9 @@ function listEmptyDescriptionsAndExamples() {
     }
 }
 
+/**
+ *
+ */
 function listMissingProperties() {
     foreach(glob($sniffDocumentationXmlFile = __DIR__ . '/phpcs/*.xml') as $sniffXmlFile) {
         $sniffXml = new DomDocument();
@@ -210,6 +228,10 @@ function listMissingProperties() {
     }
 }
 
+/**
+ * @param $class
+ * @return array
+ */
 function fetchPropertiesFromClass($class) {
     list($standard, $sniffs, $folder, $sniff) = explode('_', $class);
     $file = __DIR__ . "/../externals/phpcs/CodeSniffer/Standards/$standard/Sniffs/$folder/$sniff.php";
@@ -233,6 +255,9 @@ function fetchPropertiesFromClass($class) {
     return array_combine($matches['publicProperty'], $matches['defaultValue']);
 }
 
+/**
+ * @return array
+ */
 function fetchSniffGroupFolders() {
     $sniffGroups = array();
     foreach(glob(__DIR__ . '/../externals/phpcs/CodeSniffer/Standards/*') as $standard) {
@@ -250,6 +275,10 @@ function fetchSniffGroupFolders() {
     return $sniffGroups;
 }
 
+/**
+ * @param $sniffGroup
+ * @return array
+ */
 function fetchSniffsForSniffGroup($sniffGroup) {
     return array_map(
         function($sniff) {
@@ -259,6 +288,9 @@ function fetchSniffsForSniffGroup($sniffGroup) {
     );
 }
 
+/**
+ * @param string $message
+ */
 function usage($message = '') {
     echo 'Usage: ', $_SERVER['argv'][0], ' command <options>', PHP_EOL, PHP_EOL;
     if($message) {
@@ -273,6 +305,9 @@ function usage($message = '') {
     die(-1);
 }
 
+/**
+ *
+ */
 function syncStandardGroups() {
     $list = getListStandardGroups();
     foreach($list as $row){
