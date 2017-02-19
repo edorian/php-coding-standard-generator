@@ -20,16 +20,27 @@ switch($_SERVER['argv'][1]) {
             break;
         }
         usage('"create" needs a sniff group to create something.');
+        break;
     case 'todo':
         listEmptyDescriptionsAndExamples();
         listMissingProperties();
+        echo 'Done', PHP_EOL;
+        break;
+    case 'sync':
+        syncStandardGroups();
         echo 'Done', PHP_EOL;
         break;
     default:
         usage('Unknown command.');
 }
 
-function listStandardGroups($filter = '') {
+/**
+ * @param string $filter
+ * @return array
+ */
+function getListStandardGroups($filter = '') {
+
+    $list = [];
     foreach(fetchSniffGroupFolders() as $name => $sniffGroup) {
         if($filter && strpos($name, $filter) === false) {
             continue;
@@ -37,7 +48,7 @@ function listStandardGroups($filter = '') {
         $sniffDocumentationXmlFile = __DIR__ . '/phpcs/' . $name . '.xml';
 
         if(!file_exists($sniffDocumentationXmlFile)) {
-            echo '[ ] ', $name, PHP_EOL;
+            $list[$name] = ['group'=>$name, 'status'=>0, 'absent'=>[]];
             continue;
         }
         $sniffs = fetchSniffsForSniffGroup($sniffGroup);
@@ -47,20 +58,38 @@ function listStandardGroups($filter = '') {
         $sniffDocumentationQuery->registerNamespace('x', 'http://pmd.sf.net/ruleset/1.0.0');
         $documentedSniffs = $sniffDocumentationQuery->query('//x:rule/@name');
         $documentedSniffs = array_map(
-            function(DomAttr $attribute) { 
+            function(DomAttr $attribute) {
                 return $attribute->nodeValue;
             },
             iterator_to_array($documentedSniffs)
         );
         $missingsSniffs = array_diff($sniffs, $documentedSniffs);
         if($missingsSniffs) {
-            echo '[~] ', $name, ' - Missing: ', join(', ', $missingsSniffs), PHP_EOL;
+            $list[$name] = ['group'=>$name, 'status'=>-1, 'absent'=>$missingsSniffs];
             continue;
         }
-        echo '[x] ', $name, PHP_EOL;
+        $list[$name] = ['group'=>$name, 'status'=>1, 'absent'=>[]];
+    }
+    return $list;
+}
+
+/**
+ * @param string $filter
+ */
+function listStandardGroups($filter = '') {
+
+    $list = getListStandardGroups($filter);
+    echo PHP_EOL;
+    foreach($list as $row){
+        $status = $row['status'] ? ($row['status']==1 ? 'x' : '~') : ' ';
+        $miss = $row['absent'] ? ' - Missing: '.join(', ', $row['absent']) : '';
+        echo '[', $status, '] ', $row['group'],  $miss, PHP_EOL;
     }
 }
 
+/**
+ * @param $sniffGroup
+ */
 function createSniffXml($sniffGroup) {
     $groups = fetchSniffGroupFolders();
     if(!isset($groups[$sniffGroup])) {
@@ -78,36 +107,88 @@ function createSniffXml($sniffGroup) {
     $rootNode->setAttribute('xsi:schemaLocation', 'http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd');
     $rootNode->setAttribute('xsi:noNamespaceSchemaLocation', 'http://pmd.sf.net/ruleset_xml_schema.xsd');
     $sniffXml->appendChild($rootNode);
+    $rootNode->appendChild($sniffXml->createTextNode("\n  "));
     $rootNode->appendChild($sniffXml->createElement('description', "\n\n  "));
 
     foreach(fetchSniffsForSniffGroup($groups[$sniffGroup]) as $sniff) {
-        $rule = $sniffXml->createElement('rule');
-        $class = str_replace('.', '_Sniffs_', $sniffGroup) . '_' . $sniff . 'Sniff';
-        $properties = fetchPropertiesFromClass($class); 
-        $rule->setAttribute('name', $sniff);
-        $rule->setAttribute('class', $class);
-        $rule->appendChild($sniffXml->createElement('description', "\n\n    "));
-        if($properties) {
-            $propertiesNode = $sniffXml->createElement('properties');
-            foreach($properties as $propertyName => $defaultValue) {
-                $propertyNode = $sniffXml->createElement('property');
-                $propertyNode->setAttribute('name', $propertyName);
-                $propertyNode->setAttribute('description', '');
-                $propertyNode->setAttribute('value', $defaultValue);
-                $propertiesNode->appendChild($propertyNode);
-            }
-            $rule->appendChild($propertiesNode);
-        }
-        $example = $sniffXml->createElement('example', "\n      ");
-        $example->appendChild($sniffXml->createCDATASection("\n\n      "));
-        $example->appendChild($sniffXml->createTextNode("\n    "));
-        $rule->appendChild($example);
-        $rootNode->appendChild($rule);
+        createSniffRuleXml( $sniffXml, $sniffGroup, $sniff);
     }
     $sniffXml->save($sniffDocumentationXmlFile, LIBXML_NOEMPTYTAG);
 
 }
 
+/**
+ * @param             $sniffGroup
+ * @param DomDocument $groupXml
+ * @param             $sniff
+ *
+ * @return DOMElement
+ */
+function createSniffRuleXml(DomDocument $groupXml, $sniffGroup, $sniff) {
+
+    $rootNode = $groupXml->documentElement;
+    $rootNode->appendChild($groupXml->createTextNode("  "));
+
+    $rule = $groupXml->createElement('rule');
+    $class = str_replace('.', '_Sniffs_', $sniffGroup) . '_' . $sniff . 'Sniff';
+    $properties = fetchPropertiesFromClass($class);
+    $rule->setAttribute('name', $sniff);
+    $rule->setAttribute('class', $class);
+    $rule->appendChild($groupXml->createTextNode("\n    "));
+    $rule->appendChild($groupXml->createElement('description', "\n\n    "));
+    $rule->appendChild($groupXml->createTextNode("\n    "));
+    if ($properties) {
+        $propertiesNode = $groupXml->createElement('properties');
+        foreach ($properties as $propertyName => $defaultValue) {
+            $propertyNode = $groupXml->createElement('property');
+            $propertyNode->setAttribute('name', $propertyName);
+            $propertyNode->setAttribute('description', '');
+            $propertyNode->setAttribute('value', $defaultValue);
+            $propertiesNode->appendChild($propertyNode);
+        }
+        $rule->appendChild($propertiesNode);
+    }
+    $example = $groupXml->createElement('example');
+    $example->appendChild($groupXml->createCDATASection("\n\n    "));
+    $rule->appendChild($example);
+    $rule->appendChild($groupXml->createTextNode("\n  "));
+
+    $rootNode->appendChild($rule);
+    $rootNode->appendChild($groupXml->createTextNode("\n\n"));
+
+}
+
+/**
+ * @param $sniffGroup
+ */
+function updateSniffXml($sniffGroup) {
+
+    $groups = fetchSniffGroupFolders();
+    if (!isset($groups[$sniffGroup])) {
+        usage("Unknown sniff group '$sniffGroup'");
+    }
+    $sniffDocumentationXmlFile = __DIR__ . '/phpcs/' . $sniffGroup . '.xml';
+    if (!file_exists($sniffDocumentationXmlFile)) {
+        usage("Documentation '$sniffGroup' is not exists");
+    }
+    $xml = file_get_contents($sniffDocumentationXmlFile);
+    $sniffXml = new DomDocument();
+    $sniffXml->loadXML($xml);
+    $result = getListStandardGroups($sniffGroup);
+    $list = current($result);
+
+    foreach (fetchSniffsForSniffGroup($groups[$sniffGroup]) as $sniff) {
+        if (!in_array($sniff, $list['absent'])) {
+            continue;
+        }
+        createSniffRuleXml($sniffXml, $sniffGroup, $sniff);
+    }
+    $sniffXml->save($sniffDocumentationXmlFile);
+}
+
+/**
+ *
+ */
 function listEmptyDescriptionsAndExamples() {
     foreach(glob($sniffDocumentationXmlFile = __DIR__ . '/phpcs/*.xml') as $sniffXmlFile) {
         $sniffXml = new DomDocument();
@@ -125,6 +206,9 @@ function listEmptyDescriptionsAndExamples() {
     }
 }
 
+/**
+ *
+ */
 function listMissingProperties() {
     foreach(glob($sniffDocumentationXmlFile = __DIR__ . '/phpcs/*.xml') as $sniffXmlFile) {
         $sniffXml = new DomDocument();
@@ -144,6 +228,10 @@ function listMissingProperties() {
     }
 }
 
+/**
+ * @param $class
+ * @return array
+ */
 function fetchPropertiesFromClass($class) {
     list($standard, $sniffs, $folder, $sniff) = explode('_', $class);
     $file = __DIR__ . "/../externals/phpcs/CodeSniffer/Standards/$standard/Sniffs/$folder/$sniff.php";
@@ -167,6 +255,9 @@ function fetchPropertiesFromClass($class) {
     return array_combine($matches['publicProperty'], $matches['defaultValue']);
 }
 
+/**
+ * @return array
+ */
 function fetchSniffGroupFolders() {
     $sniffGroups = array();
     foreach(glob(__DIR__ . '/../externals/phpcs/CodeSniffer/Standards/*') as $standard) {
@@ -184,6 +275,10 @@ function fetchSniffGroupFolders() {
     return $sniffGroups;
 }
 
+/**
+ * @param $sniffGroup
+ * @return array
+ */
 function fetchSniffsForSniffGroup($sniffGroup) {
     return array_map(
         function($sniff) {
@@ -193,6 +288,9 @@ function fetchSniffsForSniffGroup($sniffGroup) {
     );
 }
 
+/**
+ * @param string $message
+ */
 function usage($message = '') {
     echo 'Usage: ', $_SERVER['argv'][0], ' command <options>', PHP_EOL, PHP_EOL;
     if($message) {
@@ -202,7 +300,31 @@ function usage($message = '') {
     echo '    - list <filter>    Prints all available sniffs and if it exists in sniffDocumentation [x], is incomplete [~], or is missing [ ].', PHP_EOL;
     echo '    - create <sniff>   Create empty xml structure for the sniff group.', PHP_EOL;
     echo '    - todo             Prints a list of all empty description and examples tags.', PHP_EOL;
+    echo '    - sync             Create empty xml structure for the sniff and sniff group that not present in sniffDocumentation.', PHP_EOL;
     echo PHP_EOL;
     die(-1);
 }
 
+/**
+ *
+ */
+function syncStandardGroups() {
+    $list = getListStandardGroups();
+    foreach($list as $row){
+        if ($row['status'] == 1 ){
+            continue;
+        }
+        if ($row['status'] == 0 ){
+
+            createSniffXml($row['group']);
+            echo "[x] Create empty xml structure for {$row['group']}", PHP_EOL;
+            continue;
+        }
+        if ($row['status'] == -1 ){
+            updateSniffXml($row['group']);
+            echo "[~] Add sniffs (".implode($row['absent'],', ').") to {$row['group']}", PHP_EOL;
+            continue;
+        }
+    }
+
+}
