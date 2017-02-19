@@ -33,7 +33,7 @@ test(
     $b
 );
 
-// Heredocs dont need to be indented.
+// Heredocs don't need to be indented.
 test(
 <<<EOH
 Anyone want to recomment parse errors?

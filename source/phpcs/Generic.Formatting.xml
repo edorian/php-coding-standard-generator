@@ -40,7 +40,7 @@ $otherStuff = 2;
 $myVar           = 1
 $myOtherVariable = 2;
 
-$x = 100; // Must not be indeted because of the blank line!
+$x = 100; // Must not be indented because of the blank line!
 while($x--) {
   echo $x, PHP_EOL;
 }

@@ -5,13 +5,13 @@
          xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
          xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
   <description>
-A coding standard for PHPUnit tests written and mainted by @elblinkin.
+A coding standard for PHPUnit tests written and maintained by @elblinkin.
 
-You will need to install an addition pear package in order to use these Sniffs! See: https://github.com/elblinkin/PHPUnit-CodeSniffer
+You will need to install an additional pear package in order to use these Sniffs! See: https://github.com/elblinkin/PHPUnit-CodeSniffer
   </description>
   <rule name="AllowedFunctionOverride" class="PHPUnitStandard_Sniffs_Testing_AllowedFunctionOverrideSniff">
     <description>
-Only a certain set of protected functions are allowed to be overriden
+Only a certain set of protected functions are allowed to be overridden
     </description>
     <example>
       <![CDATA[
@@ -89,7 +89,7 @@ Tests may not contain output functions
 class FooTest {
     public function testBar() {
         $this->expectedOutputString('string(3) "foo"');
-        var_dump("foo"); // No! Use assertions for compairing!
+        var_dump("foo"); // No! Use assertions for comparing!
     }
 
 }
@@ -106,7 +106,7 @@ Tests may not contain output statements
 class FooTest {
     public function testBar() {
         $this->expectedOutputString('foo');
-        echo "foo"; // No! Use assertions for compairing!
+        echo "foo"; // No! Use assertions for comparing!
     }
 
 }

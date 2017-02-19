@@ -71,7 +71,7 @@ ob_end_clean();
   </rule>
   <rule name="DisallowSizeFunctionsInLoops" class="Squiz_Sniffs_PHP_DisallowSizeFunctionsInLoopsSniff">
     <description>
-Ensures no size-based functions are used in loop conditions to avoid unneccarry function calls
+Ensures no size-based functions are used in loop conditions to avoid unnecessary function calls
     </description>
     <example>
       <![CDATA[

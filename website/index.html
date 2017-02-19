@@ -24,7 +24,7 @@
     <div id="main">
         <div id="phpmd-container" class="rule-container">
             <h2>PHP Mess Detector</h2>
-            Ruleset name: 
+            Ruleset name:
             <input type="text" id="phpmd-ruleset-name" size="30" value="pcsg-generated-ruleset"/>
             <br/>
             <br/>
@@ -40,7 +40,7 @@ The Code Size Ruleset contains a collection of rules that find code size related
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 // Cyclomatic Complexity = 12
 class Foo {
 1   public function example()  {
@@ -78,17 +78,17 @@ class Foo {
         }
     }
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="codesize.xml/CyclomaticComplexity">
-            
+
 Complexity is determined by the number of decision points in a method plus one for the
 method entry.  The decision points are 'if', 'while', 'for', and 'case labels'.  Generally,
 1-4 is low complexity, 5-7 indicates moderate complexity, 8-10 is high complexity,
  and 11+ is very high complexity.
-            
+
         </label></div>
 <div class="property">reportLevel:
             <input type="text" size="5" class="property-selector" id="property-codesize.xml/CyclomaticComplexity-reportLevel" name="reportLevel" value="10" default="10"><div class="property-description"><label for="property-codesize.xml/CyclomaticComplexity-reportLevel">The Cyclomatic Complexity reporting threshold</label></div>
@@ -106,13 +106,13 @@ method entry.  The decision points are 'if', 'while', 'for', and 'case labels'. 
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class Foo {
     function bar() {
         // lots of complicated code
     }
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -130,7 +130,7 @@ A threshold of 200 is generally considered the point where measures should be ta
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class Foo {
     public function doSomething() {
         print("Hello world!" . PHP_EOL);
@@ -138,7 +138,7 @@ class Foo {
         // 98 copies omitted for brevity.
     }
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -156,13 +156,13 @@ too much.  Try to reduce the method size by creating helper methods and removing
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class Foo {
   public function bar() {
     // 1000 lines of code
   }
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -181,14 +181,14 @@ manageable.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class Foo {
     public function addData(
         $p0, $p1, $p2, $p3, $p4, $p5,
         $p5, $p6, $p7, $p8, $p9, $p10) {
     }
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -206,7 +206,7 @@ wrap the numerous parameters.  Basically, try to group the parameters together.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 public class Foo {
     public $value;
     public $something;
@@ -218,7 +218,7 @@ public class Foo {
     public function doWorkAgain() {}
     // [... more more public methods ...]
 }
-    
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -237,14 +237,14 @@ thoroughly test it.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class Person {
    protected $one;
    private $two;
    private $three;
    [... many more fields ...]
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -264,10 +264,10 @@ field.
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="codesize.xml/TooManyMethods">
-            
+
 A class with too many methods is probably a good suspect for refactoring, in
 order to reduce its complexity and find a way to have more fine grained objects.
-            
+
         </label></div>
 <div class="property">maxmethods:
             <input type="text" size="5" class="property-selector" id="property-codesize.xml/TooManyMethods-maxmethods" name="maxmethods" value="10" default="10"><div class="property-description"><label for="property-codesize.xml/TooManyMethods-maxmethods">The method count reporting threshold </label></div>
@@ -279,7 +279,7 @@ order to reduce its complexity and find a way to have more fine grained objects.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class Foo {
     public function bar()  {
         if ($a == $b)  {
@@ -303,16 +303,16 @@ class Foo {
     }
     // Several other complex methods
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="codesize.xml/ExcessiveClassComplexity">
-            
+
 The WMC of a class is a good indicator of how much time and effort is required
 to modify and maintain this class. A large number of methods also means that
 this class has a greater potential impact on derived classes.
-            
+
         </label></div>
 <div class="property">maximum:
             <input type="text" size="5" class="property-selector" id="property-codesize.xml/ExcessiveClassComplexity-maximum" name="maximum" value="50" default="50"><div class="property-description"><label for="property-codesize.xml/ExcessiveClassComplexity-maximum">The maximum WMC tolerable for a class.</label></div>
@@ -328,21 +328,21 @@ This ruleset contains a collection of controversial rules.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class Foo {
     public function bar() {
         $name = $_POST['foo'];
     }
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="controversial.xml/Superglobals">
-            
+
 Accessing a super-global variable directly is considered a bad practice.
 These variables should be encapsulated in objects that are provided by a framework, for instance.
-            
+
         </label></div>
 </div>
 <div class="rule">
@@ -351,17 +351,17 @@ These variables should be encapsulated in objects that are provided by a framewo
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class class_name {
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="controversial.xml/CamelCaseClassName">
-			
+
 It is considered best practice to use the CamelCase notation to name classes.
-            
+
         </label></div>
 </div>
 <div class="rule">
@@ -370,18 +370,18 @@ It is considered best practice to use the CamelCase notation to name classes.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class ClassName {
     protected $property_name;
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="controversial.xml/CamelCasePropertyName">
-            
+
 It is considered best practice to use the camelCase notation to name attributes.
-            
+
         </label></div>
 </div>
 <div class="rule">
@@ -390,19 +390,19 @@ It is considered best practice to use the camelCase notation to name attributes.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class ClassName {
     public function get_name() {
     }
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="controversial.xml/CamelCaseMethodName">
-            
+
 It is considered best practice to use the CamelCase notation to name methods.
-            
+
         </label></div>
 </div>
 <div class="rule">
@@ -411,19 +411,19 @@ It is considered best practice to use the CamelCase notation to name methods.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class ClassName {
     public function doSomething($user_name) {
     }
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="controversial.xml/CamelCaseParameterName">
-            
+
 It is considered best practice to use the camelCase notation to name parameters.
-            
+
         </label></div>
 </div>
 <div class="rule">
@@ -432,20 +432,20 @@ It is considered best practice to use the camelCase notation to name parameters.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class ClassName {
     public function doSomething() {
         $data_module = new DataModule();
     }
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="controversial.xml/CamelCaseVariableName">
-            
+
 It is considered best practice to use the camelCase notation to name variables.
-            
+
         </label></div>
 </div>
 </div>
@@ -458,7 +458,7 @@ The Code Size Ruleset contains a collection of rules that find software design r
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class Foo {
     public function bar($param)  {
         if ($param === 42) {
@@ -466,16 +466,16 @@ class Foo {
         }
     }
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="design.xml/ExitExpression">
-            
+
 An exit-expression within regular code is untestable and therefore it should
 be avoided. Consider to move the exit-expression into some kind of startup
 script where an error/exception code is returned to the calling environment.
-            
+
         </label></div>
 </div>
 <div class="rule">
@@ -484,7 +484,7 @@ script where an error/exception code is returned to the calling environment.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class Foo {
     public function bar($param)  {
         if ($param === 42) {
@@ -492,16 +492,16 @@ class Foo {
         }
     }
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="design.xml/EvalExpression">
-            
+
 An eval-expression is untestable, a security risk and bad practice. Therefore
 it should be avoided. Consider to replace the eval-expression with regular
 code.
-            
+
         </label></div>
 </div>
 <div class="rule">
@@ -510,7 +510,7 @@ code.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class Foo {
     public function bar($param)  {
         A:
@@ -526,20 +526,20 @@ class Foo {
             goto Y;
         }
         Z:
-        return 42;                 
+        return 42;
     }
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="design.xml/GotoStatement">
-            
+
 Goto makes code harder to read and it is nearly impossible to understand the
 control flow of an application that uses this language construct. Therefore it
 should be avoided. Consider to replace Goto with regular control structures and
 separate methods/function, which are easier to read.
-            
+
         </label></div>
 </div>
 <div class="rule">
@@ -551,10 +551,10 @@ separate methods/function, which are easier to read.
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="design.xml/NumberOfChildren">
-            
+
 A class with an excessive number of children is an indicator for an unbalanced
 class hierarchy. You should consider to refactor this class hierarchy.
-            
+
         </label></div>
 <div class="property">minimum:
             <input type="text" size="5" class="property-selector" id="property-design.xml/NumberOfChildren-minimum" name="minimum" value="15" default="15"><div class="property-description"><label for="property-design.xml/NumberOfChildren-minimum">Maximum number of acceptable child classes.</label></div>
@@ -569,10 +569,10 @@ class hierarchy. You should consider to refactor this class hierarchy.
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="design.xml/DepthOfInheritance">
-            
+
 A class with many parents is an indicator for an unbalanced and wrong class
 hierarchy. You should consider to refactor this class hierarchy.
-            
+
         </label></div>
 <div class="property">minimum:
             <input type="text" size="5" class="property-selector" id="property-design.xml/DepthOfInheritance-minimum" name="minimum" value="6" default="6"><div class="property-description"><label for="property-design.xml/DepthOfInheritance-minimum">Maximum number of acceptable parent classes.</label></div>
@@ -584,7 +584,7 @@ hierarchy. You should consider to refactor this class hierarchy.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class Foo {
     /**
      * @var \foo\bar\X
@@ -615,16 +615,16 @@ class Foo {
 
     // ...
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="design.xml/CouplingBetweenObjects">
-            
+
 A class with to many dependencies has negative impacts on several quality
-aspects of a class. This includes quality criterias like stability,
+aspects of a class. This includes quality criteria like stability,
 maintainability and understandability
-            
+
         </label></div>
 <div class="property">minimum:
             <input type="text" size="5" class="property-selector" id="property-design.xml/CouplingBetweenObjects-minimum" name="minimum" value="13" default="13"><div class="property-description"><label for="property-design.xml/CouplingBetweenObjects-minimum">Maximum number of acceptable dependencies.</label></div>
@@ -640,7 +640,7 @@ The Naming Ruleset contains a collection of rules about names - too long, too sh
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class Something {
     private $q = 15; // VIOLATION - Field
     public static function main( array $as ) {  // VIOLATION - Formal
@@ -650,7 +650,7 @@ class Something {
         }
     }
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -667,7 +667,7 @@ Detects when a field, local, or parameter has a very short name.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class Something {
     protected $reallyLongIntName = -3;  // VIOLATION - Field
     public static function main( array $argumentsList[] ) { // VIOLATION - Formal
@@ -695,12 +695,12 @@ Detects when a field, formal or local variable is declared with a long name.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class ShortMethod {
     public function a( $index ) { // Violation
     }
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -717,14 +717,14 @@ Detects when very short method names are used.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class MyClass {
      // this is bad because it is PHP 4 style
     public function MyClass() {}
     // this is good because it is a PHP 5 constructor
     public function __construct() {}
 }
-    
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -739,17 +739,17 @@ to use the PHP 5 __construct method.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class Foo {
     const MY_NUM = 0; // ok
     const myTest = ""; // fail
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="naming.xml/ConstantNamingConventions">
-Class/Interface constant nanmes should always be defined in uppercase.
+Class/Interface constant names should always be defined in uppercase.
         </label></div>
 </div>
 <div class="rule">
@@ -758,7 +758,7 @@ Class/Interface constant nanmes should always be defined in uppercase.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-            
+
 class Foo {
     /**
      * @return boolean
@@ -773,7 +773,7 @@ class Foo {
      */
     public function getFoo($bar); // ok, unless checkParameterizedMethods=true
 }
-            
+
         </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -880,7 +880,7 @@ Avoid passing parameters to methods or constructors and then not using those par
         </div>
         <div id="phpcs-container" class="rule-container">
             <h2>PHP Code Sniffer</h2>
-            Ruleset name: 
+            Ruleset name:
             <input type="text" id="phpcs-ruleset-name" size="30" value="pcsg-generated-ruleset"/>
             <br/>
             <br/>
@@ -895,12 +895,12 @@ Sniffs related to PHP classes
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // bar.php
 class foo {}
 // foo.php
 class foo {}
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -917,11 +917,11 @@ Sniff for detecting superfluously complex expressions and trivial but harder to 
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 if($x == 5) {
   // nothing in the statements body
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -935,13 +935,13 @@ Statements may not have an empty body.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 class Foo {
   public function bar($x) {
     for (;$x &gt; 5;) { /* ... */ } // No Init or Update part, may as well be: while ($x &gt; 5)
   }
-}      
-      
+}
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -955,7 +955,7 @@ All 'for' loops that could be simplified to a 'while' loop must be simplified.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
  class Foo {
    public function bar($x) {
      $a = array(1, 2, 3, 4);
@@ -964,7 +964,7 @@ All 'for' loops that could be simplified to a 'while' loop must be simplified.
      }
    }
  }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -978,7 +978,7 @@ For loops test expressions may not have function calls in them.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
  function bar($x) {
    for ($i = 0; $i &lt; 10; $i++) {
      for ($k = 0; $k &lt; 20; $i++) {
@@ -986,7 +986,7 @@ For loops test expressions may not have function calls in them.
      }
    }
  }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1000,10 +1000,10 @@ Reports cases where incrementer jumbling might happen in 'for' loops.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 if(true) {
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1017,12 +1017,12 @@ If- and elseif-statements may not be unconditional.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 final class Bar {
   final public function() {
   }
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1036,11 +1036,11 @@ No unnecessary final modifiers inside of final classes.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 function bar($x, $y) {
   echo $y; // No $x usage
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1054,13 +1054,13 @@ No unused function parameters are allowed.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 class Foo {
   public function __construct($foo, $bar) {
     parent::__construct($foo, $bar);
   }
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1078,11 +1078,11 @@ Detects patterns in comments
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 function worldPeace() {
   // TODO: Achieve this
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1096,11 +1096,11 @@ function worldPeace() {
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 function worldPeace() {
   // FIXME: Not working yet
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1117,7 +1117,7 @@ Sniffs related to control structures
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // No braces! Gets reported!
 while(true) $x++; if($x &gt; 10); break;
 
@@ -1129,7 +1129,7 @@ if($x)
 if($x) {
   continue;
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1189,11 +1189,11 @@ Reports cases where a byte order mark is found in any PHP file to avoid applicat
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // One of those lines is wrong. $eolChar decides which one
 echo "My line";\r\n
 echo "My other line";\n
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1232,9 +1232,9 @@ Sniffs related to basic formatting
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 $x = 6; $y = 7; $z = 6 * 7;
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1248,7 +1248,7 @@ There must be only on statement per line.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 //Valid
 $stuff      = 1;
 $otherStuff = 2;
@@ -1259,11 +1259,11 @@ $otherStuff = 2;
 $myVar           = 1
 $myOtherVariable = 2;
 
-$x = 100; // Must not be indeted because of the blank line!
+$x = 100; // Must not be indented because of the blank line!
 while($x--) {
   echo $x, PHP_EOL;
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1286,12 +1286,12 @@ If there are multiple adjacent assignments, the equals signs of each assignment 
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 //Valid
 $x = (string)1;
 //Invalid
 $x = (string) 1;
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1305,14 +1305,14 @@ There may be no spaces after cast statements.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 //Valid
 $x = (string) 1;
 //Invalid
 $x = (string)1;
 //Also invalid
 $x = (string)  1; // Only 1 space allowed!
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1330,7 +1330,7 @@ Sniffs related to function arguments and brace styles
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 //Invalid
 function foo($bar) {
   $bar++;
@@ -1343,7 +1343,7 @@ function foo(&amp;$bar) {
 }
 $x = 1;
 foo($x);
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1357,9 +1357,9 @@ Disallows usage of call-time pass-by-reference. See: http://php.net/manual/en/la
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 NO SAMPLE AVAILABLE. Contributions welcome.
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1373,7 +1373,7 @@ NO DOCUMENTATION AVAILABLE. Contributions welcome. I didn't want to reverse engi
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 //Valid
 function foo()
 {
@@ -1383,7 +1383,7 @@ function foo()
 function foo() {
     // ...
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1399,7 +1399,7 @@ The function brace is on the line following the function declaration and is inde
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 //Valid
 function foo() {
     // ...
@@ -1409,7 +1409,7 @@ function foo()
 {
     // ...
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1429,9 +1429,9 @@ Sniffs related to code metrics
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 Just check Wikipedia for the details
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1453,7 +1453,7 @@ If $absoluteComplexity has the same value as $complexity then there will be only
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Too deep!
 if($a) {
   if($b) {
@@ -1468,7 +1468,7 @@ if($a) {
     }
   }
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1494,14 +1494,14 @@ Sniffs related to naming things
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 class foo {
   // Old style constructor is not allowed!
   public function foo() {
 
   }
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1518,11 +1518,11 @@ Disallows usage of PHP 4 style constructors
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 const FOO = 'ok';
 define('bad', 7);
 x = bad; // Not ok
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1549,10 +1549,10 @@ Sniffs related to basic PHP usage
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Raises error
 set_magic_quotes_runtime(false);
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1566,9 +1566,9 @@ Disallows the use of any deprecated functions
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 &lt;? echo 'This is not acceptable!';
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1582,10 +1582,10 @@ Makes sure that shorthand PHP open tags are not used.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 delete($foo);
 sizeof($bar);
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1604,11 +1604,11 @@ Can be used to forbid the use of any function when creating your own Sniff class
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 true, false, null // Good
 TRUE, FALSE, NULL // Bad
 TrUe, FaLsE, NuLl // Also bad
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1622,10 +1622,10 @@ The constants 'true', 'false' or 'null' must be written in lowercase.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 @stuff();
 if(@$_GET['stuff']) { }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1642,11 +1642,11 @@ Disallows usage of the @ operator.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 TRUE, FALSE, NULL // Good
 true, false, null // Bad
 TrUe, FaLsE, NuLl // Also bad
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1663,7 +1663,7 @@ Sniffs related to string handling
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 echo "hi" . "ho";
 // Also not allowed:
 echo "hi"
@@ -1671,7 +1671,7 @@ echo "hi"
     ."how"
     ."are"
     ."you?";
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1704,11 +1704,11 @@ Sniffs related whitespace usage for structuring source files.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 if($x == 1) {
 TAB something();
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1722,7 +1722,7 @@ Spaces, not tabs, must be used for indentation.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 if($x == 1) {
         echo "hi"; // should be 4 spaces not 8!
 }
@@ -1731,7 +1731,7 @@ if($x == 1) {
       echo "hi"; // should be 8 spaces not 6!
     }
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1765,7 +1765,7 @@ Sniffs related to basic PHP usage
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 $class = "...";
 $args = "1, 'string', 'dynamicBuildingArgs'";
@@ -1776,7 +1776,7 @@ $x = new $bar($arg1, $arg2); // No eval
 $x = new ReflectionClass($bar);
 $args = array(1, 'string', 'dynamicBuildingArgs');
 $x-&gt;newInstanceArgs($args);
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1790,13 +1790,13 @@ Ensures that eval() is not used to create objects.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 class foo {
     function bar() {
         $x = $_GET['hi']; // Forbidden!
     }
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1805,7 +1805,7 @@ Disallows the direct usage of $_REQUEST, $_GET, $_POST and $_FILES.
 It's only allowed in a class called "Security" in a function called "getRequestData".
 The Sniff is very specific and not useful in general but it can be used as template sniff for your own take on it.
 
-If you are using a request object instantiated in your bootstrap or a external lib then this sniff will also work for you. 
+If you are using a request object instantiated in your bootstrap or a external lib then this sniff will also work for you.
     </label></div>
 </div>
 <div class="rule">
@@ -1814,7 +1814,7 @@ If you are using a request object instantiated in your bootstrap or a external l
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 function bar() {
     return foo();
@@ -1850,7 +1850,7 @@ PEAR coding standard sniffs related to classes
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 &lt;?php
 class Foo_Bar
 {
@@ -1859,12 +1859,12 @@ class Foo_Bar
 
 }
 ?&gt;
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="PEAR.Classes.ClassDeclaration">
-Classes must have their opening brace on a new line and must indeted by $indent spaces.
+Classes must have their opening brace on a new line and must indented by $indent spaces.
 
 http://pear.php.net/manual/en/standards.classdef.php
     </label></div>
@@ -1881,7 +1881,7 @@ Sniffs related to how PEAR thinks structures should be commented.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 Rules:
 - A doc comment must exist.
 - There has to be a blank newline after the short description.
@@ -1908,7 +1908,7 @@ Rules:
  */
  class TheCommentedClass {
  }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1922,7 +1922,7 @@ Enforces class comments and their format. For a detailed rule description check 
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 Rules:
 - A doc comment must exist.
 - There has to be a blank newline after the short description.
@@ -1956,7 +1956,7 @@ Rules:
  */
 class MyClass {
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1970,7 +1970,7 @@ Enforces file comments and their format. For a detailed rule description check t
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 Rules:
 - A comment must exist
 - There must be a blank newline after the short description.
@@ -1983,7 +1983,7 @@ Rules:
 - A return type tag must exists
 - There must be one blank line between body and headline comments
 - Any throw tag must have an exception class.
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -1997,13 +1997,13 @@ Enforces function comments and their format. For a detailed rule description che
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 function foo {
     # Invalid comment
     // Valid comment
     /* Also valid */
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2021,7 +2021,7 @@ Sniffs related to control structures
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 do {EOL...} while (...);EOL
 
 while (...) {EOL
@@ -2039,7 +2039,7 @@ foreach (...) {EOL
 } else {EOL
 
 do {EOL'
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2057,7 +2057,7 @@ Also a great base class to easily specify ow you want your own signatures to be 
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 if (($condition1
     || $condition2)
     &amp;&amp; $condition3
@@ -2065,7 +2065,7 @@ if (($condition1
     &amp;&amp; $condition5
 ) {
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2083,7 +2083,7 @@ Sniffs related to how file inclusion works in PEAR.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // These are statements and should not have brackets.
 require_once('blank.inc');
 require('blank.inc');
@@ -2103,7 +2103,7 @@ if ($test) {
     include_once 'blank.inc';
     include 'blank.inc';
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2120,7 +2120,7 @@ Sniffs related to how code should be formatted.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Valid
 $GLOBALS['TSFE']-&gt;additionalHeaderData[$this-&gt;strApplicationName]
     = $this-&gt;xajax-&gt;getJavascript(t3lib_extMgm::siteRelPath('nr_xajax'));
@@ -2136,7 +2136,7 @@ $GLOBALS['TSFE']-&gt;additionalHeaderData[$this-&gt;strApplicationName]
 // Invalid, equals sign needs to be on the next line
 $GLOBALS['TSFE']-&gt;additionalHeaderData[$this-&gt;strApplicationName] =
     $this-&gt;xajax-&gt;getJavascript(t3lib_extMgm::siteRelPath('nr_xajax'));
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2153,7 +2153,7 @@ Sniffs related to functions calling and declarations.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Valid
 test($arg, $arg2);
 // All invalid
@@ -2170,14 +2170,14 @@ test(
     $b
 );
 
-// Heredocs dont need to be indented.
+// Heredocs don't need to be indented.
 test(
 &lt;&lt;&lt;EOH
-Anyone want to recomment parse errors?
+Anyone want to recommend parse errors?
 
 EOH
 );
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2197,7 +2197,7 @@ Enforces function call signatures "foo($a, $b, $c)" style reporting all other wh
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Valid examples:
 function foo($a, $b, $c);
 
@@ -2221,7 +2221,7 @@ function validateUrl(
                           )
 ) {
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2238,7 +2238,7 @@ For multi line declarations see the example.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Valid
 function myFunction($arg1, $arg2='hello')
 {
@@ -2247,7 +2247,7 @@ function myFunction($arg1, $arg2='hello')
 function myFunction($arg2='hello', $arg1)
 {
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2265,7 +2265,7 @@ Sniffs related to PEAR naming conventions
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 class VALID_Name {}
 
 class Valid_Name {}
@@ -2275,7 +2275,7 @@ class ValidName {}
 class Invalid_name {} // N needs to be uppercase
 
 class invalid_name {}
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2289,7 +2289,7 @@ Class and interface names must start with a capital letter for each part of the 
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 //Valid
 public function abc() {}
 private function _test() {}
@@ -2297,7 +2297,7 @@ private function _test() {}
 //Invalid
 public function _abc() {}
 private function test() {}
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2312,7 +2312,7 @@ Public functions may not start with an underscore.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Valid
 private $_foo;
 public $bar;
@@ -2320,7 +2320,7 @@ public $bar;
 //Invalid
 private $foo;
 public $_bar;
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2338,11 +2338,11 @@ Sniffs related to white space and indention in PEAR.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 $object
     -&gt;setBar($foo)
     -&gt;setFoo($bar);
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2359,7 +2359,7 @@ Object operators must be indented 4 spaces if they are the first thing on a line
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 class Test
 {
     public function __construct()
@@ -2379,7 +2379,7 @@ class Test
     }
 
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2396,7 +2396,7 @@ Closing braces of scopes must be aligned correctly. See the example.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 //Valid indentions
 
 /**
@@ -2441,7 +2441,7 @@ public function close()
         }
     }
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2453,7 +2453,7 @@ See the example for details.
 </div>
 </div>
 <h2>PHPUnitStandard - Testing</h2><p class="ruleset-description">
-A coding standard for PHPUnit tests written and mainted by @elblinkin.
+A coding standard for PHPUnit tests written and maintained by @elblinkin.
 
 You will need to install an addition pear package in order to use these Sniffs! See: https://github.com/elblinkin/PHPUnit-CodeSniffer
   </p><div class="rule-section" name="PHPUnitStandard.Testing.xml">
@@ -2463,7 +2463,7 @@ You will need to install an addition pear package in order to use these Sniffs! 
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 class FooTest extends PHPUnit_Framework_TestCase {
     protected function setUp() {
         // ok
@@ -2474,12 +2474,12 @@ class FooTest extends PHPUnit_Framework_TestCase {
     }
 
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="PHPUnitStandard.Testing.AllowedFunctionOverride">
-Only a certain set of protected functions are allowed to be overriden
+Only a certain set of protected functions are allowed to be overridden
     </label></div>
 </div>
 <div class="rule">
@@ -2488,13 +2488,13 @@ Only a certain set of protected functions are allowed to be overriden
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // File: project/tests/phpunit/foo/bar/BazTest.php
 // Should contain:
 class Foo_Bar_BazTest {
 
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2510,10 +2510,10 @@ The folder is currently */tests/phpunit/* and this is not configurable so use on
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 project/tests/phpunit/foo/bar/BazTest.php // ok
 project/tests/otherTool/but/by/accident/containts/a/phpunit/testcase.php // Not ok
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2529,10 +2529,10 @@ This is not the official PHPUnit recommendation and for now the path is not conf
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 project/tests/unit/FooTest.php // ok
 project/tests/unit/BarTes.php // not ok!
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2556,15 +2556,15 @@ No Interfaces may be defined in test cases
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 class FooTest {
     public function testBar() {
         $this-&gt;expectedOutputString('string(3) "foo"');
-        var_dump("foo"); // No! Use assertions for compairing!
+        var_dump("foo"); // No! Use assertions for comparing!
     }
 
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2578,15 +2578,15 @@ Tests may not contain output functions
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 class FooTest {
     public function testBar() {
         $this-&gt;expectedOutputString('foo');
-        echo "foo"; // No! Use assertions for compairing!
+        echo "foo"; // No! Use assertions for comparing!
     }
 
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2609,7 +2609,7 @@ Tests may not have private helper methods. See: http://elblinkin.info/2011/11/an
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 class FooTest extends PHPUnit_Framework_TestCase {
     public function testPrivateMethod() {
         $method = new ReflectionMethod( // No! Testing private methods is not allowed!
@@ -2625,7 +2625,7 @@ class FooTest extends PHPUnit_Framework_TestCase {
         );
     }
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2659,7 +2659,7 @@ Test cases may only consist of test and data provider functions. No helper metho
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 protected function testImportantBehavior() {
     // Will not get executed because it is not public
 }
@@ -2674,7 +2674,7 @@ public function testSomething($a, $b) {
 protected function provideDataForTest() {
     // Test will fail as there is no executable data provider method
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2709,7 +2709,7 @@ PSR1 class rules
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 class Foo {
 
@@ -2730,7 +2730,7 @@ namespace \my\vendor;
 class Bar {
 
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2746,7 +2746,7 @@ PSR1 file rules
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 
 if (!defined(FOO)) {
@@ -2758,7 +2758,7 @@ class Foo {
   // ...
 
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2775,14 +2775,14 @@ PSR2 class rules
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-        
+
 - 1 space between keywords
 - 1 space after class name
 - The keyword must be on the same line as the class name
 - Only one interface may be specified per line in a multi-line implements declaration
 - The closing braces for interface methods must go on the next line after the body
 - Closing brace must be on a line by itself
-        
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2796,12 +2796,12 @@ Check that the class declaration adheres to all PSR2 rules
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 - Property names should not be prefixed with an underscore to indicate visibility
 - The var keyword must not be used to declare a property
 - There must not be more than one property declared per statement
 - Visibility must be declared on all properties
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2819,10 +2819,10 @@ PSR2 control structures rules
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 - 0 spaces after opening bracket
 - 0 spaces before closing bracket
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2836,7 +2836,7 @@ Checks that control structures have PSR2 style spacing around brackets
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 if ($x) {
     // ...
@@ -2849,7 +2849,7 @@ if ($x) {
 } elseif ($y) {
     // ...
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2863,7 +2863,7 @@ Verifies that there are no else if statements. Elseif should be used instead
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 - Keywords must be lowercase
 - Keywords must be indented $indent spaces from SWITCH keyword
 - CASE keyword must be followed by a single space
@@ -2871,7 +2871,7 @@ Verifies that there are no else if statements. Elseif should be used instead
 - Statements must not be defined using curly braces
 - Terminating statement must be indented to the same level as the CASE body
 - There must be a comment when fall-through is intentional in a non-empty case body
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2891,7 +2891,7 @@ PSR2 file rules
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 // ---------
 &lt;?php
@@ -2904,7 +2904,7 @@ PSR2 file rules
   //...
 &gt;?\n
 EOL
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2920,12 +2920,12 @@ PSR2 method rules
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 - Method name should not be prefixed with an underscore to indicate visibility
 - The static declaration must come after the visibility declaration
 - The final declaration must precede the visibility declaration
 - The abstract declaration must precede the visibility declaration
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2942,7 +2942,7 @@ PSR2 method rules
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 &lt;?php
 namespace foo\bar;
@@ -2954,7 +2954,7 @@ namespace foo\bar;
 
 class x {
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -2968,11 +2968,11 @@ There must be one blank line after the namespace declaration
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 - There must be one USE keyword per declaration
 - USE declarations must go after the first namespace declaration
 - There must be one blank line after the last USE statement
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3013,7 +3013,7 @@ Try to ensure that there is no commented out code
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 $var = !$foo;
 $var = ($foo || $bar);
@@ -3021,7 +3021,7 @@ $var = ($foo === TRUE);
 $var = ($foo === TRUE
         || $bar === FALSE);
 $var = (!$foo);
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3035,10 +3035,10 @@ Ensures that the value of a comparison is not assigned to a variable
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 $x = $y ? 1 : 2;
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3052,7 +3052,7 @@ Ensures no inline if statements are used
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
       // Forbidden
 $x = $y = 4;
 if($x = 5) {}
@@ -3060,7 +3060,7 @@ if($x = 5) {}
 $x = 4;
 $y = $x;
 if($x == 5) {}
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3074,14 +3074,14 @@ Ensures that there is only one value assignment on a line, and that it is the fi
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 echo "foo";
 ob_end_flush();
 // Allowed
 $output = ob_get_contents();
 ob_end_clean();
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3095,7 +3095,7 @@ Ensures that the ob_end_flush function is not used
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 for($i = 0; $i &lt; count($i); ++$i) {
 
@@ -3105,12 +3105,12 @@ $amountOfElements = count($i);
 for($i = 0; $i &lt; $amountOfElements; ++$i) {
 
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="Squiz.PHP.DisallowSizeFunctionsInLoops">
-Ensures no size-based functions are used in loop conditions to avoid unneccarry function calls
+Ensures no size-based functions are used in loop conditions to avoid unnecessary function calls
     </label></div>
 </div>
 <div class="rule">
@@ -3131,7 +3131,7 @@ Ensures that there are no `error_log` and `print_r` function calls. The Sniff ca
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 &lt;?php echo "hi"; ?&gt;
 // Allowed
@@ -3143,7 +3143,7 @@ echo "hi";
 
 echo "hi";
 ?&gt;
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3173,14 +3173,14 @@ Warns about usage for the eval() function
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden functions
 sizeof
 delete
 print
 is_null
 create_function
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3194,12 +3194,12 @@ Discourages the use of alias functions that are kept in PHP for compatibility wi
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 function bar() {
     global $foo;
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3213,7 +3213,7 @@ Ensures that the "global" keyword isn't used.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 $x = &lt;&lt;&lt;BAR
     asdf
@@ -3221,7 +3221,7 @@ $x = &lt;&lt;&lt;BAR
     BAR;
 // Allowed
 $x = 'asdf' . PHP_EOL . 'jkl;'
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3235,14 +3235,14 @@ Ensures that no Heredoc statements are used.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 function bar() {
     function foo() {
 
     }
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3256,7 +3256,7 @@ Ensures that there are no function definitions inside of functions. Closure are 
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
       // Forbidden
       Array_Map(...);
       array_Map(...);
@@ -3264,7 +3264,7 @@ Ensures that there are no function definitions inside of functions. Closure are 
       Array_map(...);
       // Allowed
       array_map(...);
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3278,14 +3278,14 @@ Ensures all calls to builtin PHP functions are lowercase.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
       // Forbidden
       function foo() {
           echo "Hallo";
           return;
           echo "World"; // Dead code
       }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3303,7 +3303,7 @@ Squiz coding standard related to scoping
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 class foo {
     var $x = 1;
@@ -3314,7 +3314,7 @@ class foo {
     protected $b = 2;
     private $c = 3;
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3328,7 +3328,7 @@ Ensures that class members have scope modifiers
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 class foo {
     function bar() {
@@ -3343,7 +3343,7 @@ class foo {
     private fuction bak() {
     }
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3357,7 +3357,7 @@ Ensures that methods have scope modifiers
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 class foo {
     public static function bar() {
@@ -3373,7 +3373,7 @@ class foo {
         self::isAlsoWorking();
     }
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3392,18 +3392,18 @@ The sniffs are general and can be widely used.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 $x = ( array)"foo";
 $x = (array )"foo";
 // Allowed
 $x = (array)"foo";
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
 <div class="rule-description"><label for="Squiz.WhiteSpace.CastSpacing">
-Ensure cast statements dont contain whitespace.
+Ensure cast statements don't contain whitespace.
     </label></div>
 </div>
 <div class="rule">
@@ -3412,10 +3412,10 @@ Ensure cast statements dont contain whitespace.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // No spaces after opening bracket and no spaces before closing bracket
 // No blank lines at the start or the end of a control structure
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3448,7 +3448,7 @@ Checks that there are no blank lines after a functions opening brace and that op
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 class foo {
 
 
@@ -3460,10 +3460,10 @@ class foo {
     public function baz() {
 
     }
-    
-    
+
+
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3480,7 +3480,7 @@ Checks the separation between methods in a class or interface. Methods are expec
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 echo"hi";
 echo   "hi";
@@ -3488,7 +3488,7 @@ $x = new   StdClass();
 // Allowed
 echo "hi";
 $x = new StdClass();
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3502,7 +3502,7 @@ Ensures all language constructs (without brackets) contain a single space betwee
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 if($x&amp;&amp; $y) {}
 if($x &amp;&amp;$y) {}
@@ -3510,7 +3510,7 @@ if($x &amp;&amp;   $y) {}
 if($x   &amp;&amp; $y) {}
 // Allowed
 if($x &amp;&amp; $y) {}
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3524,7 +3524,7 @@ Ensures that there is one space before and after a logical operator.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 class foo {
     private $foo;
@@ -3545,7 +3545,7 @@ class foo {
      */
     private $bar;
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3559,7 +3559,7 @@ Ensures that there is one blank lines between each member declaration
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 $x = new StdClass();
 $x -&gt; foo = 1;
@@ -3567,7 +3567,7 @@ $x -&gt; foo = 1;
 $x = new StdClass();
 $x-&gt;foo = 1;
 echo "foo";
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3581,7 +3581,7 @@ Ensures there is no whitespace before a ObjectOperator ( -&gt; )
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 $x = $a&amp;$b;
 $x=$y;
@@ -3590,7 +3590,7 @@ $x=&amp; $y;
 $x = $a &amp; $b;
 $x = $y;
 $x =&amp; $y;
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3604,7 +3604,7 @@ Ensures that operators have one space surrounding them.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 x = {
     a:  'x',
@@ -3617,7 +3617,7 @@ x = {
     b:  1,
     c: 2,
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3631,7 +3631,7 @@ Javascript: Ensures that the colon in a property or label definition has a singl
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 function foo() {
    }
@@ -3640,7 +3640,7 @@ function foo() {
 // Allowed
 function foo() {
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3654,14 +3654,14 @@ Ensures that the closing braces of scopes are on a new line and indented correct
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 public    function
 protected  function
 // Allowed
 public function
 protected function
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3675,14 +3675,14 @@ Ensure there is a single space after scope keywords.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Forbidden
 $x = 1  ;
 echo "foo" ;
 // Allowed
 $x = 1;
 echo "foo";
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3696,9 +3696,9 @@ Ensures that there is no whitespace before a semicolon.
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 Checks that no whitespace proceeds the first content of the file, exists after the last content of the file, resides after content on any line, or are two empty lines in functions.
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3729,7 +3729,7 @@ Sniffs related to files
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Valid
 &lt;html&gt;...
 &lt;?php
@@ -3744,7 +3744,7 @@ class Foo {
 
 }
 ?&gt; // End of file here
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3760,7 +3760,7 @@ Zend Framework variable naming conventions
 <div class="rule-example"><span>
                 Example
                 <span><pre>
-      
+
 // Valid
 $varName  = 'hello';
 $varname  = 'hello';
@@ -3788,7 +3788,7 @@ class MyClass
 {
     $varName2 = 'hello';
 }
-      
+
     </pre></span></span></div>
 <div style="clear: both"></div>
 </div>
@@ -3821,12 +3821,12 @@ Variables have to be camel case and should not contain numbers
 <script>
     $(document).ready(function () {
         md = new pcsg.Phpmd("resources/phpmd/", "rulesets.json", $("#phpmd-container"), $("#phpmd-xml-error"));
-        generate = function() { 
+        generate = function() {
             md.methods.generateXmlInto($("#phpmd-xml"));
         };
         $('#phpmd-container .rule').click(generate);
-        $('#phpmd-container .property-selector').change(generate); 
-        $('#phpmd-container .property-selector').keyup(generate); 
+        $('#phpmd-container .property-selector').change(generate);
+        $('#phpmd-container .property-selector').keyup(generate);
         $('#phpmd-ruleset-name').keyup(generate);
         $('#phpmd-ruleset-description').keyup(generate);
 
@@ -3838,12 +3838,12 @@ Variables have to be camel case and should not contain numbers
         });
 
         cs = new pcsg.Phpcs("resources/phpcs/", "rulesets.json", $("#phpcs-container"), $("#phpcs-xml-error"));
-        generate = function() { 
+        generate = function() {
             cs.methods.generateXmlInto($("#phpcs-xml"));
         };
         $('#phpcs-container .rule').click(generate);
-        $('#phpcs-container .property-selector').change(generate); 
-        $('#phpcs-container .property-selector').keyup(generate); 
+        $('#phpcs-container .property-selector').change(generate);
+        $('#phpcs-container .property-selector').keyup(generate);
         $('#phpcs-ruleset-name').keyup(generate);
         $('#phpcs-ruleset-description').keyup(generate);
 
@@ -3901,6 +3901,6 @@ Variables have to be camel case and should not contain numbers
   })();
 
 </script>
-  
+
 </body>
 </html>
